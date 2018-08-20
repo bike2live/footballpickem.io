@@ -1,0 +1,62 @@
+<div class="card card-signup">
+    <h2 class="card-title text-center">Register</h2>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mr-auto">
+                <form class="form" (ngSubmit)="f.form.valid && register(f)" #f="ngForm" fpConfirmEqualValidator="password, confirm">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="material-icons">face</i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="nameId" name="name" (ngModel)="name" #name="ngModel"
+                                   [ngClass]="{'is-invalid': f.submitted && name.invalid }" required placeholder="Name..." >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="material-icons">mail</i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="usernameId" name="username" (ngModel)="username" #username="ngModel"
+                                  [ngClass]="{'is-invalid': f.submitted && username.invalid }" required placeholder="Username...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="material-icons">lock_outline</i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="passwordId" name="password" (ngModel)="password" #password="ngModel"
+                                   [ngClass]="{'is-invalid': f.submitted && password.invalid }" required placeholder="Password..."/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="material-icons">lock_outline</i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="confirmId" name="confirm" (ngModel)="confirm" #confirm="ngModel"
+                                   [ngClass]="{'is-invalid': f.submitted && confirm.invalid }"  placeholder="Confirm password..."/>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-round" [disabled]="!f.valid">Get Started</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

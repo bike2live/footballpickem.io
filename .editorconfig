@@ -11,3 +11,14 @@ trim_trailing_whitespace = true
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
+
+// Set the default
+"editor.formatOnSave": false,
+// Enable per-language
+"[javascript]": {
+    "editor.formatOnSave": true
+}
+
+"[typescript]": {
+    "editor.formatOnSave": true
+}

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-color-on-scroll navbar-transparent   bg-rose  fixed-top  navbar-expand-lg " color-on-scroll="100" >
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" [routerLink]="['/dashboard']">{{ title }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/dashboard']"><i class="material-icons">apps</i>Dashboard </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/schedule']">Schedule </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" href="#">Leaderboard </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Rules </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/login']">Login </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>

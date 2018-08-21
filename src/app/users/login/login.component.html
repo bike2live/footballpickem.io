@@ -1,37 +1,46 @@
-<div class="card card-signup">
-  <form class="form" novalidate (ngSubmit)="login(loginForm)" #loginForm="ngForm" autocomplete="off">
-    <div class="card-header card-header-primary text-center">
-      <h4 class="card-title">Log in</h4>
-    </div>
-    <div class="card-body">
+<div class="container">
+  <div class="row">
 
-      <div class="input-group" [ngClass]="{'has-error': (userNameVar.touched || userNameVar.dirty) && !userNameVar.valid }">
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="material-icons">mail</i>
-          </span>
-        </div>
-        <input type="text" class="form-control" id="userNameId" placeholder="User name (required)" required (ngModel)="userNameVar"
-          name="userName" #userNameVar="ngModel">
+    <div class="col-lg-6 col-md-8 col-sm-10 ml-auto mr-auto">
+
+      <div class="card card-signup">
+
+        <form class="form" novalidate (ngSubmit)="login(loginForm)" #loginForm="ngForm" autocomplete="off">
+          <div class="card-header card-header-primary text-center">
+            <h4 class="card-title">Log in</h4>
+          </div>
+          <div class="card-body">
+
+            <div class="input-group" [ngClass]="{'has-error': (userNameVar.touched || userNameVar.dirty) && !userNameVar.valid }">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">mail</i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="userNameId" placeholder="User name (required)" required (ngModel)="userNameVar"
+                name="userName" #userNameVar="ngModel">
+            </div>
+
+            <div class="input-group" [ngClass]="{'has-error': (passwordVar.touched || passwordVar.dirty) && !passwordVar.valid }">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">lock_outline</i>
+                </span>
+              </div>
+              <input type="password" class="form-control" id="passwordId" placeholder="Password (required)" required (ngModel)="passwordVar"
+                name="password" #passwordVar="ngModel">
+            </div>
+
+          </div>
+          <div class="footer text-center">
+            <button class="btn btn-primary btn-link btn-wd btn-lg" [disabled]="!loginForm.valid">Get Started</button>
+          </div>
+          <div class="footer text-center">
+            Don't have an account? <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/register']">Register</a>
+          </div>
+          <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
+        </form>
       </div>
-
-      <div class="input-group" [ngClass]="{'has-error': (passwordVar.touched || passwordVar.dirty) && !passwordVar.valid }">
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="material-icons">lock_outline</i>
-          </span>
-        </div>
-        <input type="password" class="form-control" id="passwordId" placeholder="Password (required)" required (ngModel)="passwordVar"
-          name="password" #passwordVar="ngModel">
-      </div>
-
     </div>
-    <div class="footer text-center">
-      <button class="btn btn-primary btn-link btn-wd btn-lg" [disabled]="!loginForm.valid">Get Started</button>
-    </div>
-    <div class="footer text-center">
-      Don't have an account? <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/register']">Register</a>
-    </div>
-    <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
-  </form>
+  </div>
 </div>

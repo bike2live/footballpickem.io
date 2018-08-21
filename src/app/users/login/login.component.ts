@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { User } from '../user';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -14,7 +15,9 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   user: User;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService,
+      private authService: AuthService,
+      private router: Router) {}
 
   ngOnInit() {}
 
@@ -26,15 +29,23 @@ export class LoginComponent implements OnInit {
       const userName = loginForm.form.value.userName;
       const password = loginForm.form.value.password;
 
-      console.log('loginForm: ', loginForm.value);
       console.log('userName: ' + userName);
       console.log('password: ' + password);
 
-      this.dataService.login(loginForm).subscribe(
-        (data: User) => this.user = data,
-        (err: any) => console.log(err),
-        () => { console.log(' completed login. user: ', this.user)}
+      this.dataService.login(loginForm.form.value).subscribe(
+        (data: User) => {
+          this.user = data;
+          this.authService.setUser(this.user);
+          this.router.navigate(['dashboard']);
+        },
+        (err: any) => {
+          console.log(err);
+          this.errorMessage = err.error.message;
+        },
+        () => { console.log(' completed login. user: ', this.user); }
       );
+
+
       // this.dataService.getBookById(bookID)
       // .subscribe(
       //   (data: Book) => this.selectedBook = data,

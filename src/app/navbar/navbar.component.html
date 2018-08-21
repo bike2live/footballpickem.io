@@ -1,4 +1,4 @@
-<nav class="navbar navbar-color-on-scroll navbar-transparent   bg-rose  fixed-top  navbar-expand-lg " color-on-scroll="100" >
+<nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg " color-on-scroll="100" id="sectionsNav">
     <div class="container">
         <div class="navbar-translate">
             <a class="navbar-brand" [routerLink]="['/dashboard']">{{ title }}</a>
@@ -13,23 +13,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/dashboard']"><i class="material-icons">apps</i>Dashboard </a>
+                    <a class="nav-link" [routerLink]="['/dashboard']"><i class="material-icons">dashboard</i>Dashboard </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/schedule']">Schedule </a>
+                    <a class="nav-link" [routerLink]="['/schedule']"><i class="material-icons">schedule</i>Schedule </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" href="#">Leaderboard </a>
+                    <a class="nav-link" [routerLink]="['/leaderboard']"><i class="material-icons">star_rate</i>Leaderboard </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Rules </a>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/rules']"><i class="material-icons">play_for_work</i>Rules </a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
-                <li class="nav-item" routerLinkActive="active">
+                <li class="nav-item" *ngIf="authService.isLoggedIn()">
+                    <a><i class="material-icons">verified_user</i>Welcome {{ authService.currentUser.name }}</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">
                     <a class="nav-link" [routerLink]="['/login']">Login </a>
                 </li>
+                <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn()">
+                    <a class="nav-link" [routerLink]="['/logout']">Log out </a>
+                </li>
             </ul>
+
         </div>
 
     </div>

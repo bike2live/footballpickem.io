@@ -3,8 +3,25 @@
 @import './assets/css/material-kit.css';
 
 .product-page {
-  background-color: #eee; }
+  background-color: #eee;
+}
 .product-page .page-header {
   min-height: 100vh;
 }
 
+.page-header.header-xs {
+  height: 30vh;
+  min-height: 30vh;
+}
+
+.login-page .page-header .container {
+  padding-top: 8vh;
+}
+.header-filter::before {
+  background: none !important;
+  /* background: rgba(0, 0, 0, 0.5); */
+}
+
+.bragger {
+  text-decoration: line-through;
+}

@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { RulesComponent } from './rules/rules.component';
 
 
 @NgModule({
@@ -11,12 +13,16 @@ import { ScheduleComponent } from './schedule/schedule.component';
     CommonModule,
     RouterModule.forChild([
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'schedule', component: ScheduleComponent }
+      { path: 'schedule', component: ScheduleComponent },
+      { path: 'leaderboard', component: LeaderboardComponent },
+      { path: 'rules', component: RulesComponent }
     ])
   ],
   declarations: [
     DashboardComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    LeaderboardComponent,
+    RulesComponent
   ]
 })
 export class FeaturesModule { }

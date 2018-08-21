@@ -4,6 +4,7 @@ class DbHandler
 {
 
     private $conn;
+    private $pdoConn;
 
     function __construct()
     {
@@ -11,6 +12,7 @@ class DbHandler
         // opening db connection
         $db = new dbConnect();
         $this->conn = $db->connect();
+        $this->pdoConn = $this->getPDOConnection();
     }
 
 
@@ -25,27 +27,27 @@ class DbHandler
 
     public function getFullList($query)
     {
+
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->query($query);
+            $stmt = $this->pdoConn->query($query);
             $results = $stmt->fetchAll(PDO::FETCH_OBJ);
-            $pdo = null;
+            // $pdo = null;
             return $results;
         } catch (PDOException $e) {
-            echo '{"error":{"text":"' . $e->getMessage() . '"}}';
+            echo '{"dbHandler PDOException":{"text":"' . $e->getMessage() . '"}}';
         }
     }
 
     public function userScoreExists($uid, $gameId) {
         $sql = "Select 1 from scores where uid=:uid and gameId=:gameId";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("uid", $uid);
             $stmt->bindParam("gameId", $gameId);
             $stmt->execute();
             $userScore = $stmt->fetchObject();
-            $pdo = null;
+            // $pdo = null;
             return $userScore;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '"}}';
@@ -57,12 +59,12 @@ class DbHandler
     public function gameExists($week) {
         $sql = "Select 1 from schedule where week=:week";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("week", $week);
             $stmt->execute();
             $game = $stmt->fetchObject();
-            $pdo = null;
+            // $pdo = null;
             return $game;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '"}}';
@@ -74,12 +76,12 @@ class DbHandler
     public function getGame($gameId) {
         $sql = "Select 1 from schedule where id=:gameId";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("gameId", $gameId);
             $stmt->execute();
             $game = $stmt->fetchObject();
-            $pdo = null;
+            // $pdo = null;
             return $game;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '"}}';
@@ -91,13 +93,13 @@ class DbHandler
     public function updateGameScore($game) {
         $sql = "UPDATE schedule set byuScore=:byuScore, oppScore=:oppScore WHERE id=:gameId";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("byuScore", $game->byuScore);
             $stmt->bindParam("oppScore", $game->oppScore);
             $stmt->bindParam("gameId", $game->id);
             $stmt->execute();
-            $pdo = null;
+            // $pdo = null;
             return $game;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '""}}';
@@ -109,13 +111,13 @@ class DbHandler
     public function getUserScore($uid, $gameId) {
         $sql = "Select * from scores where uid=:uid and gameId=:gameId";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("uid", $uid);
             $stmt->bindParam("gameId", $gameId);
             $stmt->execute();
             $userScore = $stmt->fetchObject();
-            $pdo = null;
+            // $pdo = null;
             return $userScore;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '"}}';
@@ -125,15 +127,15 @@ class DbHandler
     public function insertUserScore($userScore) {
         $sql = "INSERT INTO scores (uid, gameId, byuScore, oppScore) values (:uid, :gameId, :byuScore, :oppScore)";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("uid", $userScore->uid);
             $stmt->bindParam("gameId", $userScore->gameId);
             $stmt->bindParam("byuScore", $userScore->byuScore);
             $stmt->bindParam("oppScore", $userScore->oppScore);
             $stmt->execute();
-            $userScore->id = $pdo->lastInsertId();
-            $pdo = null;
+            $userScore->id = $this->pdoConn->lastInsertId();
+            // $pdo = null;
             return $userScore;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '"}}';
@@ -143,13 +145,13 @@ class DbHandler
     public function updateUserScore($userScore) {
         $sql = "UPDATE scores set byuScore=:byuScore, oppScore=:oppScore WHERE id=:id";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("byuScore", $userScore->byuScore);
             $stmt->bindParam("oppScore", $userScore->oppScore);
             $stmt->bindParam("id", $userScore->id);
             $stmt->execute();
-            $pdo = null;
+            // $pdo = null;
             return $userScore;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '""}}';
@@ -159,8 +161,8 @@ class DbHandler
     public function updateComputedScore($userScore) {
         $sql = "UPDATE scores set delta=:delta, weekLowDiffBonus=:bonus1, weekExactDiffBonus=:bonus2, weekExactScoreBonus=:bonus3, weekHomerPenalty=:penalty, weekTotalScore=:totalScore WHERE id=:id";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("delta", $userScore->delta);
             $stmt->bindParam("bonus1", $userScore->weekLowDiffBonus);
             $stmt->bindParam("bonus2", $userScore->weekExactDiffBonus);
@@ -169,7 +171,7 @@ class DbHandler
             $stmt->bindParam("totalScore", $userScore->weekTotalScore);
             $stmt->bindParam("id", $userScore->id);
             $stmt->execute();
-            $pdo = null;
+            // $pdo = null;
             return $userScore;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '""}}';
@@ -180,11 +182,11 @@ class DbHandler
     {
         $sql = "Select * from scores WHERE gameId=:gameId";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("gameId", $gameId);
             $scores = $stmt->execute();
-            $pdo = null;
+            // $pdo = null;
             return $scores;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '""}}';
@@ -196,8 +198,8 @@ class DbHandler
                 (week, opponent, location, stadiumName, homeoraway, gameDate, closeDate, showUntilDate)
                 values (:week, :opponent, :location, :stadium, :homeOrAway, :gameDate, :closeDate, :showUntilDate)";
         try {
-            $pdo = $this->getPDOConnection();
-            $stmt = $pdo->prepare($sql);
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("week", $game->week);
             $stmt->bindParam("opponent", $game->opponent);
             $stmt->bindParam("location", $game->location);
@@ -208,8 +210,8 @@ class DbHandler
             $stmt->bindParam("closeDate", $game->closeDate);
             $stmt->bindParam("showUntilDate", $game->showUntilDate);
             $stmt->execute();
-            $game->id = $pdo->lastInsertId();
-            $pdo = null;
+            $game->id = $this->pdoConn->lastInsertId();
+            // $pdo = null;
             return $game;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '"}}';
@@ -318,12 +320,11 @@ class DbHandler
     }
 
     function getPDOConnection() {
-        $dbhost = "localhost";
-        $dbuser = "animal";
-//        $dbpass = "p@ssword1";
-        $dbpass = "v7jdLGQn4QLpAP8L";
-        $dbname = "football";
-        $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+        include_once '../config.php';
+
+        // Connecting to mysql database
+        $this->conn = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        $dbh = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $dbh;
     }

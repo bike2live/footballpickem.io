@@ -147,15 +147,18 @@ $app->post('/login', function () use ($app) {
 
             addUserScores($uid, $db);
 
+            echoResponse(200, $response);
+
         } else {
             $response['status'] = "error";
             $response['message'] = 'Login failed. Incorrect credentials';
+            echoResponse(412, $response);
         }
     } else {
         $response['status'] = "error";
         $response['message'] = 'No such user is registered';
+        echoResponse(412, $response);
     }
-    echoResponse(200, $response);
 });
 $app->post('/signUp', function () use ($app) {
     $response = array();
@@ -176,6 +179,8 @@ $app->post('/signUp', function () use ($app) {
             $response["status"] = "success";
             $response["message"] = "User account created successfully";
             $response["uid"] = $result;
+            $response["name"] = $name;
+            $response["username"] = $username;
             if (!isset($_SESSION)) {
                 session_start();
             }
@@ -189,12 +194,12 @@ $app->post('/signUp', function () use ($app) {
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to create customer. Please try again";
-            echoResponse(201, $response);
+            echoResponse(409, $response);
         }
     } else {
         $response["status"] = "error";
-        $response["message"] = "An user with the provided username exists!";
-        echoResponse(201, $response);
+        $response["message"] = "A user with the provided username exists!";
+        echoResponse(409, $response);
     }
 });
 $app->get('/logout', function () {
@@ -211,20 +216,28 @@ function addUserScores($uid, $db) {
     $sql = "Select id, week, opponent, location, stadiumName, homeoraway, byuScore, oppScore, gameDate, closeDate, showUntilDate
                   from schedule
                 ORDER BY gameDate";
-    $games = $db->getFullList($sql);
+    try {
+        $games = $db->getFullList($sql);
+    } catch (PDOException $e) {
+        echo '{"PDOException":{"text":"' . $e->getMessage() . '"}}';
+    } catch (Exception $e) {
+        echo '{"Exception":{"text":"' . $e->getMessage() . '"}}';
+    }
 
     // for each game, create an entry into the user_scores table
     try {
-        foreach ($games as $game) {
-            $gameId = $game->id;
-            $isUserScoreExists = $db->userScoreExists($uid, $gameId);
-            if (!$isUserScoreExists) {
-                $userScore = new stdClass();
-                $userScore->uid = $uid;
-                $userScore->gameId = $gameId;
-                $userScore->byuScore = 0;
-                $userScore->oppScore = 0;
-                $userScore = $db->insertUserScore($userScore);
+        if ($games != null && count($games) > 0) {
+            foreach ($games as $game) {
+                $gameId = $game->id;
+                $isUserScoreExists = $db->userScoreExists($uid, $gameId);
+                if (!$isUserScoreExists) {
+                    $userScore = new stdClass();
+                    $userScore->uid = $uid;
+                    $userScore->gameId = $gameId;
+                    $userScore->byuScore = 0;
+                    $userScore->oppScore = 0;
+                    $userScore = $db->insertUserScore($userScore);
+                }
             }
         }
     } catch (PDOException $e) {

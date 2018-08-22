@@ -12,7 +12,7 @@ import {UserScore} from "../features/schedule/add-score-modal/userScore";
     providedIn: 'root'
 })
 export class DataService {
-    private baseUrl = 'https://localhost/api/v1/';
+    private baseUrl = 'http://localhost/api/v1/';
     // private baseUrl = '/api/v1/';
 
     constructor(private http: HttpClient) {
@@ -59,6 +59,9 @@ export class DataService {
      * @returns {Observable<any>}
      */
     public getSchedule(): Observable<Game[]> {
+
+        console.log(' attempting to get schedule');
+
         return this.http.get<any>(this.baseUrl + 'schedule')
             .pipe(
                 tap(response => console.log(' getSchedule returned: ', response)),

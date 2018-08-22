@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <span ngPlural="game.id">
+      <ng-template ngPluralCase="=undefined"></ng-template>
+      <ng-template ngPluralCase="other">Edit</ng-template>
+    </span>
+    <!--<ng-pluralize count="game.id" when="{'': 'Add', 'other': 'Edit'}"></ng-pluralize>-->
+    Game Score for BYU vs {{ game.opponent }}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" (ngSubmit)="f.form.valid && save()" #f="ngForm">
+    <div class="form-group">
+      <label for="byuScore" class="col-sm-4 control-label">BYU</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="byuScore" placeholder="BYU score" required [(ngModel)]="userScore.byuScore" name="byuScore">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="opponentScore" class="col-sm-4 control-label">{{game.opponent}}</label>
+      <div class="col-sm-6">
+        <input type="text" [(ngModel)]="userScore.oppScore" class="form-control" id="opponentScore" placeholder="{{game.opponent}} score" name="oppScore">
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <div class="btn-group">
+    <button class="btn btn-primary" type="submit" [disabled]="!f.valid" (click)="save()">OK</button>
+    <button class="btn btn-warning" (click)="cancel()">Cancel</button>
+  </div>
+</div>

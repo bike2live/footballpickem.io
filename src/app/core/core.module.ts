@@ -10,9 +10,9 @@ import { ConfirmEqualValidatorDirective } from './confirm-equal-validator.direct
   imports: [
   ],
   providers: [
-    DataService,
-    { provide: HTTP_INTERCEPTORS, useClass: LogResponseInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }
+    DataService
+    // { provide: HTTP_INTERCEPTORS, useClass: LogResponseInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }
   ],
 
   declarations: [

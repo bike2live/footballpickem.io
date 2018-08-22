@@ -13,6 +13,7 @@ import {UserScore} from "../features/schedule/add-score-modal/userScore";
 })
 export class DataService {
     private baseUrl = 'https://localhost/api/v1/';
+    // private baseUrl = '/api/v1/';
 
     constructor(private http: HttpClient) {
     }
@@ -23,6 +24,19 @@ export class DataService {
                 tap(response => console.log('getUserScore returned: ', response)),
                 map( response => <UserScore> response.userScore ),
                 tap( result => console.log('getUserScore userScore: ', result))
+            );
+    }
+
+    public addUserScore(userScore: UserScore): Observable<UserScore> {
+        const requestData = {
+            userScore: userScore
+        };
+
+        return this.http.post<any>(this.baseUrl + 'addscore', requestData)
+            .pipe(
+                tap(response => console.log('addScore returned: ', response)),
+                map( response => <UserScore> response.userScore ),
+                tap( result => console.log('addScore result: ', result))
             );
     }
 

@@ -4,7 +4,6 @@
       <ng-template ngPluralCase="=undefined"></ng-template>
       <ng-template ngPluralCase="other">Edit</ng-template>
     </span>
-    <!--<ng-pluralize count="game.id" when="{'': 'Add', 'other': 'Edit'}"></ng-pluralize>-->
     Game Score for BYU vs {{ game.opponent }}</h4>
 </div>
 <div class="modal-body">
@@ -18,14 +17,14 @@
     <div class="form-group">
       <label for="opponentScore" class="col-sm-4 control-label">{{game.opponent}}</label>
       <div class="col-sm-6">
-        <input type="text" [(ngModel)]="userScore.oppScore" class="form-control" id="opponentScore" placeholder="{{game.opponent}} score" name="oppScore">
+        <input type="text" [(ngModel)]="userScore.oppScore" class="form-control" id="opponentScore" placeholder="{{game.opponent}} score" required name="oppScore">
       </div>
     </div>
 
   </form>
-</div>
-<div *ngIf="errMessage">
-  {{ errMessage }}
+  <div *ngIf="errMessage">
+    {{ errMessage }}
+  </div>
 </div>
 <div class="modal-footer">
   <div class="btn-group">

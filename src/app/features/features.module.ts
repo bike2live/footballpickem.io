@@ -8,6 +8,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { RulesComponent } from './rules/rules.component';
 import { AddScoreModalComponent } from './schedule/add-score-modal/add-score-modal.component';
+import { AddGameScoreModalComponent } from './schedule/add-game-score-modal/add-game-score-modal.component';
 
 
 @NgModule({
@@ -26,10 +27,12 @@ import { AddScoreModalComponent } from './schedule/add-score-modal/add-score-mod
     ScheduleComponent,
     LeaderboardComponent,
     RulesComponent,
-    AddScoreModalComponent
+    AddScoreModalComponent,
+    AddGameScoreModalComponent
   ],
     entryComponents: [
-        AddScoreModalComponent
+        AddScoreModalComponent,
+        AddGameScoreModalComponent
     ]
 })
 export class FeaturesModule { }

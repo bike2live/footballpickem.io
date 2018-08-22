@@ -69,7 +69,7 @@ $app->post('/addscore', function () use ($app) {
     if ($session['uid'] != $r->userScore->uid) {
         $response["status"] = "error";
         $response["message"] = "Failed to add score. Please try again";
-        echoResponse(201, $response);
+        echoResponse(412, $response);
         return;
     }
 
@@ -86,7 +86,7 @@ $app->post('/addscore', function () use ($app) {
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to add score. Please try again";
-            echoResponse(201, $response);
+            echoResponse(412, $response);
         }
     } else {
         $userScore = $db->updateUserScore($r->userScore);
@@ -114,7 +114,7 @@ $app->post('/addgame', function () use ($app) {
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to create game. Please try again";
-            echoResponse(201, $response);
+            echoResponse(412, $response);
         }
     }
 });
@@ -202,12 +202,12 @@ $app->post('/signUp', function () use ($app) {
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to create customer. Please try again";
-            echoResponse(409, $response);
+            echoResponse(412, $response);
         }
     } else {
         $response["status"] = "error";
         $response["message"] = "A user with the provided username exists!";
-        echoResponse(409, $response);
+        echoResponse(412, $response);
     }
 });
 $app->get('/logout', function () {

@@ -6,6 +6,7 @@ import {User} from '../../users/user';
 import {Game} from "../game";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {AddScoreModalComponent} from "./add-score-modal/add-score-modal.component";
+import {AddGameScoreModalComponent} from "./add-game-score-modal/add-game-score-modal.component";
 
 @Component({
     selector: 'fp-schedule',
@@ -24,7 +25,7 @@ export class ScheduleComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.admin = false;
+        this.admin = true;
         this.now = new Date();
         this.dataService.getSession().subscribe(
             (data: User) => this.user = data,
@@ -73,11 +74,20 @@ export class ScheduleComponent implements OnInit {
         console.log('user: ', this.user);
 
         this.bsModalRef = this.modalService.show(AddScoreModalComponent, {initialState});
-        this.bsModalRef.content.closeBtnName = 'Close';
 
     }
 
     addGameScore(game: Game) {
+
+        const initialState = {
+            game: game,
+            uid: this.user.uid
+        };
+
+        console.log('initialState: ', initialState);
+        console.log('user: ', this.user);
+
+        this.bsModalRef = this.modalService.show(AddGameScoreModalComponent, {initialState});
 
     }
 }

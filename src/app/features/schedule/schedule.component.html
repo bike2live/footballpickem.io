@@ -13,51 +13,49 @@
 
   <div class="main main-raised">
       <div class="container">
-          <div class="pricing-2">
-              <div class="row">
-                  <div class="col-md-10 ml-auto mr-auto">
-                      <!--<h4>-->
-                          <!--<small>Simple With Actions</small>-->
-                      <!--</h4>-->
-                      <div class="table-responsive">
-                          <table class="table">
-                              <thead>
-                              <tr>
-                                  <th>Date</th>
-                                  <th>Opponent</th>
-                                  <th>Location</th>
-                                  <th>Time / Score</th>
-                                  <th>&nbsp;</th>
-                                  <th *ngIf="admin">&nbsp;</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr *ngFor="let game of schedule" [ngClass]="{'table-success': game.diff >= 0, 'table-danger': game.diff<0 }" valign="top">
-                                  <td><strong>{{ game.gameDate | date }}</strong><br/><small><em>{{game.gameDate | date: 'EEEE'}}</em></small></td>
-                                  <td><strong>{{ game.opponent }}</strong></td>
-                                  <td>
-                                      <img src="assets/img/small-y-logo.png" alt="byu logo" *ngIf="isHomeGame(game)"/> {{ game.location }}<br/>
-                                      {{game.stadiumName}}
-                                  </td>
-                                  <td *ngIf="isGamePast(game)"><strong>{{game.byuScore}} - {{game.oppScore}}</strong></td>
-                                  <td *ngIf="!isGamePast(game)"><strong>{{ game.gameDate | date }} {{ game.gameDate | date}}</strong></td>
-                                  <td>
-                                      <button type="button" rel="tooltip" class="btn btn-outline-success btn-link btn-just-icon btn-sm" data-original-title="" title="" (click)="addScore(game)">
-                                          <i class="material-icons">edit</i>
-                                      </button>
-                                  </td>
-                                  <td *ngIf="admin">
-                                      <button class="btn btn-outline-primary btn-round btn-link btn-sm" (click)="addGameScore(game)">
-                                          <i class="material-icons">perm_identity</i> Score
-                                      </button>
-                                  </td>
-                              </tr>
-                              </tbody>
-                          </table>
-                      </div>
+          <div class="row">
+              <div class="col-md-10 ml-auto mr-auto">
+                  <!--<h4>-->
+                      <!--<small>Simple With Actions</small>-->
+                  <!--</h4>-->
+                  <div class="table-responsive">
+                      <table class="table">
+                          <thead>
+                          <tr>
+                              <th>Date</th>
+                              <th>Opponent</th>
+                              <th>Location</th>
+                              <th>Time / Score</th>
+                              <th>&nbsp;</th>
+                              <th *ngIf="admin">&nbsp;</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let game of schedule" [ngClass]="{'table-success': game.diff >= 0, 'table-danger': game.diff<0 }" valign="top">
+                              <td><strong>{{ game.gameDate | date }}</strong><br/><small><em>{{game.gameDate | date: 'EEEE'}}</em></small></td>
+                              <td><strong>{{ game.opponent }}</strong></td>
+                              <td>
+                                  <span *ngIf="isHomeGame(game)"><img src="assets/img/small-y-logo.png" alt="byu logo" />&nbsp;&nbsp;</span><strong>{{ game.location }}</strong><br/>
+                                  {{game.stadiumName}}
+                              </td>
+                              <td *ngIf="isGamePast(game)"><strong>{{game.byuScore}} - {{game.oppScore}}</strong></td>
+                              <td *ngIf="!isGamePast(game)"><strong>{{ game.gameDate | date: 'shortTime' }}</strong></td>
+                              <td>
+                                  <button type="button" rel="tooltip" class="btn btn-outline-success btn-link btn-just-icon btn-sm" data-original-title="" title="" (click)="addScore(game)">
+                                      <i class="material-icons">edit</i>
+                                  </button>
+                              </td>
+                              <td *ngIf="admin">
+                                  <button class="btn btn-outline-primary btn-round btn-link btn-sm" (click)="addGameScore(game)">
+                                      <i class="material-icons">perm_identity</i> Score
+                                  </button>
+                              </td>
+                          </tr>
+                          </tbody>
+                      </table>
                   </div>
-
               </div>
+
           </div>
       </div>
   </div>

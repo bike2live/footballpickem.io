@@ -6,6 +6,8 @@ import {SessionError} from '../session-error';
 import {User} from '../users/user';
 import {Game} from "../features/game";
 import {UserScore} from "../features/schedule/add-score-modal/userScore";
+import {PlayerStanding} from "../features/leaderboard/player-standing";
+import {WeeklyGuess} from "../features/dashboard/weekly-guess";
 
 
 @Injectable({
@@ -53,6 +55,15 @@ export class DataService {
             );
     }
 
+    public getPlayerStandings(): Observable<PlayerStanding[]> {
+        return this.http.get<any>(this.baseUrl + 'leaderBoard')
+            .pipe(
+                tap(response => console.log('getPlayerStandings returned: ', response)),
+                map( response => <PlayerStanding[]> response.results ),
+                tap( result => console.log('getPlayerStandings result: ', result))
+            );
+    }
+
     public getSession(): Observable<User | SessionError> {
         return this.http.get<any>(this.baseUrl + 'session')
             .pipe(
@@ -80,6 +91,16 @@ export class DataService {
                 tap(response => console.log(' getSchedule returned: ', response)),
                 map( (response) => <Game[]> response.games ),
                 tap( games => console.log(' final response from getSchedule: ', games))
+            );
+    }
+
+    public getWeeklyGuesses(gameid: number): Observable<WeeklyGuess[]> {
+
+        return this.http.get<any>(this.baseUrl + 'weeklyUserGuesses/' + gameid)
+            .pipe(
+                tap(response => console.log(' getWeeklyGuesses returned: ', response)),
+                map( (response) => <WeeklyGuess[]> response.weeklyUserGuesses ),
+                tap( games => console.log(' final getWeeklyGuesses from getSchedule: ', games))
             );
     }
 
@@ -129,6 +150,10 @@ export class DataService {
                     roles: rep.roles
                 })
             );
+    }
+
+    public logout(): Observable<void> {
+        return this.http.get<any>(this.baseUrl + 'logout');
     }
 
     private handleHttpError(error: HttpErrorResponse): Observable<SessionError> {

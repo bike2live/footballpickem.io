@@ -4,7 +4,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LogResponseInterceptor } from './log-response.service';
 import { DataService } from './data.service';
 import { CacheInterceptor } from './cache-interceptor';
-import { ConfirmEqualValidatorDirective } from './confirm-equal-validator.directive';
 
 @NgModule({
   imports: [
@@ -16,7 +15,7 @@ import { ConfirmEqualValidatorDirective } from './confirm-equal-validator.direct
   ],
 
   declarations: [
-    ConfirmEqualValidatorDirective
+    // ConfirmEqualValidatorDirective
   ]
 })
 export class CoreModule { }

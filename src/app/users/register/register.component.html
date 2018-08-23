@@ -8,7 +8,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-12 mr-auto">
-              <form class="form" (ngSubmit)="f.form.valid && register(f)" #f="ngForm" fpConfirmEqualValidator="password, confirm">
+              <form class="form" (ngSubmit)="f.form.valid && register(f)" #f="ngForm" novalidate fpConfirmEqualValidator>
                 <div class="form-group">
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -33,29 +33,46 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">lock_outline</i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" id="passwordId" name="password" (ngModel)="password" #password="ngModel" [ngClass]="{'is-invalid': f.submitted && password.invalid }"
-                      required placeholder="Password..." />
-                  </div>
-                </div>
+                  <div class="form-group" >
+                      <div class="form-group">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                    <i class="material-icons">lock_outline</i>
+                                  </span>
+                              </div>
+                              <input type="text" class="form-control" id="passwordId" name="password" (ngModel)="password" #password="ngModel" [ngClass]="{'is-invalid': f.submitted && password.invalid }"
+                                     required placeholder="Password..."/>
+                          </div>
+                      </div>
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">lock_outline</i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" id="confirmId" name="confirm" (ngModel)="confirm" #confirm="ngModel" [ngClass]="{'is-invalid': f.submitted && confirm.invalid }"
-                      placeholder="Confirm password..." />
+                      <div class="form-group">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                    <i class="material-icons">lock_outline</i>
+                                  </span>
+                              </div>
+                              <input type="text" class="form-control" id="confirmId" name="confirm" (ngModel)="confirm" #confirm="ngModel" [ngClass]="{'is-invalid': confirm.invalid && (confirm.dirty || confirm.touched) }"
+                                     required placeholder="Confirm password..."/>
+                          </div>
+                      </div>
+                      <div *ngIf="f.errors?.notEqual && (f.touched || f.dirty)" class="cross-validation-error-message alert alert-danger">
+                          Name cannot match alter ego.
+                      </div>
+                      <div *ngIf="confirm.invalid && (confirm.dirty || confirm.touched)">
+                          <div *ngIf="confirm.errors.required">
+                              Passwords do not match
+                          </div>
+                          <div *ngIf="confirm.errors.minlength">
+                              Name must be at least 4 characters long.
+                          </div>
+                          <div *ngIf="confirm.errors.forbiddenName">
+                              Name cannot be Bob.
+                          </div>
+                      </div>
                   </div>
-                </div>
+
 
                 <div class="text-center alert alert-danger" *ngIf="errMessage">
                   <div class="alert-icon">

@@ -16,10 +16,12 @@ export class DashboardComponent implements OnInit {
     currentGame: Game;
     weeklyGuesses: WeeklyGuess[];
     isEditable: boolean;
+    today: Date;
 
 
     constructor(private dataService: DataService) {
         this.currentGame = new Game();
+        this.today = new Date();
     }
 
     ngOnInit() {
@@ -30,21 +32,21 @@ export class DashboardComponent implements OnInit {
         this.dataService.getSchedule().subscribe(
             (data: Game[]) => {
                 this.schedule = data;
-                this.processSchedule();
+                this.currentGame = this.processSchedule(this.today, this.schedule);
                 this.getWeeklyUserGuesses(this.currentGame.id);
             },
             (err: any) => console.log(err)
         );
     };
 
-    private processSchedule() {
+    private processSchedule(now: Date, games: Game[]): Game {
 
-        let today = new Date();
         //var today = new Date(Date.parse("09/18/2014 00:00:00"));
+        let currentGame = games[0];
         let previousGameDate = new Date("11/30/2013");
         let previousShowUntilDate = new Date("01/01/2014");
         let previousCloseDate = new Date("01/01/2014");
-        this.schedule.filter(game => {
+        games.filter(game => {
             if (game.byuScore != null) {
                 game.diff = game.byuScore - game.oppScore;  // this is used to determine if win or loss
             }
@@ -53,37 +55,37 @@ export class DashboardComponent implements OnInit {
             let gameDate = new Date(Date.parse(game.gameDate));
             let closeDate = new Date(Date.parse(game.closeDate));
             let showUntilDate = new Date(Date.parse(game.showUntilDate));
-            if (today > previousShowUntilDate && today < showUntilDate) {
-                this.currentGame = game;
-                this.isEditable = today < closeDate;
+            if (now > previousShowUntilDate && now < showUntilDate) {
+                currentGame = game;
+                this.isEditable = now < closeDate;
             }
+
             previousGameDate = gameDate;
             previousShowUntilDate = showUntilDate;
             previousCloseDate = closeDate;
         });
 
-        return this.currentGame;
+        return currentGame;
 
     }
 
-    getWeeklyUserGuesses(currentGame) {
-        this.dataService.getWeeklyGuesses(this.currentGame.id).subscribe(
+    getWeeklyUserGuesses(currentGameId): void {
+        this.dataService.getWeeklyGuesses(currentGameId).subscribe(
             (data: WeeklyGuess[]) => {
                 this.weeklyGuesses = data;
             }
         );
-
     };
 
     isHomeGame() {
         return this.currentGame.location === 'Provo, UT';
     };
 
-    hideScore = function(userGuess) {
+    hideScore(userGuess: WeeklyGuess): string {
         return (userGuess.byuScore > 0 && userGuess.oppScore > 0) ? "fa-star text-success" : "fa-minus text-danger";
     };
 
-    hasScore = function(userGuess) {
+    hasScore(userGuess: WeeklyGuess): string {
         return (userGuess.byuScore > 0 && userGuess.oppScore > 0) ? "fa-check text-success" : "fa-exclamation-triangle text-danger";
     };
 

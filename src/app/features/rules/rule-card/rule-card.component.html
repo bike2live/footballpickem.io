@@ -1,0 +1,20 @@
+    <div class="rotating-card-container" style="height: 270px; margin-bottom: 30px;">
+      <div class="card card-rotate card-background rule-card">
+        <div class="front front-background" ngClass="{{frontImageClass}}">
+          <div class="card-body">
+            <a>
+              <h3 class="card-title">{{ frontTitle }}</h3>
+            </a>
+            <p class="card-description">
+              <b>{{ frontDescription }}</b>
+            </p>
+          </div>
+        </div>
+        <div class="back back-background" ngClass="{{rearImageClass}}">
+          <div class="card-body">
+            <h5 class="card-title">{{ rearTitle }}</h5>
+            <div class="card-description"><b>{{ rearDescription }}</b></div>
+          </div>
+        </div>
+      </div>
+    </div>

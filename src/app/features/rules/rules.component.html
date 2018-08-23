@@ -2,220 +2,115 @@
     <div id="contactUsMap" class="big-map"></div>
 
     <div class="page-header header-filter header-xs" data-parallax="true">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-8 ml-auto mr-auto text-center">
-                  <h1 class="title">Rules</h1>
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto text-center">
+                    <h1 class="title"><img src="assets/img/BYU_logo.png" alt="byu logo"/> Rules
+                        <img src="assets/img/BYU_logo.png" alt="byu logo"/></h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="main main-raised">
-      <div class="container">
-          <div class="pricing-2">
+    <div class="main main-raised">
+        <div class="container">
 
-              <div class="col-md-8 ml-auto mr-auto">
-                  <div class="media-area">
+            <div class="row ml-auto mr-auto">
+                <div class="col-md-4 offset-md-2">
+                    <fp-rule-card [frontTitle]="'Overall Scoring'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'CanadaSqually'" [rearImageClass]="'AndersonZayne'"
+                                  [frontDescription]="'Scores accumulate from week to week. The person with the highest total score at the end of the season wins.'"
+                                  [rearDescription]="'show scores here'"></fp-rule-card>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <fp-rule-card [frontTitle]="'Rule 2'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'CritchlowJoe'" [rearImageClass]="'BushmanMatt'"
+                                  [frontDescription]="'For each game, scoring will be the sum of the difference between the projected scores and actual scores. The sum will be subtracted from your overall season total, with week one starting from a 0 balance.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4">
+                    <fp-rule-card [frontTitle]="'Bonus 1'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'DavidAkile'" [rearImageClass]="'ElBakriBrayden'"
+                                  [frontDescription]="'Each game the one who picked the game winner with the lowest difference will be awarded 10 points. If there is more than one with the same difference, 10 points will be awarded to each. If no one picked the correct winner, no bonus points will be awarded.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <fp-rule-card [frontTitle]="'Bonus 2'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
+                                  [frontDescription]="'If a person gets the exact score, a bonus of 25 points will be awarded.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <fp-rule-card [frontTitle]="'Bonus 3'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
+                                  [frontDescription]="'If a person gets the exact spread, and picks the game winner, a bonus of 5 points will be awarded.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+            </div>
 
-                    <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">1</h4>
-                              <p>Season scoring will be the highest score wins the overall season.</p>
-                          </div>
-                      </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <fp-rule-card [frontTitle]="'Penalty 1'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
+                                  [frontDescription]="'Failure to submit a guess for any particular week will result in a loss equal to the lowest weekly score, plus a penalty of –5 points.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+                <div class="col-md-6">
+                    <fp-rule-card [frontTitle]="'Penalty 2'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
+                                  [frontDescription]="'If you pick the opponent to win, and BYU wins, you will be awarded a penalty of -10 points.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+            </div>
 
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">2</h4>
-                              <p>For each game, scoring will be the sum of the difference between the projected scores and actual scores. The sum will be subtracted from your overall season total, with week one starting from a 0 balance.</p>
-                          </div>
-                      </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <fp-rule-card [frontTitle]="'Braggers Rule'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
+                                  [frontDescription]="'Each week that Michael does not win, he will be given a 25 point penalty. Each week that he is not leading the standings he will be given a 50 point penalty.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+                <div class="col-md-6">
+                    <fp-rule-card [frontTitle]="'Cheaters Rule'"
+                                  [rearTitle]="'Example'"
+                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
+                                  [frontDescription]="'In honor of Bruces changing his score after the game, and his unbelievable feat of &#x22;guessing&#x22; the correct score twice in the same year, we have introduced this rule. Cheaters will be penalized.'"
+                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                </div>
+            </div>
 
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">3</h4>
-                              <p>Each game the one who picked the game winner with the lowest difference will be awarded 10 points. If there is more than one with the same difference, 10 points will be awarded to each. If no one picked the correct winner, no bonus points will be awarded.</p>
-                          </div>
-                      </div>
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <div class="media-area">
 
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">4</h4>
-                              <p>If a person gets the exact score, a bonus of 25 points will be awarded.</p>
-                          </div>
-                      </div>
+                        <div class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading">Instructions</h4>
+                                <p>To enter a score for each week, go to the schedule page, click on the icon. The dialog will allow you to enter and update your score.</p>
+                                <p>Scores can be entered up until Friday noon (cut-off time) for Saturday and Friday games. Games on other days (none this season) will have a cut-off time of noon on the day of the game.</p>
+                                <p>After the cut-off time the entered scores will be shown on the dashboard page.</p>
+                                <p>After the game is over, the Admin will post the game score and the scoring will be calculated for the game. The results will be shown on the dashboard.</p>
+                                <p>The current week's game will be shown on the dashboard until the Monday following the game. At that point the next game will be shown.</p>
+                            </div>
+                        </div>
 
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">5</h4>
-                              <p>If a person gets the exact spread, and picks the game winner, a bonus of 5 points will be awarded.</p>
-                          </div>
-                      </div>
-
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">6</h4>
-                              <p>Failure to submit a guess for any particular week will result in a loss equal to the lowest weekly score, plus a penalty of –5 points.</p>
-                          </div>
-                      </div>
-
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">7</h4>
-                              <p class="bragger">Braggers Rule: Each week that Michael does not win, he will be given a 25 point penalty. Each week that he is not leading the standings he will be given a 50 point penalty.</p>
-                          </div>
-                      </div>
-
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">8</h4>
-                              <p>Cheaters Rule: In honor of Bruce's changing his score after the game, and his unbelievable feat of "guessing" the correct score twice in the same year, we've introduced this rule. Cheaters will be penalized.</p>
-                          </div>
-                      </div>
-
-                      <div class="media">
-                          <div class="media-body">
-                              <h4 class="media-heading">Instructions</h4>
-                              <p>To enter a score for each week, go to the schedule page, click on the  icon. The dialog will allow you to enter and update your score.</p>
-                              <p>Scores can be entered up until Friday noon (cut-off time) for Saturday and Friday games. Games on other days (none this season) will have a cut-off time of noon on the day of the game.</p>
-                              <p>After the cut-off time the entered scores will be shown on the dashboard page.</p>
-                              <p>After the game is over, the Admin will post the game score and the scoring will be calculated for the game. The results will be shown on the dashboard.</p>
-                              <p>The current week's game will be shown on the dashboard until the Monday following the game. At that point the next game will be shown.</p>
-                          </div>
-                      </div>
-
-                  </div>
-              </div>
-          </div>
-
-
-
-          <div class="row">
-              <div class="col-md-6 col-lg-4">
-                  <div class="rotating-card-container" style="height: 270px; margin-bottom: 30px;">
-                      <div class="card card-rotate card-background">
-                          <div class="front front-background" style="background-image: url('/assets/img/Takitaki_Sione_small.jpg'); height: 270px; width: 350px;">
-                              <div class="card-body">
-                                  <a>
-                                      <h3 class="card-title">Overall Scoring</h3>
-                                  </a>
-                                  <p class="card-description">
-                                      <strong>Scores accumulate from week to week. The person with the highest total score at the end of the season wins.</strong>
-                                  </p>
-                              </div>
-                          </div>
-                          <div class="back back-background" style="background-image: url('/assets/img/examples/card-blog5.jpg'); height: 270px; width: 350px;">
-                              <div class="card-body">
-                                  <h5 class="card-title">
-                                      Example
-                                  </h5>
-                                  <div class="card-description">
-                                      show scores here.
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="col-md-6 col-lg-4">
-                  <div class="rotating-card-container" style="height: 508px; margin-bottom: 30px;">
-                      <div class="card card-rotate">
-                          <div class="front" style="height: 543px; width: 349.984px;">
-                              <div class="card-body">
-                                  <h5 class="card-category card-category-social text-success">
-                                      <i class="fa fa-newspaper-o"></i> TechCrunch
-                                  </h5>
-                                  <h4 class="card-title">
-                                      <a>This Card is Doing a Full Rotation on Hover...</a>
-                                  </h4>
-                                  <p class="card-description">
-                                      Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                  </p>
-                              </div>
-                          </div>
-                          <div class="back" style="height: 543px; width: 349.984px;">
-                              <div class="card-body">
-                                  <h5 class="card-title">
-                                      Do more...
-                                  </h5>
-                                  <p class="card-description">
-                                      You can read this article or share it with your friends and family on different networks...
-                                  </p>
-                                  <div class="footer text-center">
-                                      <a class="btn btn-rose btn-round">
-                                          <i class="material-icons">subject</i> Read
-                                      </a>
-                                      <a class="btn btn-just-icon btn-round btn-twitter">
-                                          <i class="fa fa-twitter"></i>
-                                      </a>
-                                      <a class="btn btn-just-icon btn-round btn-dribbble">
-                                          <i class="fa fa-dribbble"></i>
-                                      </a>
-                                      <a class="btn btn-just-icon btn-round btn-facebook">
-                                          <i class="fa fa-facebook"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                  <div class="rotating-card-container" style="height: 218.609px; margin-bottom: 30px;">
-                      <div class="card card-rotate bg-rose">
-                          <div class="front" style="height: 253.609px; width: 349.984px;">
-                              <div class="card-body">
-                                  <h5 class="card-category card-category-social">
-                                      <i class="fa fa-dribbble"></i> Dribbble
-                                  </h5>
-                                  <h4 class="card-title">
-                                      <a>"Dribbble just acquired Crew, a very interesting startup..."</a>
-                                  </h4>
-                                  <p class="card-description">
-                                      Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                  </p>
-                              </div>
-                              <div class="card-footer">
-                                  <div class="author">
-                                      <a>
-                                          <img src="assets/img/faces/avatar.jpg" alt="..." class="avatar img-raised">
-                                          <span>Tania Andrew</span>
-                                      </a>
-                                  </div>
-                                  <div class="stats ml-auto">
-                                      <i class="material-icons">favorite</i> 2.4K ·
-                                      <i class="material-icons">share</i> 45
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="back" style="height: 253.609px; width: 349.984px;">
-                              <div class="card-body">
-                                  <h5 class="card-category card-category-social">
-                                      <i class="fa fa-dribbble"></i> Dribbble
-                                  </h5>
-                                  <h4 class="card-title">
-                                      <a>"Dribbble just acquired Crew, a very interesting startup..."</a>
-                                  </h4>
-                                  <div class="stats">
-                                      <button type="button" name="button" class="btn btn-white btn-fill btn-round">
-                                          <i class="material-icons">subject</i> Read
-                                      </button>
-                                      <button type="button" name="button" class="btn btn-white btn-round btn-link">
-                                          <i class="material-icons">bookmark</i> Bookmark
-                                      </button>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                    </div>
+                </div>
+            </div>
 
 
-      </div>
-  </div>
+        </div>
+    </div>
 
 
 </div>

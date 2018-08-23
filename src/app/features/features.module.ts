@@ -9,6 +9,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { RulesComponent } from './rules/rules.component';
 import { AddScoreModalComponent } from './schedule/add-score-modal/add-score-modal.component';
 import { AddGameScoreModalComponent } from './schedule/add-game-score-modal/add-game-score-modal.component';
+import { RuleCardComponent } from './rules/rule-card/rule-card.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AddGameScoreModalComponent } from './schedule/add-game-score-modal/add-
     LeaderboardComponent,
     RulesComponent,
     AddScoreModalComponent,
-    AddGameScoreModalComponent
+    AddGameScoreModalComponent,
+    RuleCardComponent
   ],
     entryComponents: [
         AddScoreModalComponent,

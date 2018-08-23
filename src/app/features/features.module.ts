@@ -10,16 +10,17 @@ import { RulesComponent } from './rules/rules.component';
 import { AddScoreModalComponent } from './schedule/add-score-modal/add-score-modal.component';
 import { AddGameScoreModalComponent } from './schedule/add-game-score-modal/add-game-score-modal.component';
 import { RuleCardComponent } from './rules/rule-card/rule-card.component';
+import { AuthorityGuard } from "../authority.guard";
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'schedule', component: ScheduleComponent },
-      { path: 'leaderboard', component: LeaderboardComponent },
-      { path: 'rules', component: RulesComponent }
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorityGuard] },
+      { path: 'schedule', component: ScheduleComponent, canActivate: [AuthorityGuard]  },
+      { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthorityGuard]  },
+      { path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard]  }
     ]),
       FormsModule
   ],
@@ -35,6 +36,9 @@ import { RuleCardComponent } from './rules/rule-card/rule-card.component';
     entryComponents: [
         AddScoreModalComponent,
         AddGameScoreModalComponent
+    ],
+    providers: [
+        AuthorityGuard
     ]
 })
 export class FeaturesModule { }

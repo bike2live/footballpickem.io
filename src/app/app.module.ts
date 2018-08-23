@@ -14,6 +14,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {CoreModule} from './core/core.module';
 import {EqualValidatorDirective} from './core/equal-validator.directive';
 import {ModalModule} from "ngx-bootstrap";
+import {AuthorityGuard} from "./authority.guard";
 
 @NgModule({
     declarations: [
@@ -25,7 +26,7 @@ import {ModalModule} from "ngx-bootstrap";
     imports: [
         BrowserModule,
         RouterModule.forRoot([
-            {path: '', redirectTo: 'schedule', pathMatch: 'full'},
+            {path: '', redirectTo: 'schedule', pathMatch: 'full', canActivate: [AuthorityGuard]},
             {path: '**', component: PageNotFoundComponent}
         ]),
         HttpClientModule,
@@ -36,7 +37,7 @@ import {ModalModule} from "ngx-bootstrap";
         FeaturesModule,
         UsersModule
     ],
-    providers: [],
+    providers: [AuthorityGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {

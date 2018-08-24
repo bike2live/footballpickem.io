@@ -46,6 +46,13 @@ $app->get('/userScore/:gameId', function ($gameId) use ($app) {
     $response = array();
     $db = new DbHandler();
     $session = $db->getSession();
+    if ($session['uid'] == '') {
+        $response["status"] = "Session invalid";
+        $response["message"] = "Session invalid";
+        echoResponse(412, $response);
+        $app->stop();
+    }
+
     $userScore = $db->getUserScore($session['uid'], $gameId);
     if ($userScore != NULL) {
         $response["status"] = "success";
@@ -55,7 +62,6 @@ $app->get('/userScore/:gameId', function ($gameId) use ($app) {
     } else {
         $response["status"] = "info";
         $response["message"] = "No score for this user for this game.";
-        $response["session"] = $session;
         echoResponse(200, $response);
     }
 });
@@ -67,10 +73,10 @@ $app->post('/addscore', function () use ($app) {
     $db = new DbHandler();
     $session = $db->getSession();
     if ($session['uid'] != $r->userScore->uid) {
-        $response["status"] = "error";
-        $response["message"] = "Failed to add score. Please try again";
+        $response["status"] = "Session invalid";
+        $response["message"] = "Session invalid";
         echoResponse(412, $response);
-        return;
+        $app->stop();
     }
 
     $uid = $r->userScore->uid;
@@ -244,7 +250,7 @@ function addUserScores($uid, $db) {
                     $userScore->gameId = $gameId;
                     $userScore->byuScore = 0;
                     $userScore->oppScore = 0;
-                    $userScore = $db->insertUserScore($userScore);
+                    $db->insertUserScore($userScore);
                 }
             }
         }

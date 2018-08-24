@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 
 import {DataService} from '../../core/data.service';
-import {SessionError} from '../../session-error';
 import {User} from '../../users/user';
 import {Game} from "../game";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {AddScoreModalComponent} from "./add-score-modal/add-score-modal.component";
 import {AddGameScoreModalComponent} from "./add-game-score-modal/add-game-score-modal.component";
+import {AuthService} from "../../users/auth.service";
 
 @Component({
     selector: 'fp-schedule',
@@ -21,26 +21,29 @@ export class ScheduleComponent implements OnInit {
     bsModalRef: BsModalRef;
 
     constructor(private dataService: DataService,
+                private authService: AuthService,
                 private modalService: BsModalService) {
+        this.admin = false;
     }
 
     ngOnInit() {
-        this.admin = true;
-        this.now = new Date();
-        this.dataService.getSession().subscribe(
-            (data: User) => this.user = data,
-            (err: SessionError) => console.log(err.friendlyMessage),
-            () => console.log('got session  user: ', this.user)
-        );
+        this.admin = this.authService.isAdmin();
+        this.user = this.authService.getUser();
+
+        console.log(' scheduleComponent: user: ', this.user);
 
         this.dataService.getSchedule().subscribe(
             (data: Game[]) => {
-                this.schedule = data;
-                this.schedule.filter( game => {
+                data.filter( game => {
                     if (game.byuScore != null) {
                         game.diff = game.byuScore - game.oppScore;
                     }
-                })
+                    game.gameDate = game.gameDate.replace(' ', 'T') + 'Z';
+                    game.closeDate = game.closeDate.replace(' ', 'T') + 'Z';
+                    game.showUntilDate = game.showUntilDate.replace(' ', 'T') + 'Z';
+                });
+                this.schedule = data;
+                this.now = new Date();
             },
             (err: any) => console.log(err)
         );

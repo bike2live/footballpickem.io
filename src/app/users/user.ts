@@ -5,15 +5,13 @@ export class User {
   roles: string[];
   isAdmin: boolean;
 
-  /**
-   * setAdmin
-   */
-  public setAdmin(): boolean {
-    if (!this.isAdmin) {
-      this.isAdmin = (this.roles && this.roles.length > 0 ? this.roles.filter( r => r === 'ADMIN').length > 0 : false);
-    }
+  constructor(data: any) {
 
-    return this.isAdmin;
+    this.name = data.name;
+    this.uid = data.uid;
+    this.username = data.username;
+    this.roles = data.roles;
+    this.isAdmin = (this.roles && this.roles.length > 0 ? this.roles.filter( r => r === 'ADMIN').length > 0 : false);
   }
 
 }

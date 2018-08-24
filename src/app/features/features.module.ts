@@ -18,9 +18,9 @@ import { AuthorityGuard } from "../authority.guard";
     CommonModule,
     RouterModule.forChild([
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorityGuard] },
-      { path: 'schedule', component: ScheduleComponent, canActivate: [AuthorityGuard]  },
-      { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthorityGuard]  },
-      { path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard]  }
+      { path: 'schedule', component: ScheduleComponent, canActivate: [AuthorityGuard] },
+      { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthorityGuard] },
+      { path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard] }
     ]),
       FormsModule
   ],

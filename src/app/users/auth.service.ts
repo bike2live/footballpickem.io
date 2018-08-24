@@ -1,22 +1,27 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { User } from './user';
+import {User} from './user';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-  currentUser: User;
+    currentUser: User;
 
-  isLoggedIn(): boolean {
-    return !!this.currentUser && !!this.currentUser.uid;
-  }
+    isLoggedIn(): boolean {
+        return !!this.currentUser && !!this.currentUser.uid;
+    }
 
-  setUser(user: User): void {
-    this.currentUser = user;
-  }
+    isAdmin(): boolean {
+        return !!this.currentUser && this.currentUser.isAdmin;
+    }
 
-  getUser(): User {
-    return this.currentUser;
-  }
+    setUser(user: User): void {
+        this.currentUser = user;
+    }
+
+    getUser(): User {
+        return this.currentUser;
+    }
+
 }

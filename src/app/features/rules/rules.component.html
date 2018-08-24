@@ -17,75 +17,39 @@
 
             <div class="row ml-auto mr-auto">
                 <div class="col-md-4 offset-md-2">
-                    <fp-rule-card [frontTitle]="'Overall Scoring'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'CanadaSqually'" [rearImageClass]="'AndersonZayne'"
-                                  [frontDescription]="'Scores accumulate from week to week. The person with the highest total score at the end of the season wins.'"
-                                  [rearDescription]="'show scores here'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[0]"></fp-rule-card>
                 </div>
                 <div class="col-md-4 col-lg-4">
-                    <fp-rule-card [frontTitle]="'Rule 2'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'CritchlowJoe'" [rearImageClass]="'BushmanMatt'"
-                                  [frontDescription]="'For each game, scoring will be the sum of the difference between the projected scores and actual scores. The sum will be subtracted from your overall season total, with week one starting from a 0 balance.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[1]"></fp-rule-card>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 col-lg-4">
-                    <fp-rule-card [frontTitle]="'Bonus 1'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'DavidAkile'" [rearImageClass]="'ElBakriBrayden'"
-                                  [frontDescription]="'Each game the one who picked the game winner with the lowest difference will be awarded 10 points. If there is more than one with the same difference, 10 points will be awarded to each. If no one picked the correct winner, no bonus points will be awarded.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[2]"></fp-rule-card>
                 </div>
                 <div class="col-md-4 col-lg-4">
-                    <fp-rule-card [frontTitle]="'Bonus 2'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
-                                  [frontDescription]="'If a person gets the exact score, a bonus of 25 points will be awarded.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[3]"></fp-rule-card>
                 </div>
                 <div class="col-md-4 col-lg-4">
-                    <fp-rule-card [frontTitle]="'Bonus 3'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
-                                  [frontDescription]="'If a person gets the exact spread, and picks the game winner, a bonus of 5 points will be awarded.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[4]"></fp-rule-card>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-4 offset-md-2">
-                    <fp-rule-card [frontTitle]="'Penalty 1'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
-                                  [frontDescription]="'Failure to submit a guess for any particular week will result in a loss equal to the lowest weekly score, plus a penalty of –5 points.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[5]"></fp-rule-card>
                 </div>
                 <div class="col-md-6">
-                    <fp-rule-card [frontTitle]="'Penalty 2'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
-                                  [frontDescription]="'If you pick the opponent to win, and BYU wins, you will be awarded a penalty of -10 points.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[6]"></fp-rule-card>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-4 offset-md-2">
-                    <fp-rule-card [frontTitle]="'Braggers Rule'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
-                                  [frontDescription]="'Each week that Michael does not win, he will be given a 25 point penalty. Each week that he is not leading the standings he will be given a 50 point penalty.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[7]"></fp-rule-card>
                 </div>
                 <div class="col-md-6">
-                    <fp-rule-card [frontTitle]="'Cheaters Rule'"
-                                  [rearTitle]="'Example'"
-                                  [frontImageClass]="'TakitakiSione'" [rearImageClass]="'AndersonZayne'"
-                                  [frontDescription]="'In honor of Bruces changing his score after the game, and his unbelievable feat of &#x22;guessing&#x22; the correct score twice in the same year, we have introduced this rule. Cheaters will be penalized.'"
-                                  [rearDescription]="'explain this rule'"></fp-rule-card>
+                    <fp-rule-card [rule]="rules[8]"></fp-rule-card>
                 </div>
             </div>
 

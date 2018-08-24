@@ -31,7 +31,13 @@ export class DashboardComponent implements OnInit {
     getSchedule() {
         this.dataService.getSchedule().subscribe(
             (data: Game[]) => {
+                data.filter( game => {
+                    game.gameDate = game.gameDate.replace(' ', 'T') + 'Z';
+                    game.closeDate = game.closeDate.replace(' ', 'T') + 'Z';
+                    game.showUntilDate = game.showUntilDate.replace(' ', 'T') + 'Z';
+                });
                 this.schedule = data;
+                this.today = new Date();
                 this.currentGame = this.processSchedule(this.today, this.schedule);
                 this.getWeeklyUserGuesses(this.currentGame.id);
             },

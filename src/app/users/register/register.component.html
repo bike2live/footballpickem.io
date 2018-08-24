@@ -41,8 +41,11 @@
                                     <i class="material-icons">lock_outline</i>
                                   </span>
                               </div>
-                              <input type="text" class="form-control" id="passwordId" name="password" (ngModel)="password" #password="ngModel" [ngClass]="{'is-invalid': f.submitted && password.invalid }"
-                                     required placeholder="Password..."/>
+                              <input type="password" class="form-control" id="passwordId" name="password" (ngModel)="password" #password="ngModel" [ngClass]="{'is-invalid': f.submitted && password.invalid }"
+                                     required placeholder="Password..." minlength="8"/>
+                          </div>
+                          <div *ngIf="password.errors?.minlength" class="text-danger">
+                              Password must be at least 8 characters long
                           </div>
                       </div>
 
@@ -53,24 +56,14 @@
                                     <i class="material-icons">lock_outline</i>
                                   </span>
                               </div>
-                              <input type="text" class="form-control" id="confirmId" name="confirm" (ngModel)="confirm" #confirm="ngModel" [ngClass]="{'is-invalid': confirm.invalid && (confirm.dirty || confirm.touched) }"
+                              <input type="password" class="form-control" id="confirmId" name="confirm" (ngModel)="confirm" #confirm="ngModel" [ngClass]="{'is-invalid': confirm.invalid && (confirm.dirty || confirm.touched) }"
                                      required placeholder="Confirm password..."/>
                           </div>
                       </div>
-                      <div *ngIf="f.errors?.notEqual && (f.touched || f.dirty)" class="cross-validation-error-message alert alert-danger">
-                          Name cannot match alter ego.
+                      <div *ngIf="f.errors?.notEqual && (confirm.touched || confirm.dirty)" class="text-danger">
+                          Password and confirm password must match
                       </div>
-                      <div *ngIf="confirm.invalid && (confirm.dirty || confirm.touched)">
-                          <div *ngIf="confirm.errors.required">
-                              Passwords do not match
-                          </div>
-                          <div *ngIf="confirm.errors.minlength">
-                              Name must be at least 4 characters long.
-                          </div>
-                          <div *ngIf="confirm.errors.forbiddenName">
-                              Name cannot be Bob.
-                          </div>
-                      </div>
+
                   </div>
 
 
@@ -81,9 +74,13 @@
                   {{ errMessage }}
                 </div>
 
-                <div class="text-center">
+                <div class="footer text-center">
                   <button type="submit" class="btn btn-primary btn-round" [disabled]="!f.valid">Get Started</button>
                 </div>
+                  <div class="footer text-center">
+                      Have an account? <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/login']">Login </a>
+                  </div>
+
               </form>
             </div>
           </div>

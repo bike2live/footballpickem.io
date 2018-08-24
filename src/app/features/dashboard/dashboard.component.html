@@ -14,6 +14,13 @@
     <div class="main main-raised">
         <div class="container">
 
+            <div class="row">
+                <div class="col-6 ml-auto mr-auto">
+                    today: {{ today | date: 'full'}}<br/>
+                    gameDate: {{ currentGame.closeDate }}<br/>
+                    gameDate: {{ currentGame.closeDate | date: 'full' }}
+                </div>
+            </div>
               <div class="row">
 
                   <div class="col-md-8 mr-auto ml-auto">
@@ -38,7 +45,7 @@
                                   </tbody>
                               </table>
 
-                              <table class="table table-striped" *ngIf="!isEditable">
+                              <table class="table table-striped" *ngIf="currentGame && !isEditable">
                                   <thead>
                                   <tr>
                                       <th>Player</th>

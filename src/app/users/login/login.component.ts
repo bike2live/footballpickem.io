@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
       this.dataService.login(loginForm.form.value).subscribe(
         (data: User) => {
-          this.user = data;
+          this.user = new User(data);
           this.authService.setUser(this.user);
           this.router.navigate(['dashboard']);
         },

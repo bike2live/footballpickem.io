@@ -29,12 +29,17 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/popper.js/dist/popper.min.js",
+            "scripts": [
+              "src/assets/js/core/jquery.min.js",
+              "src/assets/js/core/popper.min.js",
               "src/assets/js/bootstrap-material-design.min.js",
               "src/assets/js/plugins/moment.min.js",
-              "src/assets/js/vertical-nav.js",
+              "src/assets/js/plugins/bootstrap-selectpicker.js",
+              "src/assets/js/plugins/bootstrap-tagsinput.js",
+              "src/assets/js/plugins/jasny-bootstrap.min.js",
+              "src/assets/js/plugins/jquery.flexisel.js",
+              "src/assets/js/plugins/bootstrap-datetimepicker.min.js",
+              "src/assets/js/plugins/nouislider.min.js",
               "src/assets/js/material-kit.js"
             ]
           },

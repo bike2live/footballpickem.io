@@ -8,14 +8,14 @@ import {Game} from "../features/game";
 import {UserScore} from "../features/schedule/add-score-modal/userScore";
 import {PlayerStanding} from "../features/leaderboard/player-standing";
 import {WeeklyGuess} from "../features/dashboard/weekly-guess";
+import {environment} from "../../environments/environment";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataService {
-    private baseUrl = 'http://localhost/api/v2/';
-    // private baseUrl = '/api/v2/';
+    private baseUrl = environment.baseUrl;
 
     constructor(private http: HttpClient) {
     }

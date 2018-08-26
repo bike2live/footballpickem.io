@@ -104,6 +104,16 @@ export class DataService {
             );
     }
 
+    public getUserList(): Observable<User[]> {
+
+        return this.http.get<any>(this.baseUrl + 'userList')
+            .pipe(
+                tap(response => console.log(' getUserList returned: ', response)),
+                map( (response) => <User[]> response.users ),
+                tap( games => console.log(' final getUserList from getSchedule: ', games))
+            );
+    }
+
     /**
      * register
      */

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg " color-on-scroll="25" id="sectionsNav">
+<nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg" color-on-scroll="25" id="sectionsNav">
     <div class="container">
         <div class="navbar-translate">
             <a class="navbar-brand" [routerLink]="['/dashboard']">{{ title }}</a>
@@ -16,21 +16,24 @@
                     <a class="nav-link" [routerLink]="['/dashboard']"><i class="material-icons">dashboard</i>Dashboard </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/schedule']"><i class="fa fa-calendar" aria-hidden="true"></i>Schedule </a>
+                    <a class="nav-link" [routerLink]="['/schedule']"><fa-icon [icon]="['fas', 'calendar-alt']" size="lg"></fa-icon> Schedule </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/leaderboard']"><i class="fa fa-cubes" aria-hidden="true"></i>Leaderboard </a>
+                    <a class="nav-link" [routerLink]="['/leaderboard']"><fa-icon [icon]="['fas', 'cubes']" size="lg"></fa-icon> Leaderboard </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/rules']"><i class="fa fa-book" aria-hidden="true"></i>Rules </a>
+                    <a class="nav-link" [routerLink]="['/rules']"><fa-icon [icon]="['fas', 'book']" size="lg"></fa-icon> Rules</a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
+                <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn() && authService.isAdmin()">
+                    <a class="nav-link" [routerLink]="['/users']"><fa-icon [icon]="['fas', 'users-cog']" size="lg"></fa-icon>&nbsp;&nbsp;</a>
+                </li>
                 <li class="nav-item" *ngIf="authService.isLoggedIn()">
                     <a><i class="material-icons">verified_user</i>Welcome {{ authService.currentUser.name }}</a>
                 </li>
                 <li class="nav-item" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">
-                    <a class="nav-link" [routerLink]="['/login']">Login </a>
+                    <a class="nav-link" [routerLink]="['/login']"><fa-icon [icon]="['fas', 'sign-in-alt']" size="lg"></fa-icon>  Login </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn()">
                     <a class="nav-link" (click)="logout()">Log out </a>

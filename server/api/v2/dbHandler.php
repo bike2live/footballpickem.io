@@ -248,6 +248,18 @@ class DbHandler
         }
     }
 
+    public function getUserList() {
+        $sql = "select ca.uid, ca.name
+                  from football.customers_auth ca
+                order by ca.name";
+
+        try {
+            return $this->getFullList($sql);
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
     /**
      * Creating new record
      */
@@ -310,7 +322,7 @@ class DbHandler
             unset($_SESSION['roles']);
             $info = 'info';
             if (isSet($_COOKIE[$info])) {
-                setcookie($info, '', time() - $cookie_time);
+                setcookie($info, '', time() - 3600);
             }
             $msg = "Logged Out Successfully...";
         } else {

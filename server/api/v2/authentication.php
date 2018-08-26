@@ -224,6 +224,25 @@ $app->get('/logout', function () {
     echoResponse(200, $response);
 });
 
+$app->get('/userList', function () use ($app) {
+    $response = array();
+    $db = new DbHandler();
+
+    $session = $db->getSession();
+    if ($session["uid"] == '') {
+        $response['status'] = "invalid";
+        $response['message'] = "You must be logged in to retrieve the schedule.";
+        $response['users'] = [];
+        echoResponse(412, $response);
+        $app->stop();
+    }
+    $users = $db->getUserList();
+    $response['status'] = "success";
+    $response['message'] = "Got the schedule";
+    $response['users'] = $users;
+    echoResponse(200, $response);
+});
+
 function addUserScores($uid, $db) {
     // get all of the games
 //    $games = $db->getSchedule();

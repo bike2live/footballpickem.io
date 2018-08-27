@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
       const userName = loginForm.form.value.userName;
       const password = loginForm.form.value.password;
 
-      console.log('userName: ' + userName);
-      console.log('password: ' + password);
+      // console.log('userName: ' + userName);
+      // console.log('password: ' + password);
 
       this.dataService.login(loginForm.form.value).subscribe(
         (data: User) => {
@@ -41,8 +41,7 @@ export class LoginComponent implements OnInit {
         (err: any) => {
           console.log(err);
           this.errorMessage = err.error.message;
-        },
-        () => { console.log(' completed login. user: ', this.user); }
+        }
       );
 
 

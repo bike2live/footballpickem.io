@@ -5,10 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBackspace, faBook, faCalendarAlt,
+import {
+    faBackspace, faBook, faCalendarAlt, faCheck,
     faCoffee,
-    faCubes,
+    faCubes, faExclamationTriangle, faMinus,
     faSignInAlt,
+    faThumbsUp,
     faTrash,
     faTrashAlt,
     faUsersCog,
@@ -27,7 +29,7 @@ import { ModalModule } from "ngx-bootstrap";
 import { AuthorityGuard } from "./authority.guard";
 import { AdminModule } from "./admin/admin/admin.module";
 
-library.add(faCoffee, faBook, faBackspace, faCubes, faCalendarAlt, faTrash, faTrashAlt, faSignInAlt, faUsersCog);
+library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faExclamationTriangle, faMinus, faThumbsUp, faTrash, faTrashAlt, faSignInAlt, faUsersCog);
 
 @NgModule({
     declarations: [

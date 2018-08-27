@@ -31,9 +31,19 @@
                                   <tbody>
                                   <tr *ngFor="let userGuess of weeklyGuesses">
                                       <td><strong>{{ userGuess.name }}</strong></td>
-                                      <td class="text-center"><i class="fa " ngClass="{{hideScore(userGuess)}}"></i></td>
-                                      <td class="text-center"><i class="fa " ngClass="{{hideScore(userGuess)}}"></i></td>
-                                      <td class="text-center"><i class="fa fa-2x " ngClass="{{hasScore(userGuess)}}"></i></td>
+                                      <td class="text-center">
+                                          <fa-icon [icon]="['fas', 'thumbs-up']" size="lg" *ngIf="showScore(userGuess)" class="text-success"></fa-icon>
+                                          <fa-icon [icon]="['fas', 'minus']" size="lg" *ngIf="!showScore(userGuess)" class="text-danger"></fa-icon>
+                                      </td>
+                                      <td class="text-center">
+
+                                          <fa-icon [icon]="['fas', 'thumbs-up']" size="lg" *ngIf="showScore(userGuess)" class="text-success"></fa-icon>
+                                          <fa-icon [icon]="['fas', 'minus']" size="lg" *ngIf="!showScore(userGuess)" class="text-danger"></fa-icon>
+                                      </td>
+                                      <td class="text-center">
+                                          <fa-icon [icon]="['fas', 'check']" size="lg" *ngIf="hasScore(userGuess)" class="text-success"></fa-icon>
+                                          <fa-icon [icon]="['fas', 'exclamation-triangle']" size="lg" *ngIf="!hasScore(userGuess)" class="text-danger"></fa-icon>
+                                      </td>
                                   </tr>
                                   </tbody>
                               </table>

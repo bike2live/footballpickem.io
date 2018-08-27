@@ -22,7 +22,7 @@ export class AddGameScoreModalComponent implements OnInit {
   }
 
   save() {
-      console.log('game: ', this.game);
+      // console.log('game: ', this.game);
       this.errMessage = undefined;
       this.dataService.editGameScore(this.game)
           .subscribe(

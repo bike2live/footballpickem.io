@@ -33,8 +33,7 @@ export class RegisterComponent implements OnInit {
         (err: any) => {
           console.log('Error registering:', err);
           this.errMessage = err.error.message;
-        },
-        () => { console.log(' completed login. user: ', this.user); }
+        }
     );
     console.log('');
   }

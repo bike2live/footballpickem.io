@@ -30,7 +30,7 @@ export class ScheduleComponent implements OnInit {
         this.admin = this.authService.isAdmin();
         this.user = this.authService.getUser();
 
-        console.log(' scheduleComponent: user: ', this.user);
+        // console.log(' scheduleComponent: user: ', this.user);
 
         this.dataService.getSchedule().subscribe(
             (data: Game[]) => {
@@ -63,18 +63,18 @@ export class ScheduleComponent implements OnInit {
 
     addScore(game: Game) {
 
-        // if (this.isPastCloseDate(game)) {
-        //     alert('Oh snap, too late! You missed the cutoff time to enter a score for this game.');
-        //     return;
-        // }
+        if (this.isPastCloseDate(game)) {
+            alert('Oh snap, too late! You missed the cutoff time to enter a score for this game.');
+            return;
+        }
 
         const initialState = {
             game: game,
             uid: this.user.uid
         };
 
-        console.log('initialState: ', initialState);
-        console.log('user: ', this.user);
+        // console.log('initialState: ', initialState);
+        // console.log('user: ', this.user);
 
         this.bsModalRef = this.modalService.show(AddScoreModalComponent, {initialState});
 
@@ -87,8 +87,8 @@ export class ScheduleComponent implements OnInit {
             uid: this.user.uid
         };
 
-        console.log('initialState: ', initialState);
-        console.log('user: ', this.user);
+        // console.log('initialState: ', initialState);
+        // console.log('user: ', this.user);
 
         this.bsModalRef = this.modalService.show(AddGameScoreModalComponent, {initialState});
 

@@ -21,8 +21,8 @@ export class AddScoreModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(' modal game: ', this.game);
-        console.log(' modal uid: ', this.uid);
+        // console.log(' modal game: ', this.game);
+        // console.log(' modal uid: ', this.uid);
         this.getUserScore();
     }
 
@@ -36,7 +36,7 @@ export class AddScoreModalComponent implements OnInit {
     }
 
     save() {
-        console.log('userScore: ', this.userScore);
+        // console.log('userScore: ', this.userScore);
         this.errMessage = undefined;
         this.dataService.addUserScore(this.userScore)
             .subscribe(

@@ -87,12 +87,12 @@ export class DashboardComponent implements OnInit {
         return this.currentGame.location === 'Provo, UT';
     };
 
-    hideScore(userGuess: WeeklyGuess): string {
-        return (userGuess.byuScore > 0 && userGuess.oppScore > 0) ? "fa-star text-success" : "fa-minus text-danger";
+    showScore(userGuess: WeeklyGuess): boolean {
+        return (userGuess.byuScore > 0 && userGuess.oppScore > 0);
     };
 
-    hasScore(userGuess: WeeklyGuess): string {
-        return (userGuess.byuScore > 0 && userGuess.oppScore > 0) ? "fa-check text-success" : "fa-exclamation-triangle text-danger";
+    hasScore(userGuess: WeeklyGuess): boolean {
+        return (userGuess.byuScore > 0 && userGuess.oppScore > 0); // ? "fa-check text-success" : "fa-exclamation-triangle text-danger";
     };
 
 

@@ -11,28 +11,30 @@ import { AddScoreModalComponent } from './schedule/add-score-modal/add-score-mod
 import { AddGameScoreModalComponent } from './schedule/add-game-score-modal/add-game-score-modal.component';
 import { RuleCardComponent } from './rules/rule-card/rule-card.component';
 import { AuthorityGuard } from "../authority.guard";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild([
-      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorityGuard] },
-      { path: 'schedule', component: ScheduleComponent, canActivate: [AuthorityGuard] },
-      { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthorityGuard] },
-      { path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard] }
-    ]),
-      FormsModule
-  ],
-  declarations: [
-    DashboardComponent,
-    ScheduleComponent,
-    LeaderboardComponent,
-    RulesComponent,
-    AddScoreModalComponent,
-    AddGameScoreModalComponent,
-    RuleCardComponent
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild([
+            {path: 'dashboard', component: DashboardComponent, canActivate: [AuthorityGuard]},
+            {path: 'schedule', component: ScheduleComponent, canActivate: [AuthorityGuard]},
+            {path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthorityGuard]},
+            {path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard]}
+        ]),
+        FormsModule,
+        FontAwesomeModule
+    ],
+    declarations: [
+        DashboardComponent,
+        ScheduleComponent,
+        LeaderboardComponent,
+        RulesComponent,
+        AddScoreModalComponent,
+        AddGameScoreModalComponent,
+        RuleCardComponent
+    ],
     entryComponents: [
         AddScoreModalComponent,
         AddGameScoreModalComponent
@@ -41,4 +43,5 @@ import { AuthorityGuard } from "../authority.guard";
         AuthorityGuard
     ]
 })
-export class FeaturesModule { }
+export class FeaturesModule {
+}

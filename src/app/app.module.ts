@@ -7,13 +7,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
     faBackspace, faBook, faCalendarAlt, faCheck,
-    faCoffee,
-    faCubes, faExclamationTriangle, faMinus,
-    faSignInAlt,
-    faThumbsUp,
-    faTrash,
-    faTrashAlt,
-    faUsersCog,
+    faCoffee, faCubes, faExclamationTriangle, faMinus,
+    faSignInAlt, faThumbsUp,
+    faTrash, faTrashAlt, faTrophy, faUsersCog,
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -29,7 +25,8 @@ import { ModalModule } from "ngx-bootstrap";
 import { AuthorityGuard } from "./authority.guard";
 import { AdminModule } from "./admin/admin/admin.module";
 
-library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faExclamationTriangle, faMinus, faThumbsUp, faTrash, faTrashAlt, faSignInAlt, faUsersCog);
+library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faExclamationTriangle, faMinus, faSignInAlt,
+    faThumbsUp, faTrash, faTrashAlt, faTrophy, faUsersCog);
 
 @NgModule({
     declarations: [

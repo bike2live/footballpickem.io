@@ -45,7 +45,9 @@
                                             <tbody>
                                             <tr *ngFor="let result of scores; first as isFirst" >
                                                 <td>
-                                                    <i class="fa fa-trophy fa-2x text-warning" aria-hidden="true" *ngIf="isFirst"></i>&nbsp;
+                                                    <!--<i class="fa fa-trophy fa-2x text-warning" aria-hidden="true" *ngIf="isFirst"></i>&nbsp;-->
+                                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-gold" *ngIf="isFirst"></fa-icon>
+
                                                 </td>
                                                 <td><b>{{ result.name }}</b></td>
                                                 <td class="text-right"><b>{{ result.totalScore }}</b></td>

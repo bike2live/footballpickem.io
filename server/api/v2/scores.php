@@ -82,7 +82,7 @@ function calculateGameResults($game) {
     if ($game) {
         $db = new DbHandler();
         try {
-            $sql = "SELECT s.id, s.uid, s.gameId, s.byuScore, s.oppScore, s.delta, s.weekLowDiffBonus, s.weekExactDiffBonus, s.weekExactScoreBonus
+            $sql = "SELECT s.id, s.uid, s.gameId, s.byuScore, s.oppScore, s.delta, s.weekLowDiffBonus, s.weekExactDiffBonus, s.weekExactScoreBonus, s.weekCheatingPenalty, s.updated
                FROM football.scores s
               WHERE s.gameId='$game->id'
             order by s.id";
@@ -92,6 +92,7 @@ function calculateGameResults($game) {
             calculateWeeklyExactDiffBonus($game, $userScores);
             calculateWeeklyExactScoreBonus($game, $userScores);
             calculateWeeklyHomerPenalty($game, $userScores);
+            calculateWeeklyCheaterPenalty($game);
             calculateWeeklyTotalScore($userScores);
 
             foreach ($userScores as $userScore) {
@@ -215,13 +216,23 @@ function calculateWeeklyHomerPenalty($game, $userScores) {
 
 }
 
+function calculateWeeklyCheaterPenalty($game) {
+
+    if ($game) {
+        $db = new DbHandler();
+        $db->updateCheatingPenalty($game->id);
+    }
+
+}
+
 function calculateWeeklyTotalScore($userScores) {
     foreach ($userScores as $userScore) {
         $userScore->weekTotalScore = $userScore->delta +
             $userScore->weekLowDiffBonus +
             $userScore->weekExactDiffBonus +
             $userScore->weekExactScoreBonus +
-            $userScore->weekHomerPenalty
+            $userScore->weekHomerPenalty +
+            $userScore->weekCheatingPenalty
         ;
     }
 
@@ -230,5 +241,6 @@ function calculateWeeklyTotalScore($userScores) {
 function getWinner($byuScore, $oppScore) {
     return $byuScore == $oppScore ? 0 : ($byuScore > $oppScore ? 1 : -1);
 }
+
 
 ?>

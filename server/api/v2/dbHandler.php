@@ -125,7 +125,7 @@ class DbHandler
     }
 
     public function insertUserScore($userScore) {
-        $sql = "INSERT INTO scores (uid, gameId, byuScore, oppScore) values (:uid, :gameId, :byuScore, :oppScore)";
+        $sql = "INSERT INTO scores (uid, gameId, byuScore, oppScore, updated) values (:uid, :gameId, :byuScore, :oppScore, sysdate())";
         try {
             // $pdo = $this->getPDOConnection();
             $stmt = $this->pdoConn->prepare($sql);
@@ -143,7 +143,7 @@ class DbHandler
     }
 
     public function updateUserScore($userScore) {
-        $sql = "UPDATE scores set byuScore=:byuScore, oppScore=:oppScore WHERE id=:id";
+        $sql = "UPDATE scores set byuScore=:byuScore, oppScore=:oppScore, updated=sysdate() WHERE id=:id";
         try {
             // $pdo = $this->getPDOConnection();
             $stmt = $this->pdoConn->prepare($sql);
@@ -156,6 +156,45 @@ class DbHandler
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '""}}';
         }
+    }
+
+    public function updateCheatingPenalty($gameId) {
+
+        $closeDate = $this->getCloseDate($gameId);
+
+//        echo '{ "closeDate":"' . $closeDate . '" }';
+
+        $penalty = -100;
+        $sql = "UPDATE scores set weekCheatingPenalty=:penalty WHERE gameId=:gameId and updated > :closeDate";
+        try {
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("penalty", $penalty);
+            $stmt->bindParam("gameId", $gameId);
+            $stmt->bindParam("closeDate", $closeDate);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo '{"error xx":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
+    /**
+     * @param $gameId
+     * @return array|null
+     */
+    public function getCloseDate($gameId) {
+        $sql = "SELECT s.closeDate FROM football.schedule s WHERE s.id=:gameId";
+        try {
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("gameId", $gameId);
+            $stmt->execute();
+            $data = $stmt->fetchObject();
+            return $data->closeDate;
+        } catch (Exception $e) {
+            syslog(LOG_ERR, "Error getting the closeDate: " . $e->getMessage());
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+
+        return null;
     }
 
     public function updateComputedScore($userScore) {

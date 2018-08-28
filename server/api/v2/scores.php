@@ -82,7 +82,8 @@ function calculateGameResults($game) {
     if ($game) {
         $db = new DbHandler();
         try {
-            $sql = "SELECT s.id, s.uid, s.gameId, s.byuScore, s.oppScore, s.delta, s.weekLowDiffBonus, s.weekExactDiffBonus, s.weekExactScoreBonus, s.weekCheatingPenalty, s.updated
+            $sql = "SELECT s.id, s.uid, s.gameId, s.byuScore, s.oppScore, s.delta, s.weekLowDiffBonus, 
+                           s.weekExactDiffBonus, s.weekExactScoreBonus, s.weekCheatingPenalty, s.updated
                FROM football.scores s
               WHERE s.gameId='$game->id'
             order by s.id";
@@ -92,7 +93,7 @@ function calculateGameResults($game) {
             calculateWeeklyExactDiffBonus($game, $userScores);
             calculateWeeklyExactScoreBonus($game, $userScores);
             calculateWeeklyHomerPenalty($game, $userScores);
-            calculateWeeklyCheaterPenalty($game);
+            calculateWeeklyCheaterPenalty($game, $userScores);
             calculateWeeklyTotalScore($userScores);
 
             foreach ($userScores as $userScore) {
@@ -136,7 +137,6 @@ function calculateDeltas ($game, $userScores) {
         }
     }
     unset($userScore);
-
 }
 
 //
@@ -216,11 +216,20 @@ function calculateWeeklyHomerPenalty($game, $userScores) {
 
 }
 
-function calculateWeeklyCheaterPenalty($game) {
+function calculateWeeklyCheaterPenalty($game, $userScores) {
 
     if ($game) {
         $db = new DbHandler();
-        $db->updateCheatingPenalty($game->id);
+        $cheaters = $db->getCheaterList($game->id);
+
+        foreach ($cheaters as $cheater) {
+            foreach ($userScores as $userScore) {
+                if ($cheater['uid'] == $userScore->uid) {
+                    $userScore->weekCheatingPenalty = -100;
+                }
+            }
+            unset($userScore);
+        }
     }
 
 }

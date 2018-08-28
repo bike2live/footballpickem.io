@@ -158,11 +158,9 @@ class DbHandler
         }
     }
 
-    public function updateCheatingPenalty($gameId) {
+/*    public function updateCheatingPenalty($gameId) {
 
         $closeDate = $this->getCloseDate($gameId);
-
-//        echo '{ "closeDate":"' . $closeDate . '" }';
 
         $penalty = -100;
         $sql = "UPDATE scores set weekCheatingPenalty=:penalty WHERE gameId=:gameId and updated > :closeDate";
@@ -174,6 +172,19 @@ class DbHandler
             $stmt->execute();
         } catch (PDOException $e) {
             echo '{"error xx":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }*/
+
+    public function getCheaterList($gameId) {
+
+        $sql = "Select s.uid from scores s join schedule sc on s.gameId = sc.id WHERE s.gameId=:gameId and s.updated > sc.closeDate";
+        try {
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("gameId", $gameId);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
         }
     }
 
@@ -198,7 +209,10 @@ class DbHandler
     }
 
     public function updateComputedScore($userScore) {
-        $sql = "UPDATE scores set delta=:delta, weekLowDiffBonus=:bonus1, weekExactDiffBonus=:bonus2, weekExactScoreBonus=:bonus3, weekHomerPenalty=:penalty, weekTotalScore=:totalScore WHERE id=:id";
+        $sql = "UPDATE scores set delta=:delta, weekLowDiffBonus=:bonus1, weekExactDiffBonus=:bonus2, 
+                  weekExactScoreBonus=:bonus3, weekHomerPenalty=:penalty, weekTotalScore=:totalScore,
+                  weekCheatingPenalty=:cheatPenalty 
+                  WHERE id=:id";
         try {
             // $pdo = $this->getPDOConnection();
             $stmt = $this->pdoConn->prepare($sql);
@@ -207,6 +221,7 @@ class DbHandler
             $stmt->bindParam("bonus2", $userScore->weekExactDiffBonus);
             $stmt->bindParam("bonus3", $userScore->weekExactScoreBonus);
             $stmt->bindParam("penalty", $userScore->weekHomerPenalty);
+            $stmt->bindParam("cheatPenalty", $userScore->weekCheatingPenalty);
             $stmt->bindParam("totalScore", $userScore->weekTotalScore);
             $stmt->bindParam("id", $userScore->id);
             $stmt->execute();

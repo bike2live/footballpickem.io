@@ -1,73 +1,55 @@
-<div class="pricing">
-    <div id="contactUsMap" class="big-map"></div>
-
-    <div class="page-header header-filter header-xs" data-parallax="true">
+<div class="main main-raised">
+    <div class="profile-content">
         <div class="container">
+
             <div class="row">
-                <div class="col-md-8 ml-auto mr-auto text-center">
-                    <h1 class="title"><img src="assets/img/BYU_logo.png" alt="byu logo"/> Leaderboard <img src="assets/img/BYU_logo.png" alt="byu logo"/></h1>
+                <div class="col-md-6 ml-auto mr-auto">
+                    <div class="profile">
+                        <div class="avatar">
+                            <img src="../assets/img/BYU-logo.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                        </div>
+                        <div class="name">
+                            <h1 class="title">Leaderboard</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="main main-raised">
-        <div class="container">
             <div class="row">
-                <div class="col-md-12 ml-auto mr-auto">
+                <div class="col-12 col-md-8 ml-auto mr-auto">
 
-
-                    <div class="row">
-
-                        <div class="col-md-4 d-none d-lg-block">
-                            <div class="rotating-card-container" style="height: 800px;">
-                                <div class="card card-background" style="background-image: url('assets/img/CollegeFootballChampionshipTrophy.png'); height: 800px; width: 350px;">
-                                    <div class="card-body">
-                                        &nbsp;
-                                    </div>
-                                </div>
+                    <div class="card card-raised bg-default">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table text-dark">
+                                    <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th><b>Name</b></th>
+                                        <th class="text-right"><b>Total Score</b></th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let result of scores; first as isFirst; let i = index" >
+                                        <td>
+                                            <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-gold" *ngIf="isFirst">i</fa-icon>
+                                            <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-bronze" *ngIf="i==1">i</fa-icon>
+                                            <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-silver" *ngIf="i==2">i</fa-icon>
+                                        </td>
+                                        <td><b>{{ result.name }}</b></td>
+                                        <td class="text-right"><b>{{ result.totalScore }}</b></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                        <div class="col-12 col-md-8 ">
-                            <div class="card card-raised bg-default">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table text-dark">
-                                            <thead>
-                                            <tr>
-                                                <th>&nbsp;</th>
-                                                <th><b>Name</b></th>
-                                                <th class="text-right"><b>Total Score</b></th>
-                                                <th>&nbsp;</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr *ngFor="let result of scores; first as isFirst" >
-                                                <td>
-                                                    <!--<i class="fa fa-trophy fa-2x text-warning" aria-hidden="true" *ngIf="isFirst"></i>&nbsp;-->
-                                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-gold" *ngIf="isFirst"></fa-icon>
-
-                                                </td>
-                                                <td><b>{{ result.name }}</b></td>
-                                                <td class="text-right"><b>{{ result.totalScore }}</b></td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
-
                 </div>
-
             </div>
+
         </div>
     </div>
-
-
 </div>

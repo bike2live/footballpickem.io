@@ -1,38 +1,45 @@
-<div class="login-page">
-   <fp-navbar></fp-navbar>
-   <div class="page-header header-filter" style=" background-image: url('../assets/img/LavellEdwardsStadium2.jpg'); background-size: cover; background-position: top center;">
-        <router-outlet></router-outlet>
-   </div>
-    <footer class="footer footer-black">
-        <div class="container">
+<div id="#pageTop" class="profile-page">
+    <fp-navbar></fp-navbar>
+    <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/LavellEdwardsStadium2.jpg');"></div>
+    <!--<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg7.jpg');"></div>-->
 
-            <a class="footer-brand" href="#pablo">Material Kit PRO</a>
-            <ul class="pull-center">
-                <li>
-                    <a href="#pablo">
-                        Blog
-                    </a>
-                </li>
-                <li>
-                    <a href="#pablo">
-                        Presentation
-                    </a>
-                </li>
-                <li>
-                    <a href="#pablo">
-                        Discover
-                    </a>
-                </li>
-                <li>
-                    <a href="#pablo">
-                        Payment
-                    </a>
-                </li>
-                <li>
-                    <a href="#pablo">
-                        Contact Us
-                    </a>
-                </li>
-            </ul>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+
+    <footer class="footer ">
+        <div class="container">
+            <nav class="pull-left">
+                <ul>
+                    <li>
+                        <a href="#creative">
+                            Creative Tim
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#creative">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#creative">
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#creative">
+                            Licenses
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="copyright pull-right">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, made with <i class="material-icons">favorite</i> by
+                <a href="https://www.creative-tim.com">Creative Tim</a> for a better web.
+            </div>
         </div>
-    </footer></div>
+    </footer>
+</div>

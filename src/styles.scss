@@ -1,40 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import './assets/css/material-kit.css';
-//@import "assets/css/demo.css";
-//@import './assets/css/vertical-nav.css';
+@import "assets/css/demo.css";
+@import './assets/css/vertical-nav.css';
 
-.product-page {
-  background-color: #eee;
-}
-.product-page .page-header {
-  min-height: 100vh;
-}
+//.product-page {
+//  background-color: #eee;
+//}
+//.product-page .page-header {
+//  min-height: 100vh;
+//}
 
-.page-header.header-xs {
-  height: 30vh;
-  min-height: 30vh;
-}
+//.page-header.header-xs {
+//  height: 30vh;
+//  min-height: 30vh;
+//}
 
 .login-page .page-header .container {
   padding-top: 8vh;
 }
-.header-filter::before {
-  background: none !important;
-  /* background: rgba(0, 0, 0, 0.5); */
-}
+//.header-filter::before {
+//  background: none !important;
+//  /* background: rgba(0, 0, 0, 0.5); */
+//}
 
 .bragger {
   text-decoration: line-through;
 }
 
-.login-page .page-header .main .container {
-  padding-top: 2vh;
-}
+//.login-page .page-header .main .container {
+//  padding-top: 2vh;
+//}
 
 .rule-text {
   color: #4dd0e1;
 }
 .text-gold {
   color: gold;
+}
+.text-bronze {
+  color: #cd7f32;
+}
+.text-silver {
+  color: silver;
 }

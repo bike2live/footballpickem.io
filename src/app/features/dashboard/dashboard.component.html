@@ -1,81 +1,76 @@
-<div class="pricing">
-    <div id="contactUsMap" class="big-map"></div>
-
-    <div class="page-header header-filter header-xs" data-parallax="true">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-8 ml-auto mr-auto text-center">
-                  <h1 class="title"><img src="assets/img/BYU_logo.png" alt="byu logo"/> Current Game <img src="assets/img/BYU_logo.png" alt="byu logo"/></h1>
-              </div>
-          </div>
-      </div>
-  </div>
-
-    <div class="main main-raised">
+<div class="main main-raised">
+    <div class="profile-content">
         <div class="container">
 
-              <div class="row">
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto">
+                    <div class="profile">
+                        <div class="avatar">
+                            <img src="../assets/img/BYU-logo.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                        </div>
+                        <div class="name">
+                            <h1 class="title">Current Game</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                  <div class="col-md-8 mr-auto ml-auto">
-                          <div class="table-responsive">
+            <div class="row">
+                <div class="col-md-8 mr-auto ml-auto">
+                    <div class="table-responsive">
 
-                              <table class="table table-striped" *ngIf="isEditable">
-                                  <thead>
-                                  <tr>
-                                      <th>Player</th>
-                                      <th class="text-center">BYU</th>
-                                      <th class="text-center">{{ currentGame.opponent }}</th>
-                                      <th class="text-center">Score Entered</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr *ngFor="let userGuess of weeklyGuesses">
-                                      <td><strong>{{ userGuess.name }}</strong></td>
-                                      <td class="text-center">
-                                          <fa-icon [icon]="['fas', 'thumbs-up']" size="lg" *ngIf="showScore(userGuess)" class="text-success"></fa-icon>
-                                          <fa-icon [icon]="['fas', 'minus']" size="lg" *ngIf="!showScore(userGuess)" class="text-danger"></fa-icon>
-                                      </td>
-                                      <td class="text-center">
+                        <table class="table table-striped" *ngIf="isEditable">
+                            <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th class="text-center">BYU</th>
+                                <th class="text-center">{{ currentGame.opponent }}</th>
+                                <th class="text-center">Score Entered</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let userGuess of weeklyGuesses">
+                                <td><strong>{{ userGuess.name }}</strong></td>
+                                <td class="text-center">
+                                    <fa-icon [icon]="['fas', 'thumbs-up']" size="lg" *ngIf="showScore(userGuess)" class="text-success"></fa-icon>
+                                    <fa-icon [icon]="['fas', 'minus']" size="lg" *ngIf="!showScore(userGuess)" class="text-danger"></fa-icon>
+                                </td>
+                                <td class="text-center">
 
-                                          <fa-icon [icon]="['fas', 'thumbs-up']" size="lg" *ngIf="showScore(userGuess)" class="text-success"></fa-icon>
-                                          <fa-icon [icon]="['fas', 'minus']" size="lg" *ngIf="!showScore(userGuess)" class="text-danger"></fa-icon>
-                                      </td>
-                                      <td class="text-center">
-                                          <fa-icon [icon]="['fas', 'check']" size="lg" *ngIf="hasScore(userGuess)" class="text-success"></fa-icon>
-                                          <fa-icon [icon]="['fas', 'exclamation-triangle']" size="lg" *ngIf="!hasScore(userGuess)" class="text-danger"></fa-icon>
-                                      </td>
-                                  </tr>
-                                  </tbody>
-                              </table>
+                                    <fa-icon [icon]="['fas', 'thumbs-up']" size="lg" *ngIf="showScore(userGuess)" class="text-success"></fa-icon>
+                                    <fa-icon [icon]="['fas', 'minus']" size="lg" *ngIf="!showScore(userGuess)" class="text-danger"></fa-icon>
+                                </td>
+                                <td class="text-center">
+                                    <fa-icon [icon]="['fas', 'check']" size="lg" *ngIf="hasScore(userGuess)" class="text-success"></fa-icon>
+                                    <fa-icon [icon]="['fas', 'exclamation-triangle']" size="lg" *ngIf="!hasScore(userGuess)" class="text-danger"></fa-icon>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-                              <table class="table table-striped" *ngIf="currentGame && !isEditable">
-                                  <thead>
-                                  <tr>
-                                      <th>Player</th>
-                                      <th>BYU</th>
-                                      <th>{{ currentGame.opponent }}</th>
-                                      <th>Outcome</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr *ngFor="let userGuess of weeklyGuesses">
-                                      <td>{{ userGuess.name }}</td>
-                                      <td>{{userGuess.byuScore}}</td>
-                                      <td>{{userGuess.oppScore}}</td>
-                                      <td><strong>{{userGuess.weekTotalScore}}</strong></td>
-                                  </tr>
-                                  </tbody>
-                              </table>
+                        <table class="table table-striped" *ngIf="currentGame && !isEditable">
+                            <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>BYU</th>
+                                <th>{{ currentGame.opponent }}</th>
+                                <th>Outcome</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let userGuess of weeklyGuesses">
+                                <td>{{ userGuess.name }}</td>
+                                <td>{{userGuess.byuScore}}</td>
+                                <td>{{userGuess.oppScore}}</td>
+                                <td><strong>{{userGuess.weekTotalScore}}</strong></td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-                          </div>
+                    </div>
+                </div>
+            </div>
 
-
-                  </div>
-
-              </div>
-
-      </div>
-  </div>
-
-
+        </div>
+    </div>
 </div>

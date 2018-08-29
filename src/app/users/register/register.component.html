@@ -17,7 +17,7 @@
                                                     <span class="input-group-text"><i class="material-icons">face</i></span>
                                                 </div>
                                                 <input type="text" class="form-control" id="nameId" name="name" (ngModel)="name" #name="ngModel" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
-                                                       required placeholder="Name...">
+                                                       required placeholder="Name..." autofocus autocapitalize="none">
                                             </div>
                                         </div>
 
@@ -29,7 +29,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" class="form-control" id="usernameId" name="username" (ngModel)="username" #username="ngModel" [ngClass]="{'is-invalid': f.submitted && username.invalid }"
-                                                       required placeholder="Username...">
+                                                       required placeholder="Username..." autocapitalize="none">
                                             </div>
                                         </div>
 
@@ -42,7 +42,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="password" class="form-control" id="passwordId" name="password" (ngModel)="password" #password="ngModel" [ngClass]="{'is-invalid': f.submitted && password.invalid }"
-                                                           required placeholder="Password..." minlength="8"/>
+                                                           required placeholder="Password..." minlength="8" autocapitalize="none"/>
                                                 </div>
                                                 <div *ngIf="password.errors?.minlength" class="text-danger">
                                                     Password must be at least 8 characters long
@@ -57,7 +57,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="password" class="form-control" id="confirmId" name="confirm" (ngModel)="confirm" #confirm="ngModel" [ngClass]="{'is-invalid': confirm.invalid && (confirm.dirty || confirm.touched) }"
-                                                           required placeholder="Confirm password..."/>
+                                                           required placeholder="Confirm password..." autocapitalize="none"/>
                                                 </div>
                                             </div>
                                             <div *ngIf="f.errors?.notEqual && (confirm.touched || confirm.dirty)" class="text-danger">

@@ -30,7 +30,7 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let userGuess of weeklyGuesses">
-                                <td><strong>{{ userGuess.name }}</strong></td>
+                                <td><b>{{ userGuess.name }}</b></td>
                                 <td class="text-center">
                                     <fa-icon [icon]="['fas', 'thumbs-up']" size="lg" *ngIf="showScore(userGuess)" class="text-success"></fa-icon>
                                     <fa-icon [icon]="['fas', 'minus']" size="lg" *ngIf="!showScore(userGuess)" class="text-danger"></fa-icon>
@@ -62,7 +62,7 @@
                                 <td>{{ userGuess.name }}</td>
                                 <td>{{userGuess.byuScore}}</td>
                                 <td>{{userGuess.oppScore}}</td>
-                                <td><strong>{{userGuess.weekTotalScore}}</strong></td>
+                                <td><b>{{userGuess.weekTotalScore}}</b></td>
                             </tr>
                             </tbody>
                         </table>

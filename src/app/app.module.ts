@@ -24,6 +24,7 @@ import { EqualValidatorDirective } from './core/equal-validator.directive';
 import { ModalModule } from "ngx-bootstrap";
 import { AuthorityGuard } from "./authority.guard";
 import { AdminModule } from "./admin/admin/admin.module";
+import { FooterComponent } from './footer/footer.component';
 
 library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faExclamationTriangle, faMinus, faSignInAlt,
     faThumbsUp, faTrash, faTrashAlt, faTrophy, faUsersCog);
@@ -33,7 +34,8 @@ library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faEx
         AppComponent,
         NavbarComponent,
         PageNotFoundComponent,
-        EqualValidatorDirective
+        EqualValidatorDirective,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

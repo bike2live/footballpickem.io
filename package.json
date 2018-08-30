@@ -7,7 +7,7 @@
     "startSSL": "ng serve --ssl true --ssl-key /private/etc/apache2/server.key --ssl-cert /private/etc/apache2/server.crt",
     "build": "ng build --prod",
     "test": "ng test ",
-    "fullTest": "ng test --code-coverage ",
+    "fullTest": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

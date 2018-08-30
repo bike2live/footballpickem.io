@@ -8,11 +8,10 @@ import {Rule} from "../rule";
 })
 export class RuleCardComponent {
   @Input() rule: Rule;
-  @Input() frontTitle: string;
-  @Input() rearTitle: string;
-  @Input() frontImageClass: string;
-  @Input() rearImageClass: string;
-  @Input() frontDescription: string;
-  @Input() rearDescription: string;
-
+  // @Input() frontTitle: string;
+  // @Input() rearTitle: string;
+  // @Input() frontImageClass: string;
+  // @Input() rearImageClass: string;
+  // @Input() frontDescription: string;
+  // @Input() rearDescription: string;
 }

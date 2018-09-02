@@ -34,6 +34,7 @@
               "src/assets/js/core/popper.min.js",
               "src/assets/js/bootstrap-material-design.min.js",
               "src/assets/js/plugins/moment.min.js",
+              "node_modules/chart.js/dist/Chart.js",
               "src/assets/js/plugins/bootstrap-selectpicker.js",
               "src/assets/js/plugins/bootstrap-tagsinput.js",
               "src/assets/js/plugins/jasny-bootstrap.min.js",

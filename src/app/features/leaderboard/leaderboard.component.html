@@ -16,37 +16,44 @@
             </div>
 
             <div class="row">
-                <div class="col-12 col-md-8 ml-auto mr-auto">
+                <div class="col-md-10 ml-auto mr-auto">
 
-                    <div class="card card-raised bg-default">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table text-dark">
-                                    <thead>
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        <th><b>Name</b></th>
-                                        <th class="text-right"><b>Total Score</b></th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr *ngFor="let result of scores; first as isFirst; let i = index" >
-                                        <td>
-                                            <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-gold" *ngIf="isFirst">i</fa-icon>
-                                            <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-bronze" *ngIf="i==1">i</fa-icon>
-                                            <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-silver" *ngIf="i==2">i</fa-icon>
-                                            <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-pink" *ngIf="i==3">i</fa-icon>
-                                        </td>
-                                        <td><b>{{ result.name }}</b></td>
-                                        <td class="text-right"><b>{{ result.totalScore }}</b></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table text-dark">
+                            <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th><b>Name</b></th>
+                                <th class="text-right"><b>Total Score</b></th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let result of scores; first as isFirst; let i = index" >
+                                <td>
+                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-gold" *ngIf="isFirst">i</fa-icon>
+                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-bronze" *ngIf="i==1">i</fa-icon>
+                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-silver" *ngIf="i==2">i</fa-icon>
+                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-pink" *ngIf="i==3">i</fa-icon>
+                                </td>
+                                <td><b>{{ result.name }}</b></td>
+                                <td class="text-right"><b>{{ result.totalScore }}</b></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+
+                    <div>
+                        <canvas #lineChart>{{ chart }}</canvas>
+                    </div>
+                    <!--<canvas id="myChart" width="400" height="400"></canvas>-->
 
                 </div>
             </div>

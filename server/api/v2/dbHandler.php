@@ -302,6 +302,30 @@ class DbHandler
         }
     }
 
+    public function getLeaderChart() {
+        $sql =
+            "Select s.gameId, s.uid, s.weekTotalScore, ca.name, sc.gameDate
+              from scores s
+              join customers_auth ca on s.uid = ca.uid
+              join schedule sc on s.gameId = sc.id
+              where s.gameId in (
+                  Select t5.gameId from (
+                    SELECT gameId, sum(weekTotalScore) as totalScore
+                    FROM football.scores
+                    group by gameId
+                ) as t5
+            where t5.totalScore > 0
+              ) 
+            order by s.uid, s.gameId  
+            ";
+
+        try {
+            return $this->getFullList($sql);
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
     public function getUserList() {
         $sql = "select ca.uid, ca.name
                   from football.customers_auth ca

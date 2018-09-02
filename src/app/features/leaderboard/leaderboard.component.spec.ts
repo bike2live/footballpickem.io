@@ -11,6 +11,7 @@ describe('LeaderboardComponent', () => {
     let fixture: ComponentFixture<LeaderboardComponent>;
     let mockDataService;
     let PLAYER_STANDINGS;
+    let CHART_RESULTS;
 
     @Component({ selector: 'fa-icon', template: '<div></div>' })
     class FakeFaIcon {
@@ -19,10 +20,11 @@ describe('LeaderboardComponent', () => {
 
 
     beforeEach(async(() => {
-        mockDataService = jasmine.createSpyObj(['getPlayerStandings']);
+        mockDataService = jasmine.createSpyObj(['getPlayerStandings', 'getPlayerChart']);
         PLAYER_STANDINGS = [
             {}
         ];
+        CHART_RESULTS = [{}];
 
         TestBed.configureTestingModule({
             declarations: [
@@ -43,6 +45,7 @@ describe('LeaderboardComponent', () => {
 
     it('should create', () => {
         mockDataService.getPlayerStandings.and.returnValue(of(PLAYER_STANDINGS));
+        mockDataService.getPlayerChart.and.returnValue(of(CHART_RESULTS));
         fixture.detectChanges();
         expect(component).toBeTruthy();
     });

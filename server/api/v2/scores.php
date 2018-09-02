@@ -44,6 +44,24 @@ $app->get('/leaderBoard', function () use ($app) {
 
 });
 
+$app->get('/leaderBoard/chart', function () use ($app) {
+
+    try {
+        $response = array();
+        $db = new DbHandler();
+        $results = $db->getLeaderChart();
+        $response['status'] = "success";
+        $response['message'] = "Got the leader board chart data";
+        $response['results'] = $results;
+        echoResponse(200, $response);
+
+    } catch (Exception $e) {
+        syslog(LOG_ERR, "Error reading retrieving the leaderboard chart data: " . $e->getMessage());
+    }
+    closelog();
+
+});
+
 
 $app->post('/editGameScore/:gameId', function() use ($app) {
     $response = array();

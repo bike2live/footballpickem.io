@@ -9,6 +9,7 @@ import {UserScore} from "../features/schedule/add-score-modal/userScore";
 import {PlayerStanding} from "../features/leaderboard/player-standing";
 import {WeeklyGuess} from "../features/dashboard/weekly-guess";
 import {environment} from "../../environments/environment";
+import { ChartResult } from "../features/leaderboard/chart-result";
 
 
 @Injectable({
@@ -61,6 +62,15 @@ export class DataService {
                 // tap(response => console.log('getPlayerStandings returned: ', response)),
                 map( response => <PlayerStanding[]> response.results )
                 // tap( result => console.log('getPlayerStandings result: ', result))
+            );
+    }
+
+    public getPlayerChart(): Observable<ChartResult[]> {
+        return this.http.get<any>(this.baseUrl + 'leaderBoard/chart')
+            .pipe(
+                tap(response => console.log('getPlayerChart returned: ', response)),
+                map( response => <ChartResult[]> response.results ),
+                tap( result => console.log('getPlayerChart result: ', result))
             );
     }
 

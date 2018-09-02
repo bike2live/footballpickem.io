@@ -6,26 +6,30 @@ import { ChartResult } from './chart-result';
 import { DatePipe } from '@angular/common';
 
 const colors = [
-    '#255935',
-    '#3a844d',
-    '#4ba65f',
-    '#6bb779',
-    '#a7ce8f',
-    '#d5e3a7',
-    '#f0f1be',
-    '#f7f9e6',
-    '#c63531',
-    '#e06658',
-    '#f9e3dc',
-    '#dfe9eb',
-    '#96c8db',
-    '#3f90be',
-    '#244a8b',
-    '#cb84b1',
-    '#c2745e',
-    '#966ba7',
-    '#eeaa68',
-    '#a64390',
+    '#47996D',
+    '#537D45',
+    '#57622A',
+    '#53481A',
+    '#473013',
+    '#341B0F',
+    '#21240A',
+    '#25371A',
+    '#224B31',
+    '#1C5E50',
+    '#237072',
+    '#438095',
+    '#072721',
+    '#0E3C3D',
+    '#23515C',
+    '#45647C',
+    '#717599',
+    '#A583AF',
+    '#1B242F',
+    '#363244',
+    '#583E55',
+    '#7C4A61',
+    '#A15767',
+    '#C36766'
 ];
 
 @Component({
@@ -83,6 +87,10 @@ export class LeaderboardComponent implements OnInit {
                 datasets: [],
             },
             options: {
+                legend: {
+                    display: true,
+                    position: 'right'
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -115,7 +123,7 @@ export class LeaderboardComponent implements OnInit {
                 dataSet = {
                     label: r.name,
                     data: [],
-                    borderWidth: 1,
+                    borderWidth: 2,
                     borderColor: colors[colorIndex],
                     backgroundColor: colors[colorIndex],
                     fill: false
@@ -128,14 +136,8 @@ export class LeaderboardComponent implements OnInit {
             }
             combinedScore += +r.weekTotalScore;
             dataSet.data.push(combinedScore);
-
         });
 
-        // this.chartData.data.labels = chartResults.filter( r => {
-        //     return this.datePipe.transform(r.gameDate, 'MMM dd');
-        // } );
-
-        console.log('chartData: ', this.chartData);
     }
 
     drawChart(): void {
@@ -143,47 +145,6 @@ export class LeaderboardComponent implements OnInit {
         // const ctx = document.getElementById('canvas');
         const ctx = this.chartRef.nativeElement;
         console.log('ctx: ', ctx);
-        let chartData = {
-            type: 'line',
-            data: {
-                labels: ['Sept 1', 'Sept 8', 'Sept 15', 'Sept 22', 'Sept 29', 'Oct 6'],
-                datasets: [{
-                    label: 'Bob',
-                    data: [15, 28, 44, 64, 70, 90],
-                    borderWidth: 1,
-                    borderColor: '#3044bb',
-                    backgroundColor: '#3044bb',
-                    fill: false
-                },
-
-                    {
-                        label: 'Joe',
-                        data: [13, 25, 47, 61, 75, 89],
-                        borderWidth: 1,
-                        borderColor: '#04bbbb',
-                        backgroundColor: '#04bbbb',
-                        fill: false
-                    },
-                    {
-                        label: 'Randy',
-                        data: [18, 30, 42, 66, 72, 91],
-                        borderWidth: 1,
-                        borderColor: '#6909bb',
-                        backgroundColor: '#6909bb',
-                        fill: false
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        };
         this.chart = new Chart(this.chartRef.nativeElement, this.chartData);
 
     }

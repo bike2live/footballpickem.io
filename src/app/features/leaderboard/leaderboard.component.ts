@@ -6,10 +6,23 @@ import { ChartResult } from './chart-result';
 import { DatePipe } from '@angular/common';
 
 const colors = [
-    '#47996D',
-    '#537D45',
-    '#57622A',
-    '#53481A',
+    '#a6cee3',
+    '#1f78b4',
+    '#b2df8a',
+    '#33a02c',
+    '#fb9a99',
+    '#e31a1c',
+    '#fdbf6f',
+    '#ff7f00',
+    '#cab2d6',
+    '#6a3d9a',
+    '#ffff99',
+    '#b15928',
+
+    '#4acd9e',
+    '#8cbe7d',
+    '#a8b336',
+    '#a99e27',
     '#473013',
     '#341B0F',
     '#21240A',
@@ -29,7 +42,7 @@ const colors = [
     '#583E55',
     '#7C4A61',
     '#A15767',
-    '#C36766'
+    '#C36766',
 ];
 
 @Component({
@@ -132,7 +145,8 @@ export class LeaderboardComponent implements OnInit {
                 this.chartData.data.datasets.push(dataSet);
             }
             if (first) {
-                this.chartData.data.labels.push(this.datePipe.transform(r.gameDate, 'MMM dd'));
+                let gameDate = r.gameDate.replace(' ', 'T') + 'Z';
+                this.chartData.data.labels.push(this.datePipe.transform(gameDate, 'MMM dd'));
             }
             combinedScore += +r.weekTotalScore;
             dataSet.data.push(combinedScore);
@@ -141,11 +155,7 @@ export class LeaderboardComponent implements OnInit {
     }
 
     drawChart(): void {
-        console.log('this.chartRef: ', this.chartRef);
-        // const ctx = document.getElementById('canvas');
         const ctx = this.chartRef.nativeElement;
-        console.log('ctx: ', ctx);
         this.chart = new Chart(this.chartRef.nativeElement, this.chartData);
-
     }
 }

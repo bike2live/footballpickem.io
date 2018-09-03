@@ -316,7 +316,7 @@ class DbHandler
                 ) as t5
             where t5.totalScore > 0
               ) 
-            order by s.weekTotalScore, s.uid, s.gameId  
+            order by s.weekTotalScore desc, s.uid, s.gameId  
             ";
 
         try {

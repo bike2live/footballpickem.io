@@ -32,8 +32,8 @@
                             <tr *ngFor="let result of scores; first as isFirst; let i = index" >
                                 <td>
                                     <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-gold" *ngIf="isFirst">i</fa-icon>
-                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-bronze" *ngIf="i==1">i</fa-icon>
-                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-silver" *ngIf="i==2">i</fa-icon>
+                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-silver" *ngIf="i==1">i</fa-icon>
+                                    <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-bronze" *ngIf="i==2">i</fa-icon>
                                     <fa-icon [icon]="['fas', 'trophy']" size="2x" class="text-pink" *ngIf="i==3">i</fa-icon>
                                 </td>
                                 <td><b>{{ result.name }}</b></td>

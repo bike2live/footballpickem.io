@@ -158,22 +158,22 @@ class DbHandler
         }
     }
 
-/*    public function updateCheatingPenalty($gameId) {
+    /*    public function updateCheatingPenalty($gameId) {
 
-        $closeDate = $this->getCloseDate($gameId);
+            $closeDate = $this->getCloseDate($gameId);
 
-        $penalty = -100;
-        $sql = "UPDATE scores set weekCheatingPenalty=:penalty WHERE gameId=:gameId and updated > :closeDate";
-        try {
-            $stmt = $this->pdoConn->prepare($sql);
-            $stmt->bindParam("penalty", $penalty);
-            $stmt->bindParam("gameId", $gameId);
-            $stmt->bindParam("closeDate", $closeDate);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo '{"error xx":{"text":"' . $e->getMessage() . '""}}';
-        }
-    }*/
+            $penalty = -100;
+            $sql = "UPDATE scores set weekCheatingPenalty=:penalty WHERE gameId=:gameId and updated > :closeDate";
+            try {
+                $stmt = $this->pdoConn->prepare($sql);
+                $stmt->bindParam("penalty", $penalty);
+                $stmt->bindParam("gameId", $gameId);
+                $stmt->bindParam("closeDate", $closeDate);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo '{"error xx":{"text":"' . $e->getMessage() . '""}}';
+            }
+        }*/
 
     public function getCheaterList($gameId) {
 
@@ -303,21 +303,7 @@ class DbHandler
     }
 
     public function getLeaderChart() {
-        $sql =
-            "Select s.gameId, s.uid, s.weekTotalScore, ca.name, sc.gameDate
-              from scores s
-              join customers_auth ca on s.uid = ca.uid
-              join schedule sc on s.gameId = sc.id
-              where s.gameId in (
-                  Select t5.gameId from (
-                    SELECT gameId, sum(weekTotalScore) as totalScore
-                    FROM football.scores
-                    group by gameId
-                ) as t5
-            where t5.totalScore > 0
-              ) 
-            order by s.weekTotalScore desc, s.uid, s.gameId  
-            ";
+        $sql = "SELECT gameId, uid, weekTotalScore, name, gameDate, totalScore FROM leaderchartvw order by totalScore desc, uid, gameId";
 
         try {
             return $this->getFullList($sql);

@@ -16,7 +16,6 @@ const colors = [
     '#ff7f00',
     '#cab2d6',
     '#6a3d9a',
-    '#ffff99',
     '#b15928',
 
     '#4acd9e',
@@ -43,6 +42,7 @@ const colors = [
     '#7C4A61',
     '#A15767',
     '#C36766',
+    '#ffff99',
 ];
 
 const gradientBarChartConfiguration =  {

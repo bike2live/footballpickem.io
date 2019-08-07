@@ -8,9 +8,7 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
 })
 class MockHttpClient {
-
 }
-
 
 describe('DataService', () => {
     let mockHttpClient;

@@ -11,5 +11,6 @@ CREATE TABLE `scores` (
   `weekTotalScore` int(11) NOT NULL DEFAULT '0',
   `weekHomerPenalty` int(11) NOT NULL DEFAULT '0',
   `updated` datetime DEFAULT NULL,
+  `weekCheatingPenalty` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-)
+);

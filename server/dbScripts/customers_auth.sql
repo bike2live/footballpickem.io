@@ -5,4 +5,4 @@ CREATE TABLE `customers_auth` (
   `password` varchar(200) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`)
-) ;
+);

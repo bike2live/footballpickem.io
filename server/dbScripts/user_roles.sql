@@ -5,4 +5,4 @@ CREATE TABLE `user_roles` (
   PRIMARY KEY (`roleId`),
   KEY `FK_userID_idx` (`uid`),
   CONSTRAINT `FK_userID` FOREIGN KEY (`uid`) REFERENCES `customers_auth` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-)
+);

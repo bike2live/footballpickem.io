@@ -22,7 +22,7 @@ export class DataService {
     }
 
     public getUserScore(gameId: number): Observable<UserScore> {
-        return this.http.get<any>(this.baseUrl + `userScore/` + gameId)
+        return this.http.get<any>(this.baseUrl + `userScore/${gameId}`)
             .pipe(
                 // tap(response => console.log('getUserScore returned: ', response)),
                 map( response => <UserScore> response.userScore )

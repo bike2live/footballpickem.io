@@ -53,6 +53,37 @@ export class AddGameComponent implements OnInit {
     });
 
     console.warn(this.editGameForm.value);
+
+    this.onValueChanges();
+  }
+
+  onValueChanges(): void {
+    this.gameDate.valueChanges.subscribe( value => {
+      console.log('gameDateUpdated. gameDate: ', value);
+      if (this.gameTime.value !== value) {
+        this.gameTime.setValue(value);
+        console.log('this.gameTime: ', this.gameTime.value);
+      }
+    });
+    this.gameTime.valueChanges.subscribe( value => {
+      console.log('gameTimeUpdated. gameTime: ', value);
+      if (this.gameDate.value !== value) {
+        this.gameDate.setValue(value);
+        console.log('this.gameDate: ', this.gameDate.value);
+      }
+    })
+  }
+
+  gameDateUpdated() {
+    console.log('gameDateUpdated. gameDate: ', this.gameDate.value);
+    this.gameTime.setValue(this.gameDate.value);
+    console.log('this.gameTime: ', this.gameTime.value);
+  }
+
+  gameTimeUpdated() {
+    console.log('gameTimeUpdated. gameTime: ', this.gameTime.value);
+    this.gameDate.setValue(this.gameTime.value);
+    console.log('this.gameDate: ', this.gameDate.value);
   }
 
   save() {

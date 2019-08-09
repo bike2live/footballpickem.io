@@ -1,5 +1,5 @@
 CREATE TABLE `schedule` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `week` int(11) NOT NULL,
   `opponent` varchar(64) NOT NULL DEFAULT '',
   `location` varchar(64) NOT NULL DEFAULT '',

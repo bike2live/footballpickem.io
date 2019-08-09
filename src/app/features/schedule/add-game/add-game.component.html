@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">Add/Edit Game (apply pluralize)</h4>
+    <h4 class="modal-title">{{ game.id | i18nPlural: {'=0' : 'Add', 'other': 'Edit'} }} Game</h4>
     Game Id: {{game.id}}<br/>
     Week:    {{ game.week }}
 </div>
@@ -18,13 +18,11 @@
             </div>
         </div>
         <div class="form-group">
-<!--            <label for="location" class="col-sm-3 control-label">Location</label>-->
             <div class="col-12">
                 <input type="text" formControlName="location" class="form-control" id="location" placeholder="Location" name="location" maxlength="64">
             </div>
         </div>
         <div class="form-group">
-<!--            <label for="stadium" class="col-sm-3 control-label">Stadium Name</label>-->
             <div class="col-12">
                 <input type="text" formControlName="stadium" class="form-control" id="stadium" placeholder="Stadium" name="stadium" maxlength="64">
             </div>
@@ -45,10 +43,9 @@
         </div>
 
         <div class="form-group">
-            <label for="gameDate" class="col-sm-3 control-label">Game date and time</label>
             <div class="col-12 btn-link-reset">
-                <input type="text" formControlName="gameDate" class="form-control" id="gameDate" placeholder="Game date and time" name="gameDate" bsDatepicker>
-<!--                <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker>-->
+                <input type="text" formControlName="gameDate" class="form-control" id="gameDate" placeholder="Game date and time" name="gameDate"
+                       bsDatepicker [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY,  h:mm:ss a' }">
                 <timepicker id="gameTime" formControlName="gameTime"></timepicker>
             </div>
         </div>

@@ -13,7 +13,6 @@ import {
     faSignInAlt, faThumbsUp,
     faTrash, faTrashAlt, faTrophy, faUsersCog,
 } from '@fortawesome/free-solid-svg-icons';
-import { DateFnsModule } from 'ngx-date-fns';
 
 import { FeaturesModule } from './features/features.module';
 import { UsersModule } from './users/users.module';
@@ -53,7 +52,6 @@ library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faEx
         FontAwesomeModule,
         BsDatepickerModule.forRoot(),
         TimepickerModule.forRoot(),
-        DateFnsModule.forRoot(),
         BrowserAnimationsModule,
 
         CoreModule,

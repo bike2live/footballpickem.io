@@ -3,6 +3,7 @@ import { BsModalRef } from "ngx-bootstrap";
 import { DataService } from "../../../core/data.service";
 import { Game } from "../../game";
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import * as moment from 'moment';
 
 @Component({
   selector: 'fp-add-game',
@@ -36,8 +37,8 @@ export class AddGameComponent implements OnInit {
     this.stadium = new FormControl(this.game.stadiumName);
     this.homeOrAway = new FormControl(this.game.homeOrAway);
 
-
-    let gameDate = new Date(this.game.gameDate);
+    // convert the date from utc into a local date
+    let gameDate = moment.utc(this.game.gameDate).toDate()
     console.log('gameDate: ', gameDate);
     this.gameDate = new FormControl(gameDate);
     this.gameTime = new FormControl(gameDate);
@@ -88,6 +89,10 @@ export class AddGameComponent implements OnInit {
 
   save() {
     console.warn(this.editGameForm.value);
+
+    // convert local date to utc date
+    let utcDate = moment(this.gameDate.value).local().format("YYYY-MM-DD HH:mm:ss");
+    console.log('utcDate: ', utcDate);
 
     // console.log('game: ', this.game);
 /*

@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
             this.dataService.login(loginForm.form.value).subscribe(
                 (data: User) => {
+                    console.log('login service returned successfully: user=', data);
                     this.user = new User(data);
                     this.authService.setUser(this.user);
                     this.router.navigate(['dashboard']);

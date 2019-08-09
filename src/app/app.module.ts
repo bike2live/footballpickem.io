@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -45,6 +45,7 @@ library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faEx
         ]),
         HttpClientModule,
         FormsModule,
+        ReactiveFormsModule,
         ModalModule.forRoot(),
         FontAwesomeModule,
 

@@ -39,7 +39,9 @@ export class DashboardComponent implements OnInit {
                 this.schedule = data;
                 this.today = new Date();
                 this.currentGame = this.processSchedule(this.today, this.schedule);
-                this.getWeeklyUserGuesses(this.currentGame.id);
+                if (this.currentGame) {
+                    this.getWeeklyUserGuesses(this.currentGame.id);
+                }
             },
             (err: any) => console.log(err)
         );

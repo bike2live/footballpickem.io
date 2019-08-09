@@ -56,6 +56,19 @@ export class DataService {
             );
     }
 
+    public editGame(game: Game): Observable<Game> {
+        const requestData = {
+            game: game
+        };
+
+        return this.http.post<any>(this.baseUrl + 'editGame/' + game.id, requestData)
+          .pipe(
+            // tap(response => console.log('editGameScore returned: ', response)),
+            map( response => <Game> response.game )
+            // tap( result => console.log('editGameScore result: ', result))
+          );
+    }
+
     public getPlayerStandings(): Observable<PlayerStanding[]> {
         return this.http.get<any>(this.baseUrl + 'leaderBoard')
             .pipe(

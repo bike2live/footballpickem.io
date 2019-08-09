@@ -11,4 +11,8 @@ export class Game {
     closeDate: string;
     showUntilDate: string;
     diff: number;
+
+    public constructor(init?: Partial<Game>) {
+        Object.assign(this, init);
+    }
 }

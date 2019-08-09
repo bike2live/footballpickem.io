@@ -11,7 +11,7 @@ import { User } from "../users/user";
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-    title = `Byu Football Pick'em 2018`;
+    title = `Byu Football Pick'em 2019`;
     user: User;
 
     constructor(private dataService: DataService,

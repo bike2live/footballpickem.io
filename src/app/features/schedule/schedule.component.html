@@ -9,7 +9,7 @@
                             <img src="../assets/img/BYU-logo.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
                         </div>
                         <div class="name">
-                            <h1 class="title">2018 Schedule</h1>
+                            <h1 class="title">2019 Schedule</h1>
                         </div>
                     </div>
                 </div>
@@ -47,6 +47,17 @@
                               <td *ngIf="admin">
                                   <button class="btn btn-outline-primary btn-round btn-link btn-sm" (click)="addGameScore(game)">
                                       <i class="material-icons">perm_identity</i> Score
+                                  </button>
+                                  <button class="btn btn-outline-primary btn-round btn-link btn-sm" (click)="editGame(game)">
+                                      <i class="material-icons">create</i> Edit Game
+                                  </button>
+                              </td>
+                          </tr>
+                          <tr *ngIf="schedule.length < 14">
+                              <td colspan="5">&nbsp;</td>
+                              <td *ngIf="admin">
+                                  <button class="btn btn-outline-primary btn-round btn-link btn-sm" (click)="addGame()">
+                                      <i class="material-icons">add</i> Add Game
                                   </button>
                               </td>
                           </tr>

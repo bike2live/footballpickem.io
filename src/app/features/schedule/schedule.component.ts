@@ -7,6 +7,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {AddScoreModalComponent} from "./add-score-modal/add-score-modal.component";
 import {AddGameScoreModalComponent} from "./add-game-score-modal/add-game-score-modal.component";
 import {AuthService} from "../../users/auth.service";
+import { AddGameComponent } from "./add-game/add-game.component";
 
 @Component({
     selector: 'fp-schedule',
@@ -92,5 +93,29 @@ export class ScheduleComponent implements OnInit {
 
         this.bsModalRef = this.modalService.show(AddGameScoreModalComponent, {initialState});
 
+    }
+
+    addGame() {
+        const initialState = {
+            game: new Game({id: 0}),
+            uid: this.user.uid
+        };
+
+        // console.log('initialState: ', initialState);
+        // console.log('user: ', this.user);
+
+        this.bsModalRef = this.modalService.show(AddGameComponent, {initialState});
+    }
+
+    editGame(game: Game) {
+        const initialState = {
+            game: game,
+            uid: this.user.uid
+        };
+
+        // console.log('initialState: ', initialState);
+        // console.log('user: ', this.user);
+
+        this.bsModalRef = this.modalService.show(AddGameComponent, {initialState});
     }
 }

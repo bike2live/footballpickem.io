@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScheduleComponent } from './schedule/schedule.component';
@@ -12,11 +12,13 @@ import { AddGameScoreModalComponent } from './schedule/add-game-score-modal/add-
 import { RuleCardComponent } from './rules/rule-card/rule-card.component';
 import { AuthorityGuard } from "../authority.guard";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AddGameComponent } from './schedule/add-game/add-game.component';
 
 
 @NgModule({
     imports: [
         CommonModule,
+        ReactiveFormsModule,
         RouterModule.forChild([
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthorityGuard]},
             {path: 'schedule', component: ScheduleComponent, canActivate: [AuthorityGuard]},
@@ -33,11 +35,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         RulesComponent,
         AddScoreModalComponent,
         AddGameScoreModalComponent,
-        RuleCardComponent
+        RuleCardComponent,
+        AddGameComponent
     ],
     entryComponents: [
-        AddScoreModalComponent,
-        AddGameScoreModalComponent
+      AddGameComponent,
+      AddScoreModalComponent,
+      AddGameScoreModalComponent
     ],
     providers: [
         AuthorityGuard

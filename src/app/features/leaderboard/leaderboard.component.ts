@@ -100,7 +100,7 @@ const gradientBarChartConfiguration =  {
     providers: [DatePipe]
 })
 export class LeaderboardComponent implements OnInit {
-    @ViewChild('lineChart') private chartRef;
+    @ViewChild('lineChart', { static: true }) private chartRef;
     scores: PlayerStanding[];
     chartResults: ChartResult[];
     chartData: any;

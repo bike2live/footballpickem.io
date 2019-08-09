@@ -25,7 +25,7 @@ $app->get('/schedule', function () use ($app) {
         //     $response['games'] = [];
         // }
 //        $games = $db->getSchedule();
-        $sql = "Select id, week, opponent, location, stadiumName, homeoraway, byuScore, oppScore, gameDate, closeDate, showUntilDate
+        $sql = "Select id, week, opponent, location, stadiumName, homeOrAway, byuScore, oppScore, gameDate, closeDate, showUntilDate
                   from schedule
                 ORDER BY gameDate";
         $games = $db->getFullList($sql);

@@ -44,6 +44,8 @@ export class ScheduleComponent implements OnInit {
                     game.showUntilDate = game.showUntilDate.replace(' ', 'T') + 'Z';
                 });
                 this.schedule = data;
+                console.log('this.schedule: ', this.schedule);
+                console.log('this.schedule.length: ', this.schedule.length);
                 this.now = new Date();
             },
             (err: any) => console.log(err)

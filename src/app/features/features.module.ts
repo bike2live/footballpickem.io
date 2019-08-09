@@ -13,6 +13,7 @@ import { RuleCardComponent } from './rules/rule-card/rule-card.component';
 import { AuthorityGuard } from "../authority.guard";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddGameComponent } from './schedule/add-game/add-game.component';
+import { BsDatepickerModule, TimepickerModule } from "ngx-bootstrap";
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import { AddGameComponent } from './schedule/add-game/add-game.component';
             {path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard]}
         ]),
         FormsModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        BsDatepickerModule,
+        TimepickerModule
     ],
     declarations: [
         DashboardComponent,

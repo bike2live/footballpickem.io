@@ -30,34 +30,26 @@
             </div>
         </div>
         <div class="form-group">
-            <div>
-                <input id="home" type="radio" class="custom-control-input" value="1" name="homeOrAway" formControlName="homeOrAway">
-                <label class="custom-control-label" for="home">Home</label>
+            <div class="col-12">
+                <label class="" for="home">
+                    <input id="home" type="radio" class="" value="1" name="homeOrAway" formControlName="homeOrAway">
+                    Home
+                </label>
             </div>
-            <div>
-                <input id="away" type="radio" class="custom-control-input" value="0" name="homeOrAway" formControlName="homeOrAway">
-                <label class="custom-control-label" for="away">Away</label>
+            <div class="col-12">
+                <label class="" for="away">
+                    <input id="away" type="radio" class="" value="0" name="homeOrAway" formControlName="homeOrAway">
+                    Away
+                </label>
             </div>
         </div>
-
-        <div class="form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" name="ha" type="radio" value="1" formControlName="ha">
-                <span class="form-check-sign"></span> Home
-            </label>
-        </div>
-        <div class="form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" name="ha" type="radio" value="0" formControlName="ha">
-                <span class="form-check-sign"></span> Away
-            </label>
-        </div>
-
 
         <div class="form-group">
             <label for="gameDate" class="col-sm-3 control-label">Game date and time</label>
             <div class="col-12">
-                <input type="text" formControlName="gameDate" class="form-control" id="gameDate" placeholder="Home or Away" name="gameDate">
+                <input type="text" formControlName="gameDate" class="form-control" id="gameDate" placeholder="Game date and time" name="gameDate" bsDatepicker>
+<!--                <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker>-->
+                <timepicker id="gameTime" formControlName="gameTime"></timepicker>
             </div>
         </div>
 

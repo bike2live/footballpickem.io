@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
     faBackspace, faBook, faCalendarAlt, faCheck,
@@ -11,7 +13,7 @@ import {
     faSignInAlt, faThumbsUp,
     faTrash, faTrashAlt, faTrophy, faUsersCog,
 } from '@fortawesome/free-solid-svg-icons';
-
+import { DateFnsModule } from 'ngx-date-fns';
 
 import { FeaturesModule } from './features/features.module';
 import { UsersModule } from './users/users.module';
@@ -25,6 +27,7 @@ import { ModalModule } from "ngx-bootstrap";
 import { AuthorityGuard } from "./authority.guard";
 import { AdminModule } from "./admin/admin/admin.module";
 import { FooterComponent } from './footer/footer.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faExclamationTriangle, faMinus, faSignInAlt,
     faThumbsUp, faTrash, faTrashAlt, faTrophy, faUsersCog);
@@ -48,6 +51,10 @@ library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faEx
         ReactiveFormsModule,
         ModalModule.forRoot(),
         FontAwesomeModule,
+        BsDatepickerModule.forRoot(),
+        TimepickerModule.forRoot(),
+        DateFnsModule.forRoot(),
+        BrowserAnimationsModule,
 
         CoreModule,
         FeaturesModule,

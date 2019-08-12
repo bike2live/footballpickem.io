@@ -41,7 +41,9 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fafafa; }
+  background-color: #fafafa;
+  background-image: url("../img/LavellEdwardsStadium2.jpg");
+}
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }

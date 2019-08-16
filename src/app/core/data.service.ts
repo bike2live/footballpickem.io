@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular
 import {Observable, of, throwError} from 'rxjs';
 import {map, tap, catchError, mergeMap} from 'rxjs/operators';
 import {SessionError} from '../session-error';
-import {User} from '../users/user';
+import {FbUser} from '../users/fbUser';
 import {Game} from "../features/game";
 import {UserScore} from "../features/schedule/add-score-modal/userScore";
 import {PlayerStanding} from "../features/leaderboard/player-standing";
@@ -87,11 +87,11 @@ export class DataService {
             );
     }
 
-    public getSession(): Observable<User | SessionError> {
+    public getSession(): Observable<FbUser | SessionError> {
         return this.http.get<any>(this.baseUrl + 'session')
             .pipe(
                 // tap(event => console.log(' getSession returned: ', event)),
-                map(b => <User> {
+                map(b => <FbUser> {
                     uid: b.uid,
                     username: b.username,
                     name: b.name,
@@ -127,12 +127,12 @@ export class DataService {
             );
     }
 
-    public getUserList(): Observable<User[]> {
+    public getUserList(): Observable<FbUser[]> {
 
         return this.http.get<any>(this.baseUrl + 'userList')
             .pipe(
                 // tap(response => console.log(' getUserList returned: ', response)),
-                map( (response) => <User[]> response.users )
+                map( (response) => <FbUser[]> response.users )
                 // tap( games => console.log(' final getUserList from getSchedule: ', games))
             );
     }
@@ -151,7 +151,7 @@ export class DataService {
 
         return this.http.post<any>(this.baseUrl + 'signUp', register)
             .pipe(
-                map(rep => <User | any> {
+                map(rep => <FbUser | any> {
                     uid: rep.uid,
                     username: rep.username,
                     name: rep.name
@@ -162,7 +162,7 @@ export class DataService {
     /**
      * login
      */
-    public login(loginForm: any): Observable<User> {
+    public login(loginForm: any): Observable<FbUser> {
 
         // console.log(' loginForm: ', loginForm);
         const data = {
@@ -176,7 +176,7 @@ export class DataService {
 
         return this.http.post<any>(this.baseUrl + 'login', data)
             .pipe(
-                map(rep => <User> {
+                map(rep => <FbUser> {
                     uid: rep.uid,
                     username: rep.username,
                     name: rep.name,

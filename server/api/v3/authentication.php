@@ -25,7 +25,7 @@ $app->get('/schedule', function () use ($app) {
         //     $response['games'] = [];
         // }
 //        $games = $db->getSchedule();
-        $sql = "Select id, week, opponent, location, stadiumName, homeoraway, byuScore, oppScore, gameDate, closeDate, showUntilDate
+        $sql = "Select id, week, opponent, location, stadiumName, homeOrAway, byuScore, oppScore, gameDate, closeDate, showUntilDate
                   from schedule
                 ORDER BY gameDate";
         $games = $db->getFullList($sql);
@@ -46,16 +46,22 @@ $app->get('/userScore/:gameId', function ($gameId) use ($app) {
     $response = array();
     $db = new DbHandler();
     $session = $db->getSession();
+    if ($session['uid'] == '') {
+        $response["status"] = "Session invalid";
+        $response["message"] = "Session invalid";
+        echoResponse(412, $response);
+        $app->stop();
+    }
+
     $userScore = $db->getUserScore($session['uid'], $gameId);
     if ($userScore != NULL) {
         $response["status"] = "success";
-        $response["message"] = "Retrieved FbUser Score";
+        $response["message"] = "Retrieved User Score";
         $response["userScore"] = $userScore;
         echoResponse(200, $response);
     } else {
         $response["status"] = "info";
         $response["message"] = "No score for this user for this game.";
-        $response["session"] = $session;
         echoResponse(200, $response);
     }
 });
@@ -67,10 +73,10 @@ $app->post('/addscore', function () use ($app) {
     $db = new DbHandler();
     $session = $db->getSession();
     if ($session['uid'] != $r->userScore->uid) {
-        $response["status"] = "error";
-        $response["message"] = "Failed to add score. Please try again";
-        echoResponse(201, $response);
-        return;
+        $response["status"] = "Session invalid";
+        $response["message"] = "Session invalid";
+        echoResponse(412, $response);
+        $app->stop();
     }
 
     $uid = $r->userScore->uid;
@@ -80,18 +86,18 @@ $app->post('/addscore', function () use ($app) {
         $userScore = $db->insertUserScore($r->userScore);
         if ($userScore != NULL) {
             $response["status"] = "success";
-            $response["message"] = "FbUser Score Added";
+            $response["message"] = "User Score Added";
             $response["userScore"] = $userScore;
             echoResponse(200, $response);
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to add score. Please try again";
-            echoResponse(201, $response);
+            echoResponse(412, $response);
         }
     } else {
         $userScore = $db->updateUserScore($r->userScore);
         $response["status"] = "success";
-        $response["message"] = "FbUser Score Updated";
+        $response["message"] = "User Score Updated";
         $response["userScore"] = $userScore;
         echoResponse(200, $response);
     }
@@ -114,7 +120,7 @@ $app->post('/addgame', function () use ($app) {
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to create game. Please try again";
-            echoResponse(201, $response);
+            echoResponse(412, $response);
         }
     }
 });
@@ -185,7 +191,7 @@ $app->post('/signUp', function () use ($app) {
         $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
         if ($result != NULL) {
             $response["status"] = "success";
-            $response["message"] = "FbUser account created successfully";
+            $response["message"] = "User account created successfully";
             $response["uid"] = $result;
             $response["name"] = $name;
             $response["username"] = $username;
@@ -202,12 +208,12 @@ $app->post('/signUp', function () use ($app) {
         } else {
             $response["status"] = "error";
             $response["message"] = "Failed to create customer. Please try again";
-            echoResponse(409, $response);
+            echoResponse(412, $response);
         }
     } else {
         $response["status"] = "error";
         $response["message"] = "A user with the provided username exists!";
-        echoResponse(409, $response);
+        echoResponse(412, $response);
     }
 });
 $app->get('/logout', function () {
@@ -215,6 +221,25 @@ $app->get('/logout', function () {
     $session = $db->destroySession();
     $response["status"] = "info";
     $response["message"] = "Logged out successfully";
+    echoResponse(200, $response);
+});
+
+$app->get('/userList', function () use ($app) {
+    $response = array();
+    $db = new DbHandler();
+
+    $session = $db->getSession();
+    if ($session["uid"] == '') {
+        $response['status'] = "invalid";
+        $response['message'] = "You must be logged in to retrieve the schedule.";
+        $response['users'] = [];
+        echoResponse(412, $response);
+        $app->stop();
+    }
+    $users = $db->getUserList();
+    $response['status'] = "success";
+    $response['message'] = "Got the schedule";
+    $response['users'] = $users;
     echoResponse(200, $response);
 });
 
@@ -244,7 +269,7 @@ function addUserScores($uid, $db) {
                     $userScore->gameId = $gameId;
                     $userScore->byuScore = 0;
                     $userScore->oppScore = 0;
-                    $userScore = $db->insertUserScore($userScore);
+                    $db->insertUserScore($userScore);
                 }
             }
         }

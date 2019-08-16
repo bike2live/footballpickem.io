@@ -6,6 +6,7 @@ import { ConfirmEqualValidatorDirective } from './confirm-equal-validator.direct
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RegisterFinishComponent } from './register-finish/register-finish.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { RegisterComponent } from './register/register.component';
   declarations: [
       LoginComponent,
       RegisterComponent,
-      ConfirmEqualValidatorDirective
+      ConfirmEqualValidatorDirective,
+      RegisterFinishComponent
   ]
 })
 export class UsersModule { }

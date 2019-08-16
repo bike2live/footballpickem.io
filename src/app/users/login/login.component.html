@@ -9,6 +9,13 @@
                         <form class="form" novalidate (ngSubmit)="login(loginForm)" #loginForm="ngForm" autocomplete="off">
                             <div class="card-header card-header-primary text-center">
                                 <h4 class="card-title">Log in</h4>
+
+                                <div class="social-line">
+                                    <a class="btn btn-just-icon btn-link btn-white" (click)="googleLogin()"><i class="fab fa-google"></i></a>
+                                    <a class="btn btn-just-icon btn-link btn-white" href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a class="btn btn-just-icon btn-link btn-white" href="#"><i class="fab fa-twitter"></i></a>
+                                </div>
+
                             </div>
                             <div class="card-body">
 
@@ -19,7 +26,7 @@
                                               <i class="material-icons">mail</i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" id="userNameId" placeholder="User name (required)" required (ngModel)="userNameVar"
+                                        <input type="text" class="form-control" id="userNameId" placeholder="FbUser name (required)" required (ngModel)="userNameVar"
                                                name="userName" #userNameVar="ngModel" autofocus autocapitalize="none">
                                     </div>
                                 </span>
@@ -44,7 +51,7 @@
                             </div>
                             <div class="footer text-center">
                                 Don't have an account?
-                                <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/register']">Register</a>
+                                <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/register']"><i class="material-icons">person_add</i> Register</a>
                             </div>
                             <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
 

@@ -11,7 +11,7 @@ import {
     faBackspace, faBook, faCalendarAlt, faCheck,
     faCoffee, faCubes, faExclamationTriangle, faMinus,
     faSignInAlt, faThumbsUp,
-    faTrash, faTrashAlt, faTrophy, faUsersCog,
+    faTrash, faTrashAlt, faTrophy, faUsersCog
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FeaturesModule } from './features/features.module';

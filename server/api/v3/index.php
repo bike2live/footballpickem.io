@@ -8,7 +8,7 @@ require '.././libs/Slim/Slim.php';
 
 $app = new \Slim\Slim();
 
-// FbUser id from db - Global Variable
+// User id from db - Global Variable
 $user_id = NULL;
 
 require_once 'authentication.php';
@@ -34,7 +34,7 @@ function verifyRequiredParams($required_fields,$request_params) {
         $app = \Slim\Slim::getInstance();
         $response["status"] = "error";
         $response["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
-        echoResponse(200, $response);
+        echoResponse(412, $response);
         $app->stop();
     }
 }

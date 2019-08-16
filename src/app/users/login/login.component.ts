@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
-import { User } from '../user';
+import { FbUser } from '../fbUser';
 import { AuthService } from '../auth.service';
 import { DOCUMENT } from "@angular/common";
 
@@ -14,7 +14,7 @@ import { DOCUMENT } from "@angular/common";
 })
 export class LoginComponent implements OnInit, OnDestroy {
     errorMessage: string;
-    user: User;
+    user: FbUser;
 
     constructor(private dataService: DataService,
                 private authService: AuthService,
@@ -27,6 +27,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
     }
 
+    googleLogin() {
+        this.authService.login();
+    }
 
     /**
      * login
@@ -40,9 +43,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             // console.log('password: ' + password);
 
             this.dataService.login(loginForm.form.value).subscribe(
-                (data: User) => {
+                (data: FbUser) => {
                     console.log('login service returned successfully: user=', data);
-                    this.user = new User(data);
+                    this.user = new FbUser(data);
                     this.authService.setUser(this.user);
                     this.router.navigate(['dashboard']);
                 },

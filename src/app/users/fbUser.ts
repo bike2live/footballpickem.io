@@ -1,4 +1,4 @@
-export class User {
+export class FbUser {
   name: string;
   uid: string;
   username: string;

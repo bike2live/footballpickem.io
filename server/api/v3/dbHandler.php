@@ -209,9 +209,9 @@ class DbHandler
     }
 
     public function updateComputedScore($userScore) {
-        $sql = "UPDATE scores set delta=:delta, weekLowDiffBonus=:bonus1, weekExactDiffBonus=:bonus2, 
+        $sql = "UPDATE scores set delta=:delta, weekLowDiffBonus=:bonus1, weekExactDiffBonus=:bonus2,
                   weekExactScoreBonus=:bonus3, weekHomerPenalty=:penalty, weekTotalScore=:totalScore,
-                  weekCheatingPenalty=:cheatPenalty 
+                  weekCheatingPenalty=:cheatPenalty
                   WHERE id=:id";
         try {
             // $pdo = $this->getPDOConnection();
@@ -363,12 +363,12 @@ class DbHandler
         if (isset($_SESSION['uid'])) {
             $sess["uid"] = $_SESSION['uid'];
             $sess["name"] = $_SESSION['name'];
-            $sess["username"] = $_SESSION['username'];
+            $sess["idp_id"] = $_SESSION['idp_id'];
             $sess["roles"] = $_SESSION['roles'];
         } else {
             $sess["uid"] = '';
             $sess["name"] = 'Guest';
-            $sess["username"] = '';
+            $sess["idp_id"] = '';
             $sess["roles"] = array();
         }
         return $sess;
@@ -382,7 +382,7 @@ class DbHandler
         if (isSet($_SESSION['uid'])) {
             unset($_SESSION['uid']);
             unset($_SESSION['name']);
-            unset($_SESSION['username']);
+            unset($_SESSION['idp_id']);
             unset($_SESSION['roles']);
             $info = 'info';
             if (isSet($_COOKIE[$info])) {

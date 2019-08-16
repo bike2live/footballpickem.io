@@ -177,30 +177,30 @@ $app->post('/login', function () use ($app) {
 $app->post('/signUp', function () use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
-    verifyRequiredParams(array('username', 'name', 'password'), $r->customer);
+    verifyRequiredParams(array('idp_id', 'name'), $r->customer);
     require_once 'passwordHash.php';
     $db = new DbHandler();
     $name = $r->customer->name;
-    $username = $r->customer->username;
-    $password = $r->customer->password;
-    $isUserExists = $db->getOneRecord("select 1 from customers_auth where username='$username'");
+    $idp_id = $r->customer->idp_id;
+    $email = $r->customer->email;
+    $photo = $r->customer->photo;
+    $isUserExists = $db->getOneRecord("select 1 from customers_auth where idp_id='$idp_id'");
     if (!$isUserExists) {
-        $r->customer->password = passwordHash::hash($password);
-        $tabble_name = "customers_auth";
-        $column_names = array('name', 'username', 'password');
-        $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
+        $table_name = "customers_auth";
+        $column_names = array('name', 'email', 'idp_id', 'photo');
+        $result = $db->insertIntoTable($r->customer, $column_names, $table_name);
         if ($result != NULL) {
             $response["status"] = "success";
             $response["message"] = "User account created successfully";
             $response["uid"] = $result;
             $response["name"] = $name;
-            $response["username"] = $username;
+            $response["idp_id"] = $idp_id;
             if (!isset($_SESSION)) {
                 session_start();
             }
             $_SESSION['uid'] = $response["uid"];
             $_SESSION['name'] = $name;
-            $_SESSION['username'] = $username;
+            $_SESSION['idp_id'] = $idp_id;
 
             addUserScores($result, $db);
 
@@ -212,7 +212,7 @@ $app->post('/signUp', function () use ($app) {
         }
     } else {
         $response["status"] = "error";
-        $response["message"] = "A user with the provided username exists!";
+        $response["message"] = "A user with the provided id exists!";
         echoResponse(412, $response);
     }
 });

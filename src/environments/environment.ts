@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    baseUrl: 'http://localhost/api/v2/',
+    baseUrl: 'http://localhost/api/v3/',
     security: {
         indentyServer: {
             apiRoot: 'https://securinganglarappscourse-api.azurewebsites.net',

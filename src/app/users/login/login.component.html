@@ -6,35 +6,22 @@
                 <div class="col-md-6 col-sm-8 ml-auto mr-auto">
                     <div class="card card-signup">
 
-                        <form class="form" novalidate (ngSubmit)="login(loginForm)" #loginForm="ngForm" autocomplete="off">
-                            <div class="card-header card-header-primary text-center">
-                                <h4 class="card-title">Log in</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-4 ml-auto mr-auto">
-                                        <div>
-                                            <img src="assets/img/1x/btn_google_signin_dark_normal_web.png" alt="Sign in with Google" (click)="googleLogin()">
-                                        </div>
+                        <div class="card-header card-header-primary text-center">
+                            <h2 class="card-title">Log in</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4 ml-auto mr-auto">
+                                    <div>
+                                        <img src="assets/img/1x/btn_google_signin_dark_normal_web.png" alt="Sign in with Google" (click)="googleLogin()">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-4 ml-auto mr-auto">
-                                        <div>
-                                            <img src="assets/img/1x/btn_google_signin_light_normal_web.png" alt="Sign in with Google" (click)="googleLogin()">
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
+                        </div>
 
-                            <div class="footer text-center">
-                                Don't have an account?
-                                <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/register']"><i class="material-icons">person_add</i> Register</a>
-                            </div>
-                            <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
-
-                        </form>
+                        <div class="footer text-center">Don't have an account?
+                            <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/register']"><i class="material-icons">person_add</i> Register</a>
+                        </div>
 
                     </div>
                 </div>

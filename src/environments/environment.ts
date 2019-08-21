@@ -46,7 +46,6 @@ export const environment = {
                 token_endpoint: 'https://oauth2.googleapis.com/token',
                 userinfo_endpoint: 'https://openidconnect.googleapis.com/v1/userinfo',
                 end_session_endpoint: 'https://oauth2.googleapis.com/revoke',
-                revocation_endpoint: "https://oauth2.googleapis.com/revoke",
                 jwks_uri: 'https://www.googleapis.com/oauth2/v3/certs',
             },
             userStore: null,
@@ -63,6 +62,28 @@ export const environment = {
                 'https://footballpickem.net',
                 'http://localhost'
             ]
+        },
+        facebook_auth: {
+            // https://www.facebook.com/v4.0/dialog/oauth?client_id={app-id}&redirect_uri={redirect-uri}&state={state-param}
+
+            // need an authority or metadataurl...
+            authority: 'https://accounts.google.com',
+            // stsServer: 'https://acounts/google.com',
+            client_id: '963812180237-ktpv0d9k7ulvmmdmqbtu4418v1j29v3t.apps.googleusercontent.com',
+            redirect_uri: 'https://localhost:4200/assets/oidc-login-redirect.html',
+            response_type: 'token id_token',
+            scope: 'openid profile email',
+            post_logout_redirect_url: 'https://localhost:4200?postlogout=true',
+            metadata: {
+                issuer: 'https://accounts.google.com',
+                authorization_endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
+                token_endpoint: 'https://oauth2.googleapis.com/token',
+                userinfo_endpoint: 'https://openidconnect.googleapis.com/v1/userinfo',
+                end_session_endpoint: 'https://oauth2.googleapis.com/revoke',
+                revocation_endpoint: "https://oauth2.googleapis.com/revoke",
+                jwks_uri: 'https://www.googleapis.com/oauth2/v3/certs',
+            },
+
         }
     }
 };

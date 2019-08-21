@@ -3,112 +3,27 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-6 col-md-8 col-sm-10 ml-auto mr-auto">
-
+                <div class="col-md-6 col-sm-8 ml-auto mr-auto">
                     <div class="card card-signup">
-                        <h2 class="card-title text-center">Register</h2>
+
+                        <div class="card-header card-header-primary text-center">
+                            <h2 class="card-title text-center">Register</h2>
+                        </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12 mr-auto">
-                                    <div class="social text-center">
-                                        <button class="btn btn-just-icon btn-round btn-google mat-raised-button" mat-raised-button="" (click)="googleRegister()">
-                                            <span class="mat-button-wrapper"><i class="fab fa-google"></i></span>
-                                            <div class="mat-button-ripple mat-ripple" matripple=""></div>
-                                            <div class="mat-button-focus-overlay"></div>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-twitter mat-raised-button" mat-raised-button="" disabled>
-                                            <span class="mat-button-wrapper"><i class="fab fa-twitter"></i></span>
-                                            <div class="mat-button-ripple mat-ripple" matripple=""></div>
-                                            <div class="mat-button-focus-overlay"></div>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-facebook mat-raised-button" mat-raised-button="" disabled>
-                                            <span class="mat-button-wrapper"><i class="fab fa-facebook-f"></i></span>
-                                            <div class="mat-button-ripple mat-ripple" matripple=""></div>
-                                            <div class="mat-button-focus-overlay"></div>
-                                        </button>
-<!--                                        <h4 class="mt-3"> or be classical </h4></div>-->
-<!--                                    <form class="form" (ngSubmit)="f.form.valid && register(f)" #f="ngForm" novalidate fpConfirmEqualValidator>-->
-<!--
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="material-icons">face</i></span>
-                                                </div>
-                                                <input type="text" class="form-control" id="nameId" name="name" (ngModel)="name" #name="ngModel" [ngClass]="{'is-invalid': f.submitted && name.invalid }"
-                                                       required placeholder="Name..." autofocus autocapitalize="none">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="material-icons">mail</i>
-                                                    </span>
-                                                </div>
-                                                <input type="text" class="form-control" id="usernameId" name="username" (ngModel)="username" #username="ngModel" [ngClass]="{'is-invalid': f.submitted && username.invalid }"
-                                                       required placeholder="Username..." autocapitalize="none">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="material-icons">lock_outline</i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="password" class="form-control" id="passwordId" name="password" (ngModel)="password" #password="ngModel" [ngClass]="{'is-invalid': f.submitted && password.invalid }"
-                                                           required placeholder="Password..." minlength="8" autocapitalize="none"/>
-                                                </div>
-                                                <div *ngIf="password.errors?.minlength" class="text-danger">
-                                                    Password must be at least 8 characters long
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="material-icons">lock_outline</i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="password" class="form-control" id="confirmId" name="confirm" (ngModel)="confirm" #confirm="ngModel" [ngClass]="{'is-invalid': confirm.invalid && (confirm.dirty || confirm.touched) }"
-                                                           required placeholder="Confirm password..." autocapitalize="none"/>
-                                                </div>
-                                            </div>
-                                            <div *ngIf="f.errors?.notEqual && (confirm.touched || confirm.dirty)" class="text-danger">
-                                                Password and confirm password must match
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="text-center alert alert-danger" *ngIf="errMessage">
-                                            <div class="alert-icon">
-                                                <i class="material-icons">error_outline</i>
-                                            </div>
-                                            {{ errMessage }}
-                                        </div>
--->
-
-<!--
-                                        <div class="footer text-center">
-                                            <button type="submit" class="btn btn-primary btn-round" [disabled]="!f.valid">Get Started</button>
-                                        </div>
--->
-                                        <div class="footer text-center">
-                                            Have an account?
-                                            <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/login']"><i class="material-icons">fingerprint</i> Login </a>
-                                        </div>
-
-<!--                                    </form>-->
+                                <div class="col-6 ml-auto mr-auto">
+                                    <div>
+                                        <img src="assets/img/1x/btn_google_signin_dark_normal_web.png" alt="Register via Google" (click)="googleRegister()">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                        <div class="footer text-center">Have an account?
+                            <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/login']"><i class="material-icons">fingerprint</i> Login</a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

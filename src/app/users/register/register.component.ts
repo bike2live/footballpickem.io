@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
   googleRegister() {
-    this.authService.login();
+    this.authService.register();
   }
 
   register(registerForm: NgForm): void {

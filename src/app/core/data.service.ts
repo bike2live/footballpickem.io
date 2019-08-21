@@ -93,9 +93,10 @@ export class DataService {
                 // tap(event => console.log(' getSession returned: ', event)),
                 map(b => <FbUser> {
                     uid: b.uid,
-                    username: b.username,
+                    idp_id: b.idp_id,
                     name: b.name,
-                    roles: b.roles
+                    roles: b.roles,
+                    photo: b.photo
                 }),
                 catchError(err => this.handleHttpError(err))
             );
@@ -140,12 +141,13 @@ export class DataService {
     /**
      * register
      */
-    public register(registerForm: any) {
+    public register(userData: any) {
         const register = {
             customer: {
-                username: registerForm.username,
-                name: registerForm.name,
-                password: registerForm.password
+                name: userData.name,
+                email: userData.email,
+                idp_id: userData.idp_id,
+                photo: userData.photo
             }
         };
 
@@ -153,12 +155,22 @@ export class DataService {
             .pipe(
                 map(rep => <FbUser | any> {
                     uid: rep.uid,
-                    username: rep.username,
-                    name: rep.name
+                    idp_id: rep.idp_id,
+                    name: rep.name,
+                    roles: rep.roles,
+                    photo: rep.photo
                 })
             );
     }
 
+    /*
+             $response["status"] = "success";
+        $response["message"] = "User account created successfully";
+        $response["uid"] = $result;
+        $response["name"] = $name;
+        $response["idp_id"] = $idp_id;
+
+     */
     /**
      * login
      */
@@ -178,9 +190,10 @@ export class DataService {
             .pipe(
                 map(rep => <FbUser> {
                     uid: rep.uid,
-                    username: rep.username,
+                    idp_id: rep.idp_id,
                     name: rep.name,
-                    roles: rep.roles
+                    roles: rep.roles,
+                    photo: rep.photo
                 })
             );
     }

@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    baseUrl: 'http://localhost/api/v3/',
+    baseUrl: 'http://localhost/api/v2/',
     security: {
         indentyServer: {
             apiRoot: 'https://securinganglarappscourse-api.azurewebsites.net',
@@ -37,7 +37,7 @@ export const environment = {
             // stsServer: 'https://acounts/google.com',
             client_id: '963812180237-ktpv0d9k7ulvmmdmqbtu4418v1j29v3t.apps.googleusercontent.com',
             redirect_uri: 'https://localhost:4200/assets/oidc-login-redirect.html',
-            response_type: 'id_token token',
+            response_type: 'token id_token',
             scope: 'openid profile email',
             post_logout_redirect_url: 'https://localhost:4200?postlogout=true',
             metadata: {
@@ -46,6 +46,7 @@ export const environment = {
                 token_endpoint: 'https://oauth2.googleapis.com/token',
                 userinfo_endpoint: 'https://openidconnect.googleapis.com/v1/userinfo',
                 end_session_endpoint: 'https://oauth2.googleapis.com/revoke',
+                revocation_endpoint: "https://oauth2.googleapis.com/revoke",
                 jwks_uri: 'https://www.googleapis.com/oauth2/v3/certs',
             },
             userStore: null,

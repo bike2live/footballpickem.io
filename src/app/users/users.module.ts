@@ -14,7 +14,8 @@ import { RegisterFinishComponent } from './register-finish/register-finish.compo
     FormsModule,
     RouterModule.forChild([
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
+      { path: 'register', component: RegisterComponent },
+      { path: 'register/finish', component: RegisterFinishComponent }
     ]),
 
   ],

@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { Router } from '@angular/router';
 
 import {FbUser} from './fbUser';
 import { UserManager, User, WebStorageStateStore } from 'oidc-client';
@@ -13,7 +14,8 @@ export class AuthService {
     private user: User;
     currentUser: FbUser;
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,
+                private router: Router) {
         const config = environment.security.google_auth;
         config.userStore = new WebStorageStateStore({ store: window.localStorage });
         this.userManager = new UserManager(config);
@@ -21,21 +23,32 @@ export class AuthService {
             if (user && !user.expired) {
                 this.user = user;
                 console.log('user: ', user);
+                this.router.navigate(['dashboard']);
+            } else {
+                this.router.navigate(['login']);
             }
-        })
+        });
+
+        this.currentUser = new FbUser({name: 'Jack'});
     }
 
     login(): Promise<any> {
         return this.userManager.signinRedirect();
     }
 
+    register(): Promise<any> {
+        const config = environment.security.google_auth;
+        config.redirect_uri = config.redirect_uri.replace('login', 'register');
+        this.userManager = new UserManager(config);
+        return this.userManager.signinRedirect();
+    }
+
     logout(): Promise<any> {
+        this.user = null;
+        this.currentUser = null;
         return this.userManager.signoutRedirect();
     }
 
-    // isLoggedIn(): boolean {
-    //     return !!this.currentUser && !!this.currentUser.uid;
-    // }
     isLoggedIn(): boolean {
         return this.user && this.user.access_token && !this.user.expired;
     }

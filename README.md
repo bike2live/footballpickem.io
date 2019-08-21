@@ -1,6 +1,7 @@
-# FootballPickem6
+# FootballPickem2019
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.3.
+Currently using Angular 8.2.1
 
 ## Development server
 
@@ -28,4 +29,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ## to deploy the ui artifacts:
-scp -r -i ~/Football1.pem ~/ws/FootballPickem6/dist/FootballPickem6/* bitnami@52.5.46.129:/opt/bitnami/apache2/htdocs/
+under development

@@ -27,8 +27,9 @@ export class NavbarComponent implements OnInit {
     logout() {
         this.dataService.logout().subscribe(
             () => {
-                this.authService.setUser(undefined);
-                this.router.navigate(['login']);
+                this.authService.logout().then(() => {
+                    this.router.navigate(['login']);
+                });
             },
             (err: any) => console.log(err)
         );

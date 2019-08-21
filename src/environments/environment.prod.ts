@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    baseUrl: '/api/v3/',
+    baseUrl: '/api/v2/',
     security: {
         indentyServer: {
             apiRoot: 'https://securinganglarappscourse-api.azurewebsites.net',
@@ -29,7 +29,7 @@ export const environment = {
             // need an authority or metadataurl...
             authority: 'https://acounts/google.com',
             client_id: '963812180237-ktpv0d9k7ulvmmdmqbtu4418v1j29v3t.apps.googleusercontent.com',
-            redirect_uri: 'http://footballpickem.org/assets/oidc-login-redirect.html',
+            redirect_uri: 'https://footballpickem.org/assets/oidc-login-redirect.html',
             response_type: 'id_token token',
             scope: 'openid',
             post_logout_redirect_url: 'https://footballpickem.org?postlogout=true',

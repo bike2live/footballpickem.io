@@ -21,7 +21,7 @@ export class AuthService {
     constructor(private httpClient: HttpClient,
                 private router: Router,
                 private dataService: DataService) {
-        const config = environment.security.google_auth;
+        const config = {...environment.security.google_auth, userStore: null};
         config.userStore = new WebStorageStateStore({ store: window.localStorage });
         this.userManager = new UserManager(config);
         this.userManager.getUser().then(user => {

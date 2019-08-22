@@ -135,39 +135,14 @@ $app->post('/login', function () use ($app) {
     $idp_id = $r->customer->idp_id;
     $user = $db->getOneRecord("select uid,name,idp_id,photo,created from customers_auth where idp_id='$idp_id'");
     if ($user != NULL) {
-        getSignedInUser($response, $user);
-//         $response['status'] = "success";
-//         $response['message'] = 'Logged in successfully.';
-//         $response['name'] = $user['name'];
-//         $response['uid'] = $user['uid'];
-//         $response['idp_id'] = $user['idp_id'];
-//         $response['photo'] = $user['photo'];
-//         $response['createdAt'] = $user['created'];
-//         // get Roles
-//         $uid = $user['uid'];
-//         $roles = $db->getFullList("Select role from user_roles where uid='$uid'");
-//         $response['roles'] = array();
-//         for ($x=0; $x < count($roles); $x++) {
-//             $response['roles'][$x] = $roles[$x]->role;
-//         }
-//
-//         if (!isset($_SESSION)) {
-//             session_start();
-//         }
-//         $_SESSION['uid'] = $user['uid'];
-//         $_SESSION['idp_id'] = $idp_id;
-//         $_SESSION['name'] = $user['name'];
-//         $_SESSION['roles'] = $response['roles'];
-//
-//         addUserScores($uid, $db);
-//
-//         echoResponse(200, $response);
+        getSignedInUser($response, $user, $db);
     } else {
         $response['status'] = "error";
         $response['message'] = 'No such user is registered';
         echoResponse(412, $response);
     }
 });
+
 $app->post('/signUp', function () use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
@@ -181,7 +156,7 @@ $app->post('/signUp', function () use ($app) {
     $isUserExists = $db->getOneRecord("select 1 from customers_auth where idp_id='$idp_id'");
     if ($isUserExists) {
         $user = $db->getOneRecord("select uid,name,idp_id,photo,created from customers_auth where idp_id='$idp_id'");
-        getSignedInUser($response, $user);
+        getSignedInUser($response, $user, $db);
         $app->stop();
     }
 
@@ -240,7 +215,7 @@ $app->get('/userList', function () use ($app) {
     echoResponse(200, $response);
 });
 
-function getSignedInUser($response, $user) {
+function getSignedInUser($response, $user, $db) {
     $response['status'] = "success";
     $response['message'] = 'Logged in successfully.';
     $response['name'] = $user['name'];
@@ -260,7 +235,7 @@ function getSignedInUser($response, $user) {
         session_start();
     }
     $_SESSION['uid'] = $user['uid'];
-    $_SESSION['idp_id'] = $idp_id;
+    $_SESSION['idp_id'] = $user['idp_id'];
     $_SESSION['name'] = $user['name'];
     $_SESSION['roles'] = $response['roles'];
 

@@ -1,11 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { FbUser } from '../fbUser';
 import { AuthService } from '../auth.service';
-import { DOCUMENT } from "@angular/common";
-
 
 @Component({
     selector: 'fp-login',
@@ -18,10 +16,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     constructor(private dataService: DataService,
                 private authService: AuthService,
-                private router: Router) {
+                private router: Router,
+                private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe(params => {
+            const error = params['error'];
+            if (error) {
+                this.errorMessage = error;
+                // remove the error from the history and the url in the browser
+                window.history.replaceState({},
+                  window.document.title,
+                  window.location.origin);
+            }
+        });
+
     }
 
     ngOnDestroy(): void {
@@ -34,6 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     /**
      * login
      */
+/*
     login(loginForm: NgForm) {
         if (loginForm && loginForm.valid) {
             const userName = loginForm.form.value.userName;
@@ -71,4 +82,5 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.errorMessage = 'Please enter a user name and password.';
         }
     }
+*/
 }

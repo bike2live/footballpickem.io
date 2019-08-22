@@ -27,7 +27,7 @@ export const environment = {
                 authorization_endpoint: `https://softinsignt.auth0.com/authorize?audience=project-api`,
                 issuer: `https://softinsignt.auth0.com/`,
                 jwks_uri: `https://softinsignt.auth0.com/.well-known/jwks.json`,
-                end_session_endpoint: ``
+                end_session_endpoint: `https://softinsight.auth0.com/v2/logout?returnTo=http://localhost:4200/?postLogout=true`
             },
             userStore: null
         },

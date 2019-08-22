@@ -174,18 +174,13 @@ export class DataService {
     /**
      * login
      */
-    public login(loginForm: any): Observable<FbUser> {
-
-        // console.log(' loginForm: ', loginForm);
+    public login(idp_id: string): Observable<any> {
         const data = {
             customer: {
-                username: loginForm.userName,
-                password: loginForm.password
+                idp_id: idp_id,
+                username: 'bob'
             }
         };
-
-        // console.log(' login data: ', data);
-
         return this.http.post<any>(this.baseUrl + 'login', data)
             .pipe(
                 map(rep => <FbUser> {
@@ -194,6 +189,10 @@ export class DataService {
                     name: rep.name,
                     roles: rep.roles,
                     photo: rep.photo
+                }),
+                catchError(err => {
+                    console.log('caught error during login: ', err);
+                    return of({});
                 })
             );
     }

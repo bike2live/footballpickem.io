@@ -1,5 +1,9 @@
 import {Injectable} from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DataService } from '../core/data.service';
+import { UserScore } from '../features/schedule/add-score-modal/userScore';
 
 import {FbUser} from './fbUser';
 import { UserManager, User, WebStorageStateStore } from 'oidc-client';
@@ -15,7 +19,8 @@ export class AuthService {
     currentUser: FbUser;
 
     constructor(private httpClient: HttpClient,
-                private router: Router) {
+                private router: Router,
+                private dataService: DataService) {
         const config = environment.security.google_auth;
         config.userStore = new WebStorageStateStore({ store: window.localStorage });
         this.userManager = new UserManager(config);
@@ -23,7 +28,18 @@ export class AuthService {
             if (user && !user.expired) {
                 this.user = user;
                 console.log('user: ', user);
-                this.router.navigate(['dashboard']);
+                this.validateUser(user.profile.sub).subscribe( (fbUser) => {
+                    console.log('validateUser returned: ', fbUser);
+                    if (fbUser && fbUser.idp_id) {
+                        this.currentUser = new FbUser(fbUser);
+                        this.router.navigate(['dashboard']);
+                    } else {
+                        this.user = null;
+                        this.userManager.removeUser().then(() => {
+                            this.router.navigate([`login`]);
+                        });
+                    }
+                });
             } else {
                 this.router.navigate(['login']);
             }
@@ -43,6 +59,15 @@ export class AuthService {
         return this.userManager.signinRedirect();
     }
 
+    validateUser(idp_id): Observable<FbUser> {
+        let result = null;
+
+        return this.dataService.login(idp_id)
+          .pipe(
+            map( response => <FbUser> response )
+          );
+    }
+
     logout(): Promise<any> {
         this.user = null;
         this.currentUser = null;
@@ -51,6 +76,10 @@ export class AuthService {
 
     isLoggedIn(): boolean {
         return this.user && this.user.access_token && !this.user.expired;
+    }
+
+    getAuthUser(): User {
+        return this.user;
     }
 
     getProfile(): any {
@@ -62,7 +91,7 @@ export class AuthService {
     }
 
     signoutRedirectCallback(): Promise<any> {
-        return this.userManager.signinRedirectCallback();
+        return this.userManager.signoutRedirectCallback();
     }
 
     isAdmin(): boolean {

@@ -14,6 +14,7 @@ export class FbUser {
     this.roles = data.roles;
     this.photo = data.photo;
     this.isAdmin = (this.roles && this.roles.length > 0 ? this.roles.filter( r => r === 'ADMIN').length > 0 : false);
+    console.log('user is admin? ', this.isAdmin);
   }
 
 }

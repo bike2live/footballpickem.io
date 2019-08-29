@@ -607,7 +607,7 @@ class Request
     }
 
     /**
-     * Get User Agent
+     * Get FbUser Agent
      * @return string|null
      */
     public function getUserAgent()

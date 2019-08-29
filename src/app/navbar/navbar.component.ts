@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from "../core/data.service";
 import { AuthService } from "../users/auth.service";
 import { Router } from "@angular/router";
-import { User } from "../users/user";
+import { FbUser } from "../users/fbUser";
 
 
 @Component({
@@ -12,7 +12,7 @@ import { User } from "../users/user";
 })
 export class NavbarComponent implements OnInit {
     title = `Byu Football Pick'em 2019`;
-    user: User;
+    user: FbUser;
 
     constructor(private dataService: DataService,
                 public authService: AuthService,
@@ -27,8 +27,9 @@ export class NavbarComponent implements OnInit {
     logout() {
         this.dataService.logout().subscribe(
             () => {
-                this.authService.setUser(undefined);
-                this.router.navigate(['login']);
+                this.authService.logout().then(() => {
+                    this.router.navigate(['login']);
+                });
             },
             (err: any) => console.log(err)
         );

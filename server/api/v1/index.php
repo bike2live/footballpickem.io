@@ -8,7 +8,7 @@ require '.././libs/Slim/Slim.php';
 
 $app = new \Slim\Slim();
 
-// User id from db - Global Variable
+// FbUser id from db - Global Variable
 $user_id = NULL;
 
 require_once 'authentication.php';

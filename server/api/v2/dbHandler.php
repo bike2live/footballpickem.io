@@ -209,9 +209,9 @@ class DbHandler
     }
 
     public function updateComputedScore($userScore) {
-        $sql = "UPDATE scores set delta=:delta, weekLowDiffBonus=:bonus1, weekExactDiffBonus=:bonus2, 
+        $sql = "UPDATE scores set delta=:delta, weekLowDiffBonus=:bonus1, weekExactDiffBonus=:bonus2,
                   weekExactScoreBonus=:bonus3, weekHomerPenalty=:penalty, weekTotalScore=:totalScore,
-                  weekCheatingPenalty=:cheatPenalty 
+                  weekCheatingPenalty=:cheatPenalty
                   WHERE id=:id";
         try {
             // $pdo = $this->getPDOConnection();
@@ -272,6 +272,34 @@ class DbHandler
         }
     }
 
+    public function updateGame($game) {
+        $sql = "UPDATE schedule
+                   SET opponent=:opponent,
+                       location=:location,
+                       stadiumName=:stadiumName,
+                       homeOrAway=:homeOrAway,
+                       gameDate=:gameDate,
+                       closeDate=:closeDate,
+                       showUntilDate=:showUntilDate
+                 WHERE id=:id";
+        try {
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("opponent", $game->opponent);
+            $stmt->bindParam("location", $game->location);
+            $stmt->bindParam("stadiumName", $game->stadiumName);
+            $stmt->bindParam("homeOrAway", $game->homeOrAway);
+            $stmt->bindParam("gameDate", $game->gameDate);
+            $stmt->bindParam("closeDate", $game->closeDate);
+            $stmt->bindParam("showUntilDate", $game->showUntilDate);
+            $stmt->bindParam("id", $game->id);
+            $stmt->execute();
+            return $game;
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '"}}';
+        }
+    }
+
     public function getSchedule() {
 //        $sql = "Select id, week, opponent, location, stadiumName, homeoraway, byuScore, oppScore, gameDate, closeDate, showUntilDate
 //                  from schedule
@@ -313,12 +341,42 @@ class DbHandler
     }
 
     public function getUserList() {
-        $sql = "select ca.uid, ca.name
+        $sql = "select ca.uid, ca.name, ca.photo
                   from football.customers_auth ca
                 order by ca.name";
 
         try {
             return $this->getFullList($sql);
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
+    /**
+     * Delete all scores for a user. Usually only do this when deleting a user.
+     */
+    public function deleteUserScores($uid) {
+        $sql = "delete from football.scores where uid=:uid";
+
+        try {
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("uid", $uid);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
+    /**
+     * Delete all scores for a user. Usually only do this when deleting a user.
+     */
+    public function deleteUser($uid) {
+        $sql = "delete from football.customers_auth where uid=:uid";
+
+        try {
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("uid", $uid);
+            $stmt->execute();
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '""}}';
         }
@@ -363,12 +421,12 @@ class DbHandler
         if (isset($_SESSION['uid'])) {
             $sess["uid"] = $_SESSION['uid'];
             $sess["name"] = $_SESSION['name'];
-            $sess["username"] = $_SESSION['username'];
+            $sess["idp_id"] = $_SESSION['idp_id'];
             $sess["roles"] = $_SESSION['roles'];
         } else {
             $sess["uid"] = '';
             $sess["name"] = 'Guest';
-            $sess["username"] = '';
+            $sess["idp_id"] = '';
             $sess["roles"] = array();
         }
         return $sess;
@@ -382,7 +440,7 @@ class DbHandler
         if (isSet($_SESSION['uid'])) {
             unset($_SESSION['uid']);
             unset($_SESSION['name']);
-            unset($_SESSION['username']);
+            unset($_SESSION['idp_id']);
             unset($_SESSION['roles']);
             $info = 'info';
             if (isSet($_COOKIE[$info])) {

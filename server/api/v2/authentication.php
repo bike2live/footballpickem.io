@@ -126,93 +126,83 @@ $app->post('/addgame', function () use ($app) {
 });
 
 
-$app->post('/login', function () use ($app) {
-    require_once 'passwordHash.php';
+$app->post('/isUserRegistered', function () use ($app) {
     $r = json_decode($app->request->getBody());
-    verifyRequiredParams(array('username', 'password'), $r->customer);
+    verifyRequiredParams(array('idp_id'), $r->customer);
     $response = array();
     $db = new DbHandler();
-    $password = $r->customer->password;
-    $username = $r->customer->username;
-    $user = $db->getOneRecord("select uid,name,password,username,created from customers_auth where username='$username'");
+    $idp_id = $r->customer->idp_id;
+    $user = $db->getOneRecord("select uid,name,idp_id,photo,created from customers_auth where idp_id='$idp_id'");
+    $response['status'] = "success";
     if ($user != NULL) {
-        if (passwordHash::check_password($user['password'], $password)) {
-            $response['status'] = "success";
-            $response['message'] = 'Logged in successfully.';
-            $response['name'] = $user['name'];
-            $response['uid'] = $user['uid'];
-            $response['username'] = $user['username'];
-            $response['createdAt'] = $user['created'];
-            // get Roles
-            $uid = $user['uid'];
-            $roles = $db->getFullList("Select role from user_roles where uid='$uid'");
-            $response['roles'] = array();
-            for ($x=0; $x < count($roles); $x++) {
-                $response['roles'][$x] = $roles[$x]->role;
-            }
+        $response['uid'] = $user['uid'];
+        $response['message'] = 'User is registered';
+        echoResponse(200, $response);
+    } else {
+        $response['uid'] = "";
+        $response['message'] = 'No such user is registered';
+        echoResponse(200, $response);
+    }
+});
 
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            $_SESSION['uid'] = $user['uid'];
-            $_SESSION['username'] = $username;
-            $_SESSION['name'] = $user['name'];
-            $_SESSION['roles'] = $response['roles'];
-
-            addUserScores($uid, $db);
-
-            echoResponse(200, $response);
-
-        } else {
-            $response['status'] = "error";
-            $response['message'] = 'Login failed. Incorrect credentials';
-            echoResponse(412, $response);
-        }
+$app->post('/login', function () use ($app) {
+    $r = json_decode($app->request->getBody());
+    verifyRequiredParams(array('idp_id'), $r->customer);
+    $response = array();
+    $db = new DbHandler();
+    $idp_id = $r->customer->idp_id;
+    $user = $db->getOneRecord("select uid,name,idp_id,photo,created from customers_auth where idp_id='$idp_id'");
+    if ($user != NULL) {
+        getSignedInUser($response, $user, $db);
     } else {
         $response['status'] = "error";
         $response['message'] = 'No such user is registered';
         echoResponse(412, $response);
     }
 });
+
 $app->post('/signUp', function () use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
-    verifyRequiredParams(array('username', 'name', 'password'), $r->customer);
+    verifyRequiredParams(array('idp_id', 'name'), $r->customer);
     require_once 'passwordHash.php';
     $db = new DbHandler();
     $name = $r->customer->name;
-    $username = $r->customer->username;
-    $password = $r->customer->password;
-    $isUserExists = $db->getOneRecord("select 1 from customers_auth where username='$username'");
-    if (!$isUserExists) {
-        $r->customer->password = passwordHash::hash($password);
-        $tabble_name = "customers_auth";
-        $column_names = array('name', 'username', 'password');
-        $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
-        if ($result != NULL) {
-            $response["status"] = "success";
-            $response["message"] = "User account created successfully";
-            $response["uid"] = $result;
-            $response["name"] = $name;
-            $response["username"] = $username;
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            $_SESSION['uid'] = $response["uid"];
-            $_SESSION['name'] = $name;
-            $_SESSION['username'] = $username;
+    $idp_id = $r->customer->idp_id;
+    $email = $r->customer->email;
+    $photo = $r->customer->photo;
+    $isUserExists = $db->getOneRecord("select 1 from customers_auth where idp_id='$idp_id'");
+    if ($isUserExists) {
+        $user = $db->getOneRecord("select uid,name,idp_id,photo,created from customers_auth where idp_id='$idp_id'");
+        getSignedInUser($response, $user, $db);
+        $app->stop();
+    }
 
-            addUserScores($result, $db);
+    $table_name = "customers_auth";
+    $column_names = array('name', 'email', 'idp_id', 'photo');
+    $result = $db->insertIntoTable($r->customer, $column_names, $table_name);
+    if ($result != NULL) {
+        $response["status"] = "success";
+        $response["message"] = "User account created successfully";
+        $response["uid"] = $result;
+        $response["name"] = $name;
+        $response["idp_id"] = $idp_id;
+        $response["photo"] = $photo;
+        $response['roles'] = array();
 
-            echoResponse(200, $response);
-        } else {
-            $response["status"] = "error";
-            $response["message"] = "Failed to create customer. Please try again";
-            echoResponse(412, $response);
+        if (!isset($_SESSION)) {
+            session_start();
         }
+        $_SESSION['uid'] = $response["uid"];
+        $_SESSION['name'] = $name;
+        $_SESSION['idp_id'] = $idp_id;
+
+        addUserScores($result, $db);
+
+        echoResponse(200, $response);
     } else {
         $response["status"] = "error";
-        $response["message"] = "A user with the provided username exists!";
+        $response["message"] = "Failed to create customer. Please try again";
         echoResponse(412, $response);
     }
 });
@@ -238,10 +228,73 @@ $app->get('/userList', function () use ($app) {
     }
     $users = $db->getUserList();
     $response['status'] = "success";
-    $response['message'] = "Got the schedule";
+    $response['message'] = "Got user List";
     $response['users'] = $users;
     echoResponse(200, $response);
 });
+
+//
+//   Delete a user and their scores
+//
+$app->post('/deleteUser', function () use ($app) {
+    $response = array();
+    $r = json_decode($app->request->getBody());
+    verifyRequiredParams(array('uid'), $r);
+    $db = new DbHandler();
+
+    $session = $db->getSession();
+    if ($session["uid"] == '') {
+        $response['status'] = "invalid";
+        $response['message'] = "You must be logged in to retrieve the schedule.";
+        $response['users'] = [];
+        echoResponse(412, $response);
+        $app->stop();
+    }
+
+    $uid = $r->uid;
+    $isUserExists = $db->getOneRecord("select 1 from customers_auth where uid='$uid'");
+    if ($isUserExists) {
+        $db->deleteUserScores($uid);
+        $db->deleteUser($uid);
+        $response['status'] = "success";
+        $response['message'] = "Deleted User";
+        echoResponse(200, $response);
+        $app->stop();
+    } else {
+        $response['status'] = "error";
+        $response['message'] = "User doesn't exist";
+        echoResponse(500, $response);
+    }
+});
+
+function getSignedInUser($response, $user, $db) {
+    $response['status'] = "success";
+    $response['message'] = 'Logged in successfully.';
+    $response['name'] = $user['name'];
+    $response['uid'] = $user['uid'];
+    $response['idp_id'] = $user['idp_id'];
+    $response['photo'] = $user['photo'];
+    $response['createdAt'] = $user['created'];
+    // get Roles
+    $uid = $user['uid'];
+    $roles = $db->getFullList("Select role from user_roles where uid='$uid'");
+    $response['roles'] = array();
+    for ($x=0; $x < count($roles); $x++) {
+        $response['roles'][$x] = $roles[$x]->role;
+    }
+
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    $_SESSION['uid'] = $user['uid'];
+    $_SESSION['idp_id'] = $user['idp_id'];
+    $_SESSION['name'] = $user['name'];
+    $_SESSION['roles'] = $response['roles'];
+
+    addUserScores($uid, $db);
+
+    echoResponse(200, $response);
+}
 
 function addUserScores($uid, $db) {
     // get all of the games

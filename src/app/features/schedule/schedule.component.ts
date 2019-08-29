@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {DataService} from '../../core/data.service';
-import {User} from '../../users/user';
+import {FbUser} from '../../users/fbUser';
 import {Game} from "../game";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {AddScoreModalComponent} from "./add-score-modal/add-score-modal.component";
@@ -15,7 +15,7 @@ import { AddGameComponent } from "./add-game/add-game.component";
     styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit {
-    user: User;
+    user: FbUser;
     schedule: Game[];
     now: Date;
     admin: boolean;

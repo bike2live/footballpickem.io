@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular
 import {Observable, of, throwError} from 'rxjs';
 import {map, tap, catchError, mergeMap} from 'rxjs/operators';
 import {SessionError} from '../session-error';
-import {User} from '../users/user';
+import {FbUser} from '../users/fbUser';
 import {Game} from "../features/game";
 import {UserScore} from "../features/schedule/add-score-modal/userScore";
 import {PlayerStanding} from "../features/leaderboard/player-standing";
@@ -87,15 +87,16 @@ export class DataService {
             );
     }
 
-    public getSession(): Observable<User | SessionError> {
+    public getSession(): Observable<FbUser | SessionError> {
         return this.http.get<any>(this.baseUrl + 'session')
             .pipe(
                 // tap(event => console.log(' getSession returned: ', event)),
-                map(b => <User> {
+                map(b => <FbUser> {
                     uid: b.uid,
-                    username: b.username,
+                    idp_id: b.idp_id,
                     name: b.name,
-                    roles: b.roles
+                    roles: b.roles,
+                    photo: b.photo
                 }),
                 catchError(err => this.handleHttpError(err))
             );
@@ -127,12 +128,12 @@ export class DataService {
             );
     }
 
-    public getUserList(): Observable<User[]> {
+    public getUserList(): Observable<FbUser[]> {
 
         return this.http.get<any>(this.baseUrl + 'userList')
             .pipe(
                 // tap(response => console.log(' getUserList returned: ', response)),
-                map( (response) => <User[]> response.users )
+                map( (response) => <FbUser[]> response.users )
                 // tap( games => console.log(' final getUserList from getSchedule: ', games))
             );
     }
@@ -140,21 +141,61 @@ export class DataService {
     /**
      * register
      */
-    public register(registerForm: any) {
+    public register(userData: any): Observable<FbUser> {
         const register = {
             customer: {
-                username: registerForm.username,
-                name: registerForm.name,
-                password: registerForm.password
+                name: userData.name,
+                email: userData.email,
+                idp_id: userData.sub,
+                photo: ''
             }
         };
+        if (userData.picture) {
+            if (Array.isArray(userData.picture)) {
+                userData.photo = userData.picture[0];
+            } else {
+                userData.photo = userData.picture;
+            }
+        }
 
+        console.log('sending this data to db: ', register);
         return this.http.post<any>(this.baseUrl + 'signUp', register)
             .pipe(
-                map(rep => <User | any> {
-                    uid: rep.uid,
-                    username: rep.username,
-                    name: rep.name
+                tap((response) => console.log('register returned: ', response)),
+                map(response => <FbUser> {
+                    uid: response.uid,
+                    idp_id: response.idp_id,
+                    name: response.name,
+                    roles: response.roles,
+                    photo: response.photo
+                })
+            );
+    }
+
+    /*
+             $response["status"] = "success";
+        $response["message"] = "User account created successfully";
+        $response["uid"] = $result;
+        $response["name"] = $name;
+        $response["idp_id"] = $idp_id;
+
+     */
+    /**
+     * isUserRegistered - check to see if the user is registered
+     */
+    public isUserRegistered(idp_id: string): Observable<any> {
+        const data = {
+            customer: {
+                idp_id: idp_id
+            }
+        };
+        return this.http.post<any>(this.baseUrl + 'isUserRegistered', data)
+            .pipe(
+                tap((data) => console.log('data ', data) ),
+                map((response) => <any> response.uid ),
+                catchError(err => {
+                    console.log('caught error during isUserRegistered: ', err);
+                    return of({});
                 })
             );
     }
@@ -162,31 +203,38 @@ export class DataService {
     /**
      * login
      */
-    public login(loginForm: any): Observable<User> {
-
-        // console.log(' loginForm: ', loginForm);
+    public login(idp_id: string): Observable<any> {
         const data = {
             customer: {
-                username: loginForm.userName,
-                password: loginForm.password
+                idp_id: idp_id,
+                username: 'bob'
             }
         };
-
-        // console.log(' login data: ', data);
-
         return this.http.post<any>(this.baseUrl + 'login', data)
             .pipe(
-                map(rep => <User> {
+                map((rep) => <FbUser> {
                     uid: rep.uid,
-                    username: rep.username,
+                    idp_id: rep.idp_id,
                     name: rep.name,
-                    roles: rep.roles
+                    roles: rep.roles,
+                    photo: rep.photo
+                }),
+                catchError(err => {
+                    console.log('caught error during login: ', err);
+                    return of({});
                 })
             );
     }
 
     public logout(): Observable<void> {
         return this.http.get<any>(this.baseUrl + 'logout');
+    }
+
+    public deleteUser(uid): Observable<any> {
+        const body = {
+            uid: uid
+        }
+        return this.http.post<any>(this.baseUrl + 'deleteUser', body);
     }
 
     private handleHttpError(error: HttpErrorResponse): Observable<SessionError> {

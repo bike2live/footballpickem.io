@@ -49,7 +49,7 @@ $app->get('/userScore/:gameId', function ($gameId) use ($app) {
     $userScore = $db->getUserScore($session['uid'], $gameId);
     if ($userScore != NULL) {
         $response["status"] = "success";
-        $response["message"] = "Retrieved User Score";
+        $response["message"] = "Retrieved FbUser Score";
         $response["userScore"] = $userScore;
         echoResponse(200, $response);
     } else {
@@ -80,7 +80,7 @@ $app->post('/addscore', function () use ($app) {
         $userScore = $db->insertUserScore($r->userScore);
         if ($userScore != NULL) {
             $response["status"] = "success";
-            $response["message"] = "User Score Added";
+            $response["message"] = "FbUser Score Added";
             $response["userScore"] = $userScore;
             echoResponse(200, $response);
         } else {
@@ -91,7 +91,7 @@ $app->post('/addscore', function () use ($app) {
     } else {
         $userScore = $db->updateUserScore($r->userScore);
         $response["status"] = "success";
-        $response["message"] = "User Score Updated";
+        $response["message"] = "FbUser Score Updated";
         $response["userScore"] = $userScore;
         echoResponse(200, $response);
     }
@@ -185,7 +185,7 @@ $app->post('/signUp', function () use ($app) {
         $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
         if ($result != NULL) {
             $response["status"] = "success";
-            $response["message"] = "User account created successfully";
+            $response["message"] = "FbUser account created successfully";
             $response["uid"] = $result;
             $response["name"] = $name;
             $response["username"] = $username;

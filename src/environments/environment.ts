@@ -37,29 +37,7 @@ export const environment = {
             redirect_uri: 'http://localhost:4200/assets/oidc-login-redirect.html',
             response_type: 'token id_token',
             scope: 'openid profile email',
-            post_logout_redirect_url: 'http://localhost:4200?postlogout=true',
-            metadata: {
-                issuer: 'https://accounts.google.com',
-                authorization_endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
-                token_endpoint: 'https://oauth2.googleapis.com/token',
-                userinfo_endpoint: 'https://openidconnect.googleapis.com/v1/userinfo',
-                end_session_endpoint: 'https://oauth2.googleapis.com/revoke',
-                jwks_uri: 'https://www.googleapis.com/oauth2/v3/certs',
-            },
-            userStore: null,
-            project_id: 'footballpickem',
-            auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-            token_uri: 'https://oauth2.googleapis.com/token',
-            auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-            client_secret: 'o_3K56BXN15TkZwsZcYT0q5f',
-            redirect_uris: [
-                'https://footballpickem.org/assets/oidc-login-redirect.html',
-                'http://localhost/assets/oidc-login-redirect.html'
-            ],
-            javascript_origins: [
-                'https://footballpickem.org',
-                'http://localhost'
-            ]
+            post_logout_redirect_url: 'http://localhost:4200?postlogout=true'
         }
     }
 };

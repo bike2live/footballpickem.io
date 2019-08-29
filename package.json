@@ -1,6 +1,6 @@
 {
   "name": "football-pickem2019",
-  "version": "1.1.6",
+  "version": "1.1.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open=true ",
@@ -15,7 +15,8 @@
     "test": "ng test ",
     "fullTest": "ng test --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "node scripts/version.js"
   },
   "private": true,
   "dependencies": {
@@ -43,8 +44,8 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.802.1",
-    "@angular/cli": "^8.2.1",
+    "@angular-devkit/build-angular": "~0.803.1",
+    "@angular/cli": "^8.3.1",
     "@angular/compiler-cli": "^8.2.4",
     "@angular/language-service": "^8.2.4",
     "@types/jasmine": "^3.4.0",
@@ -52,14 +53,17 @@
     "@types/node": "^12.7.2",
     "adm-zip": "^0.4.13",
     "codelyzer": "^5.1.0",
+    "fs-extra": "^8.1.0",
+    "git-describe": "^4.0.4",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "^4.2.0",
+    "karma": "^4.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "^2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "lite-server": "^2.5.4",
+    "path": "^0.12.7",
     "protractor": "^5.4.2",
     "ts-node": "~5.0.1",
     "tslint": "^5.19.0",

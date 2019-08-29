@@ -13,11 +13,21 @@
                             <div class="row">
                                 <div class="col-6 ml-auto mr-auto">
                                     <div>
-                                        <img src="assets/img/1x/btn_google_signin_dark_normal_web.png" alt="Register via Google" (click)="googleRegister()">
+                                        <a (click)="googleRegister()"><img src="assets/img/1x/btn_google_signin_dark_normal_web.png" alt="Register via Google"></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+<!--
+                        <div class="social-button google-button">
+                            <button class="buttonContentWrapper ng-isolate-scope" tabindex="0">
+                                <div class="buttonIcon">
+                                    <div class="buttonSvgImage"></div>
+                                </div>
+                                <span class="buttonContents ng-binding ng-scope">Continue with Google</span>
+                            </button>
+                        </div>
+-->
 
                         <div class="footer text-center">Have an account?
                             <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/login']"><i class="material-icons">fingerprint</i> Login</a>

@@ -272,6 +272,36 @@ class DbHandler
         }
     }
 
+    public function updateGame($game) {
+        $sql = "UPDATE schedule
+                   SET opponent=:opponent,
+                       location=:location,
+                       stadiumName=:stadiumName,
+                       homeOrAway=:homeOrAway,
+                       gameDate=:gameDate,
+                       closeDate=:closeDate,
+                       showUntilDate=:showUntilDate
+                 WHERE id=:id";
+        try {
+            // $pdo = $this->getPDOConnection();
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("opponent", $game->opponent);
+            $stmt->bindParam("location", $game->location);
+            $stmt->bindParam("stadiumName", $game->stadiumName);
+            $stmt->bindParam("homeOrAway", $game->homeOrAway);
+            $stmt->bindParam("gameDate", $game->gameDate);
+            $stmt->bindParam("closeDate", $game->closeDate);
+            $stmt->bindParam("showUntilDate", $game->showUntilDate);
+            $stmt->bindParam("id", $game->id);
+//             $stmt->bindParam("closeDate", $game->closeDate);
+//             $stmt->bindParam("showUntilDate", $game->showUntilDate);
+            $stmt->execute();
+            return $game;
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '"}}';
+        }
+    }
+
     public function getSchedule() {
 //        $sql = "Select id, week, opponent, location, stadiumName, homeoraway, byuScore, oppScore, gameDate, closeDate, showUntilDate
 //                  from schedule

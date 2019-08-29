@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register();
   }
 
+/*
   register(registerForm: NgForm): void {
     this.errMessage = undefined;
     this.dataService.register(registerForm.value).subscribe(
@@ -42,4 +43,5 @@ export class RegisterComponent implements OnInit {
     );
     console.log('');
   }
+*/
 }

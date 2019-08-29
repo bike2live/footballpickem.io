@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { utc } from 'moment';
 import { BsModalRef } from "ngx-bootstrap";
 import { DataService } from "../../../core/data.service";
 import { Game } from "../../game";
@@ -22,6 +23,10 @@ export class AddGameComponent implements OnInit {
   homeOrAway: FormControl;
   gameDate: FormControl;
   gameTime: FormControl;
+  closeDate: FormControl;
+  closeTime: FormControl;
+  showUntilDate: FormControl;
+  showUntilTime: FormControl;
 
   constructor(public bsModalRef: BsModalRef,
               public fb: FormBuilder,
@@ -38,10 +43,22 @@ export class AddGameComponent implements OnInit {
     this.homeOrAway = new FormControl(this.game.homeOrAway);
 
     // convert the date from utc into a local date
-    let gameDate = moment.utc(this.game.gameDate).toDate()
+    let gameDate = moment.utc(this.game.gameDate).toDate();
     console.log('gameDate: ', gameDate);
     this.gameDate = new FormControl(gameDate);
     this.gameTime = new FormControl(gameDate);
+
+    // convert the date from utc into a local date
+    let closeDate = moment.utc(this.game.closeDate).toDate();
+    console.log('closeDate: ', closeDate);
+    this.closeDate = new FormControl(closeDate);
+    this.closeTime = new FormControl(closeDate);
+
+    // convert the date from utc into a local date
+    let showUntilDate = moment.utc(this.game.showUntilDate).toDate();
+    console.log('showUntilDate: ', showUntilDate);
+    this.showUntilDate = new FormControl(showUntilDate);
+    this.showUntilTime = new FormControl(showUntilDate);
 
     this.editGameForm = this.fb.group({
       week: this.week,
@@ -50,7 +67,11 @@ export class AddGameComponent implements OnInit {
       stadium: this.stadium,
       homeOrAway: this.homeOrAway,
       gameDate: this.gameDate,
-      gameTime: this.gameTime
+      gameTime: this.gameTime,
+      closeDate: this.closeDate,
+      closeTime: this.closeTime,
+      showUntilDate: this.showUntilDate,
+      showUntilTime: this.showUntilTime
     });
 
     console.warn(this.editGameForm.value);
@@ -72,7 +93,37 @@ export class AddGameComponent implements OnInit {
         this.gameDate.setValue(value);
         console.log('this.gameDate: ', this.gameDate.value);
       }
-    })
+    });
+
+    this.closeDate.valueChanges.subscribe( value => {
+      console.log('closeDateUpdated. closeDate: ', value);
+      if (this.closeTime.value !== value) {
+        this.closeTime.setValue(value);
+        console.log('this.closeTime: ', this.closeTime.value);
+      }
+    });
+    this.closeTime.valueChanges.subscribe( value => {
+      console.log('closeTimeUpdated. closeTime: ', value);
+      if (this.closeDate.value !== value) {
+        this.closeDate.setValue(value);
+        console.log('this.closeDate: ', this.closeDate.value);
+      }
+    });
+
+    this.showUntilDate.valueChanges.subscribe( value => {
+      console.log('showUntilDateUpdated. showUntilDate: ', value);
+      if (this.showUntilTime.value !== value) {
+        this.showUntilTime.setValue(value);
+        console.log('this.showUntilTime: ', this.showUntilTime.value);
+      }
+    });
+    this.showUntilTime.valueChanges.subscribe( value => {
+      console.log('showUntilTimeUpdated. showUntilTime: ', value);
+      if (this.showUntilDate.value !== value) {
+        this.showUntilDate.setValue(value);
+        console.log('this.showUntilDate: ', this.showUntilDate.value);
+      }
+    });
   }
 
   gameDateUpdated() {
@@ -91,13 +142,17 @@ export class AddGameComponent implements OnInit {
     console.warn(this.editGameForm.value);
 
     // convert local date to utc date
-    let utcDate = moment(this.gameDate.value).local().format("YYYY-MM-DD HH:mm:ss");
+    let utcDate = moment(this.gameDate.value).utc().format("YYYY-MM-DD HH:mm:ss");
     console.log('utcDate: ', utcDate);
 
     // console.log('game: ', this.game);
-/*
     this.errMessage = undefined;
-    this.dataService.editGameScore(this.game)
+    const gameToSave = {...this.game};
+    gameToSave.gameDate = utcDate;
+    // todo: when we create controls for these, get the value from the controls
+    gameToSave.closeDate = moment(this.closeDate.value).utc().format("YYYY-MM-DD HH:mm:ss");
+    gameToSave.showUntilDate = moment(this.showUntilDate.value).utc().format("YYYY-MM-DD HH:mm:ss");
+    this.dataService.editGame(gameToSave)
       .subscribe(
         (data: Game) => {
           this.game = data;
@@ -108,7 +163,6 @@ export class AddGameComponent implements OnInit {
           this.errMessage = err;
         }
       );
-*/
   }
 
   cancel() {

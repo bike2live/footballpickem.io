@@ -20,9 +20,9 @@ import { RegisterFinishComponent } from './register-finish/register-finish.compo
 
   ],
   declarations: [
+      ConfirmEqualValidatorDirective,
       LoginComponent,
       RegisterComponent,
-      ConfirmEqualValidatorDirective,
       RegisterFinishComponent
   ]
 })

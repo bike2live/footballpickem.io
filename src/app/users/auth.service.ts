@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataService } from '../core/data.service';
 import { UserScore } from '../features/schedule/add-score-modal/userScore';
@@ -16,36 +16,44 @@ import { environment } from "../../environments/environment";
 export class AuthService {
     private userManager: UserManager;
     private user: User;
+    private initialized: boolean = false;
     currentUser: FbUser;
 
     constructor(private httpClient: HttpClient,
                 private router: Router,
                 private dataService: DataService) {
+        this.initialized = false;
+        this.currentUser = new FbUser({});
+    }
+
+    initialize(register: boolean) {
         const config = {...environment.security.google_auth, userStore: null};
+        if (register) {
+            config.redirect_uri = config.redirect_uri.replace('login', 'register');
+        }
         config.userStore = new WebStorageStateStore({ store: window.localStorage });
         this.userManager = new UserManager(config);
-        this.userManager.getUser().then(user => {
+        this.initialized = true;
+    }
+
+    /**
+     * Verify that the user has registered.
+     */
+    getGoogleUser(register: boolean): Observable<any> {
+        if (!this.initialized) {
+            this.initialize(register);
+        }
+
+        let user$ = from(this.userManager.getUser());
+        user$.subscribe((user) => {
+            console.log('authUser, userManager returned user: ', user);
+
             if (user && !user.expired) {
                 this.user = user;
                 console.log('user: ', user);
-                this.validateUser(user.profile.sub).subscribe( (fbUser) => {
-                    console.log('validateUser returned: ', fbUser);
-                    if (fbUser && fbUser.idp_id) {
-                        this.currentUser = new FbUser(fbUser);
-                        this.router.navigate(['dashboard']);
-                    } else {
-                        this.user = null;
-                        this.userManager.removeUser().then(() => {
-                            this.router.navigate([`login`]);
-                        });
-                    }
-                });
-            } else {
-                this.router.navigate(['login']);
             }
         });
-
-        this.currentUser = new FbUser({name: 'Jack'});
+        return user$;
     }
 
     login(): Promise<any> {
@@ -53,25 +61,30 @@ export class AuthService {
     }
 
     register(): Promise<any> {
-        const config = environment.security.google_auth;
-        config.redirect_uri = config.redirect_uri.replace('login', 'register');
-        this.userManager = new UserManager(config);
+        this.initialize(true);
         return this.userManager.signinRedirect();
     }
 
-    validateUser(idp_id): Observable<FbUser> {
+    isGoogleUserRegistered(idp_id): Observable<string> {
         let result = null;
-
-        return this.dataService.login(idp_id)
+        console.log('logging in to see if the user is in the system.');
+        return this.dataService.isUserRegistered(idp_id)
           .pipe(
-            map( response => <FbUser> response )
+            map( response => <string> response )
           );
     }
 
     logout(): Promise<any> {
         this.user = null;
-        this.currentUser = null;
+        this.currentUser = new FbUser({});
         return this.userManager.signoutRedirect();
+    }
+
+    removeUser() {
+        this.user = null;
+        this.userManager.removeUser().then(() => {
+            this.router.navigate([`login`]);
+        });
     }
 
     isLoggedIn(): boolean {
@@ -82,8 +95,47 @@ export class AuthService {
         return this.user;
     }
 
-    getProfile(): any {
-        return this.user ? this.user.profile : {};
+    addUserRegistration(): Observable<User> {
+        console.log('auth service addUserRegistration, !user, authorizing user');
+        let googleUser$ = this.getGoogleUser(true);
+
+        googleUser$.subscribe((googleUser) => {
+            console.log('authService addUserRegistration: getGoogleUser returned, googleUser: ', googleUser);
+            if (googleUser) {
+                console.log('got the googleUser, now to check to see if he is in the db...');
+                this.isGoogleUserRegistered(googleUser.profile.sub).subscribe((uid) => {
+                    console.log('isGoogleUserRegistered returned: ', uid);
+                    if (!uid || uid === '') {
+                        this.insertRegistration(googleUser).subscribe((fbUser) => {
+                            this.user = googleUser; // todo: this might be redundent
+                            this.currentUser = new FbUser({...fbUser});
+                            this.router.navigate(['dashboard']);
+                        });
+                    } else {
+                        // then user is registered,
+                        // this.dataService.login(this.user.profile.sub).subscribe((fbUser) => {
+                        //     this.currentUser = new FbUser({...fbUser});
+                        //     this.router.navigate(['dashboard']);
+                        // })
+                        this.dbLogin(this.user.profile.sub);
+                    }
+                });
+
+            }
+        });
+
+        return of(this.user);
+    }
+
+    dbLogin(userId: string) {
+        this.dataService.login(userId).subscribe((fbUser) => {
+            this.currentUser = new FbUser({...fbUser});
+            this.router.navigate(['dashboard']);
+        })
+    }
+
+    insertRegistration(googleUser: any): Observable<FbUser> {
+        return this.dataService.register(googleUser.profile);
     }
 
     getAccessToken(): string {
@@ -99,7 +151,7 @@ export class AuthService {
     }
 
     setUser(user: FbUser): void {
-        this.currentUser = user;
+        this.currentUser = new FbUser({...user});
     }
 
     getUser(): FbUser {

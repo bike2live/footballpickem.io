@@ -31,7 +31,20 @@ export class LoginComponent implements OnInit, OnDestroy {
                   window.location.origin);
             }
         });
-
+        let authUser$ = this.authService.getGoogleUser(false);
+        authUser$.subscribe((googleUser) => {
+            if (this.authService.isLoggedIn()) {
+                this.authService.isGoogleUserRegistered(googleUser.profile.sub).subscribe((uid) => {
+                    console.log('isGoogleUserRegistered returned: ', uid);
+                    if (!uid || uid === '') {
+                        this.authService.removeUser();
+                    } else {
+                        this.authService.dbLogin(googleUser.profile.sub);
+                    }
+                });
+                this.router.navigate(['dashboard']);
+            }
+        });
     }
 
     ngOnDestroy(): void {
@@ -40,47 +53,4 @@ export class LoginComponent implements OnInit, OnDestroy {
     googleLogin() {
         this.authService.login();
     }
-
-    /**
-     * login
-     */
-/*
-    login(loginForm: NgForm) {
-        if (loginForm && loginForm.valid) {
-            const userName = loginForm.form.value.userName;
-            const password = loginForm.form.value.password;
-
-            // console.log('userName: ' + userName);
-            // console.log('password: ' + password);
-
-            this.dataService.login(loginForm.form.value).subscribe(
-                (data: FbUser) => {
-                    console.log('login service returned successfully: user=', data);
-                    this.user = new FbUser(data);
-                    this.authService.setUser(this.user);
-                    this.router.navigate(['dashboard']);
-                },
-                (err: any) => {
-                    console.log(err);
-                    this.errorMessage = err.error.message;
-                }
-            );
-
-
-            // this.dataService.getBookById(bookID)
-            // .subscribe(
-            //   (data: Book) => this.selectedBook = data,
-            //   (err: any) => console.log(err)
-            // );
-
-            // if (this.authService.redirectUrl) {
-            //     this.router.navigateByUrl(this.authService.redirectUrl);
-            // } else {
-            //     this.router.navigate(['/products']);
-            // }
-        } else {
-            this.errorMessage = 'Please enter a user name and password.';
-        }
-    }
-*/
 }

@@ -141,24 +141,33 @@ export class DataService {
     /**
      * register
      */
-    public register(userData: any) {
+    public register(userData: any): Observable<FbUser> {
         const register = {
             customer: {
                 name: userData.name,
                 email: userData.email,
-                idp_id: userData.idp_id,
-                photo: userData.photo
+                idp_id: userData.sub,
+                photo: ''
             }
         };
+        if (userData.picture) {
+            if (Array.isArray(userData.picture)) {
+                userData.photo = userData.picture[0];
+            } else {
+                userData.photo = userData.picture;
+            }
+        }
 
+        console.log('sending this data to db: ', register);
         return this.http.post<any>(this.baseUrl + 'signUp', register)
             .pipe(
-                map(rep => <FbUser | any> {
-                    uid: rep.uid,
-                    idp_id: rep.idp_id,
-                    name: rep.name,
-                    roles: rep.roles,
-                    photo: rep.photo
+                tap((response) => console.log('register returned: ', response)),
+                map(response => <FbUser> {
+                    uid: response.uid,
+                    idp_id: response.idp_id,
+                    name: response.name,
+                    roles: response.roles,
+                    photo: response.photo
                 })
             );
     }
@@ -172,6 +181,26 @@ export class DataService {
 
      */
     /**
+     * isUserRegistered - check to see if the user is registered
+     */
+    public isUserRegistered(idp_id: string): Observable<any> {
+        const data = {
+            customer: {
+                idp_id: idp_id
+            }
+        };
+        return this.http.post<any>(this.baseUrl + 'isUserRegistered', data)
+            .pipe(
+                tap((data) => console.log('data ', data) ),
+                map((response) => <any> response.uid ),
+                catchError(err => {
+                    console.log('caught error during isUserRegistered: ', err);
+                    return of({});
+                })
+            );
+    }
+
+    /**
      * login
      */
     public login(idp_id: string): Observable<any> {
@@ -183,7 +212,7 @@ export class DataService {
         };
         return this.http.post<any>(this.baseUrl + 'login', data)
             .pipe(
-                map(rep => <FbUser> {
+                map((rep) => <FbUser> {
                     uid: rep.uid,
                     idp_id: rep.idp_id,
                     name: rep.name,

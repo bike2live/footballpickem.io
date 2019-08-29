@@ -8,6 +8,8 @@ export class FbUser {
 
   constructor(data: any) {
 
+    console.log(' in FBUser, data: ', data);
+
     this.name = data.name;
     this.uid = data.uid;
     this.idp_id = data.idp_id;

@@ -63,6 +63,37 @@ $app->get('/leaderBoard/chart', function () use ($app) {
 });
 
 
+$app->post('/editGame/:gameId', function() use ($app) {
+    $response = array();
+    $r = json_decode($app->request->getBody());
+    verifyRequiredParams(array('id', 'week', 'location', 'opponent', 'stadiumName', 'homeOrAway', 'gameDate', 'closeDate', 'showUntilDate'), $r->game);
+    $db = new DbHandler();
+    $gameId = $r->game->id;
+    $week = $r->game->week;
+    $game = $db->gameExists($week);
+    if ($game) {
+        $game->location = $r->game->location;
+        $game->opponent = $r->game->opponent;
+        $game->stadiumName = $r->game->stadiumName;
+        $game->homeOrAway = $r->game->homeOrAway;
+        $game->gameDate = $r->game->gameDate;
+        $game->closeDate = $r->game->closeDate;
+        $game->showUntilDate = $r->game->showUntilDate;
+
+        $game = $db->updateGame($r->game);
+        if ($game != NULL) {
+            $response["status"] = "success";
+            $response["message"] = "Game updated";
+            $response["game"] = $game;
+            echoResponse(200, $response);
+        } else {
+            $response["status"] = "error";
+            $response["message"] = "Failed to update game. Please try again";
+            echoResponse(412, $response);
+        }
+    }
+});
+
 $app->post('/editGameScore/:gameId', function() use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
@@ -90,7 +121,6 @@ $app->post('/editGameScore/:gameId', function() use ($app) {
             echoResponse(412, $response);
         }
     }
-
 });
 
 
@@ -100,7 +130,7 @@ function calculateGameResults($game) {
     if ($game) {
         $db = new DbHandler();
         try {
-            $sql = "SELECT s.id, s.uid, s.gameId, s.byuScore, s.oppScore, s.delta, s.weekLowDiffBonus, 
+            $sql = "SELECT s.id, s.uid, s.gameId, s.byuScore, s.oppScore, s.delta, s.weekLowDiffBonus,
                            s.weekExactDiffBonus, s.weekExactScoreBonus, s.weekCheatingPenalty, s.updated
                FROM football.scores s
               WHERE s.gameId='$game->id'

@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-title">{{ game.id | i18nPlural: {'=0' : 'Add', 'other': 'Edit'} }} Game</h4>
-    Game Id: {{game.id}}<br/>
-    Week:    {{ game.week }}
+<!--    Game Id: {{game.id}}<br/>-->
+<!--    Week:    {{ game.week }}-->
 </div>
 <div class="modal-body">
     <form class="form-horizontal" (ngSubmit)="save()" [formGroup]="editGameForm">
@@ -33,8 +33,8 @@
                     <input id="home" type="radio" class="" value="1" name="homeOrAway" formControlName="homeOrAway">
                     Home
                 </label>
-            </div>
-            <div class="col-12">
+<!--            </div>-->
+<!--            <div class="col-12">-->
                 <label class="" for="away">
                     <input id="away" type="radio" class="" value="0" name="homeOrAway" formControlName="homeOrAway">
                     Away
@@ -47,6 +47,16 @@
                 <input type="text" formControlName="gameDate" class="form-control" id="gameDate" placeholder="Game date and time" name="gameDate"
                        bsDatepicker [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY,  h:mm:ss a' }">
                 <timepicker id="gameTime" formControlName="gameTime"></timepicker>
+            </div>
+            <div class="col-12 btn-link-reset">
+                <input type="text" formControlName="closeDate" class="form-control" id="closeDate" placeholder="Close date and time" name="closeDate"
+                       bsDatepicker [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY,  h:mm:ss a' }">
+                <timepicker id="closeTime" formControlName="closeTime"></timepicker>
+            </div>
+            <div class="col-12 btn-link-reset">
+                <input type="text" formControlName="showUntilDate" class="form-control" id="showUntilDate" placeholder="ShowUntil date and time" name="showUntilDate"
+                       bsDatepicker [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY,  h:mm:ss a' }">
+                <timepicker id="showUntilTime" formControlName="showUntilTime"></timepicker>
             </div>
         </div>
 

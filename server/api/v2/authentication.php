@@ -126,8 +126,26 @@ $app->post('/addgame', function () use ($app) {
 });
 
 
+$app->post('/isUserRegistered', function () use ($app) {
+    $r = json_decode($app->request->getBody());
+    verifyRequiredParams(array('idp_id'), $r->customer);
+    $response = array();
+    $db = new DbHandler();
+    $idp_id = $r->customer->idp_id;
+    $user = $db->getOneRecord("select uid,name,idp_id,photo,created from customers_auth where idp_id='$idp_id'");
+    $response['status'] = "success";
+    if ($user != NULL) {
+        $response['uid'] = $user['uid'];
+        $response['message'] = 'User is registered';
+        echoResponse(200, $response);
+    } else {
+        $response['uid'] = "";
+        $response['message'] = 'No such user is registered';
+        echoResponse(200, $response);
+    }
+});
+
 $app->post('/login', function () use ($app) {
-//     require_once 'passwordHash.php';
     $r = json_decode($app->request->getBody());
     verifyRequiredParams(array('idp_id'), $r->customer);
     $response = array();

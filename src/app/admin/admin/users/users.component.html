@@ -22,11 +22,14 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
+                                <th>&nbsp;</th>
                                 <th>Player</th>
+                                <th>&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let user of users">
+                                <td><img *ngIf="user.photo" [src]="user.photo" class="rounded-circle" height="24px" width="24px" alt="alter ego" />&nbsp;</td>
                                 <td><strong>{{ user.name }}</strong></td>
                                 <td>
                                     <button type="button" class="btn btn-outline-success btn-link btn-just-icon btn-sm" (click)="deleteUser(user)">

@@ -230,6 +230,13 @@ export class DataService {
         return this.http.get<any>(this.baseUrl + 'logout');
     }
 
+    public deleteUser(uid): Observable<any> {
+        const body = {
+            uid: uid
+        }
+        return this.http.post<any>(this.baseUrl + 'deleteUser', body);
+    }
+
     private handleHttpError(error: HttpErrorResponse): Observable<SessionError> {
         const dataError = new SessionError();
         dataError.errorNumber = 100;

@@ -293,8 +293,6 @@ class DbHandler
             $stmt->bindParam("closeDate", $game->closeDate);
             $stmt->bindParam("showUntilDate", $game->showUntilDate);
             $stmt->bindParam("id", $game->id);
-//             $stmt->bindParam("closeDate", $game->closeDate);
-//             $stmt->bindParam("showUntilDate", $game->showUntilDate);
             $stmt->execute();
             return $game;
         } catch (PDOException $e) {
@@ -343,12 +341,42 @@ class DbHandler
     }
 
     public function getUserList() {
-        $sql = "select ca.uid, ca.name
+        $sql = "select ca.uid, ca.name, ca.photo
                   from football.customers_auth ca
                 order by ca.name";
 
         try {
             return $this->getFullList($sql);
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
+    /**
+     * Delete all scores for a user. Usually only do this when deleting a user.
+     */
+    public function deleteUserScores($uid) {
+        $sql = "delete from football.scores where uid=:uid";
+
+        try {
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("uid", $uid);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
+    /**
+     * Delete all scores for a user. Usually only do this when deleting a user.
+     */
+    public function deleteUser($uid) {
+        $sql = "delete from football.customers_auth where uid=:uid";
+
+        try {
+            $stmt = $this->pdoConn->prepare($sql);
+            $stmt->bindParam("uid", $uid);
+            $stmt->execute();
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '""}}';
         }

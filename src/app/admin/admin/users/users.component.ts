@@ -25,5 +25,10 @@ export class UsersComponent implements OnInit {
 
     deleteUser(user: FbUser) {
         alert('about to delete a user!');
+        this.dataService.deleteUser(user.uid).subscribe(() => {
+            alert('successfully deleted user');
+        }, (err: any) => {
+            alert(`Failed to delete user: ${err}`)
+        });
     }
 }

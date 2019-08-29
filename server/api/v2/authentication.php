@@ -228,9 +228,43 @@ $app->get('/userList', function () use ($app) {
     }
     $users = $db->getUserList();
     $response['status'] = "success";
-    $response['message'] = "Got the schedule";
+    $response['message'] = "Got user List";
     $response['users'] = $users;
     echoResponse(200, $response);
+});
+
+//
+//   Delete a user and their scores
+//
+$app->post('/deleteUser', function () use ($app) {
+    $response = array();
+    $r = json_decode($app->request->getBody());
+    verifyRequiredParams(array('uid'), $r);
+    $db = new DbHandler();
+
+    $session = $db->getSession();
+    if ($session["uid"] == '') {
+        $response['status'] = "invalid";
+        $response['message'] = "You must be logged in to retrieve the schedule.";
+        $response['users'] = [];
+        echoResponse(412, $response);
+        $app->stop();
+    }
+
+    $uid = $r->uid;
+    $isUserExists = $db->getOneRecord("select 1 from customers_auth where uid='$uid'");
+    if ($isUserExists) {
+        $db->deleteUserScores($uid);
+        $db->deleteUser($uid);
+        $response['status'] = "success";
+        $response['message'] = "Deleted User";
+        echoResponse(200, $response);
+        $app->stop();
+    } else {
+        $response['status'] = "error";
+        $response['message'] = "User doesn't exist";
+        echoResponse(500, $response);
+    }
 });
 
 function getSignedInUser($response, $user, $db) {

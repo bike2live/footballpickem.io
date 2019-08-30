@@ -19,8 +19,11 @@
                             </div>
                         </div>
 
-                        <div class="footer text-center">Don't have an account?
+                        <div *ngIf="canRegister" class="footer text-center">Don't have an account?
                             <a class="btn btn-primary btn-link btn-wd btn-lg" [routerLink]="['/register']"><i class="material-icons">person_add</i> Register</a>
+                        </div>
+                        <div *ngIf="!canRegister" class="footer text-center">
+                                                               &nbsp;&nbsp;
                         </div>
                         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
 

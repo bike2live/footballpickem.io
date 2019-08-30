@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { FbUser } from '../fbUser';
 import { AuthService } from '../auth.service';
+import { environment } from '../../../environments/environment'
 
 @Component({
     selector: 'fp-login',
@@ -11,6 +12,7 @@ import { AuthService } from '../auth.service';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+    private canRegister: boolean = environment.allowRegistration;
     errorMessage: string;
     user: FbUser;
 

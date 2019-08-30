@@ -29,6 +29,9 @@
                 <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn() && authService.isAdmin()">
                     <a class="nav-link" [routerLink]="['/users']"><fa-icon [icon]="['fas', 'users-cog']" size="lg"></fa-icon>&nbsp;&nbsp;</a>
                 </li>
+                <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn() && authService.isAdmin()">
+                    <a class="nav-link" [routerLink]="['/settings']"><fa-icon [icon]="['fas', 'cogs']" size="lg"></fa-icon>&nbsp;&nbsp;</a>
+                </li>
                 <li class="nav-item" *ngIf="authService.isLoggedIn()">
                     <a>
                         <img *ngIf="authService.getAuthUser().profile.picture" [src]="authService.getAuthUser().profile.picture[0]" class="rounded-circle" height="24px" width="24px" alt="alter ego" />

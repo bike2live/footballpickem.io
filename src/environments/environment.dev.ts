@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     baseUrl: '/api/v2/',
+    allowRegistration: false,
     security: {
         google_auth: {
             authority: 'https://accounts.google.com',

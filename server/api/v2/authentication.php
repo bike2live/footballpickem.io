@@ -233,9 +233,7 @@ $app->get('/userList', function () use ($app) {
     echoResponse(200, $response);
 });
 
-//
-//   Delete a user and their scores
-//
+// Delete a user and their scores
 $app->post('/deleteUser', function () use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
@@ -266,6 +264,50 @@ $app->post('/deleteUser', function () use ($app) {
         echoResponse(500, $response);
     }
 });
+
+// get a list of the application settings
+$app->get('/settings', function () use ($app) {
+    $response = array();
+    $db = new DbHandler();
+
+    $session = $db->getSession();
+    if ($session["uid"] == '') {
+        $response['status'] = "invalid";
+        $response['message'] = "You must be logged in to retrieve the schedule.";
+        $response['users'] = [];
+        echoResponse(412, $response);
+        $app->stop();
+    }
+    $settings = $db->getAppSettings();
+    $response['status'] = "success";
+    $response['message'] = "Got app List";
+    $response['settings'] = $settings;
+    echoResponse(200, $response);
+});
+
+// Delete a user and their scores
+$app->post('/updateSetting', function () use ($app) {
+    $response = array();
+    $r = json_decode($app->request->getBody());
+    verifyRequiredParams(array('key', 'value'), $r);
+    $db = new DbHandler();
+
+    $session = $db->getSession();
+    if ($session["uid"] == '') {
+        $response['status'] = "invalid";
+        $response['message'] = "You must be logged in to update application settings.";
+        $response['users'] = [];
+        echoResponse(412, $response);
+        $app->stop();
+    }
+
+    $db->addOrUpdateAppSetting($r->key, $r->value);
+    $response['status'] = "success";
+    $response['message'] = "Inserted/Updated app setting";
+    echoResponse(200, $response);
+});
+
+
 
 function getSignedInUser($response, $user, $db) {
     $response['status'] = "success";
@@ -322,7 +364,7 @@ function addUserScores($uid, $db) {
                     $userScore->gameId = $gameId;
                     $userScore->byuScore = 0;
                     $userScore->oppScore = 0;
-                    $db->insertUserScore($userScore);
+                    $db->isSettingExists($userScore);
                 }
             }
         }

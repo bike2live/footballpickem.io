@@ -382,6 +382,50 @@ class DbHandler
         }
     }
 
+    public function getAppSettings() {
+        $sql = "select asp.id, asp.key, asp.value from football.app_settings asp order by asp.key";
+        try {
+            return $this->getFullList($sql);
+        } catch (PDOException $e) {
+            echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+        }
+    }
+
+    public function addOrUpdateAppSetting($key, $value) {
+        $isSettingExists = $db->getOneRecord("select 1 from app_settings where key='$key'");
+        if ($isSettingExists) {
+            $sql = "update app_settings set value='$value' where key='$key'";
+            try {
+                $stmt = $this->pdoConn->prepare($sql);
+                $stmt->execute();
+//                 $response['status'] = "success";
+//                 $response['message'] = "updated setting";
+//                 echoResponse(200, $response);
+//                 $app->stop();
+            } catch (PDOException $e) {
+                echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+            }
+        } else {
+            $sql = "INSERT INTO app_settings (key, value) values(:key, :value)";
+            try {
+                $stmt = $this->pdoConn->prepare($sql);
+                $stmt->bindParam("key", $key);
+                $stmt->bindParam("value", $value);
+                $stmt->execute();
+//                 $response['status'] = "success";
+//                 $response['message'] = "inserted setting";
+//                 echoResponse(200, $response);
+//                 $app->stop();
+            } catch (PDOException $e) {
+                echo '{"error":{"text":"' . $e->getMessage() . '""}}';
+            }
+//             $response['status'] = "error";
+//             $response['message'] = "Error updating/inserting setting";
+//             echoResponse(500, $response);
+        }
+
+    }
+
     /**
      * Creating new record
      */

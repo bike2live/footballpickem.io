@@ -8,10 +8,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-    faBackspace, faBook, faCalendarAlt, faCheck,
-    faCoffee, faCubes, faExclamationTriangle, faMinus,
-    faSignInAlt, faThumbsUp,
-    faTrash, faTrashAlt, faTrophy, faUsersCog
+    faBook, faCalendarAlt, faCheck,
+    faCogs, faCubes, faExclamationTriangle, faMinus,
+    faThumbsUp, faTrashAlt, faTrophy, faUsersCog, faUserSlash
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FeaturesModule } from './features/features.module';
@@ -24,12 +23,12 @@ import { CoreModule } from './core/core.module';
 import { EqualValidatorDirective } from './core/equal-validator.directive';
 import { ModalModule } from "ngx-bootstrap";
 import { AuthorityGuard } from "./authority.guard";
-import { AdminModule } from "./admin/admin/admin.module";
+import { AdminModule } from "./admin/admin.module";
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-library.add(faCoffee, faBook, faBackspace, faCheck, faCubes, faCalendarAlt, faExclamationTriangle, faMinus, faSignInAlt,
-    faThumbsUp, faTrash, faTrashAlt, faTrophy, faUsersCog);
+library.add(faBook, faCheck, faCogs, faCubes, faCalendarAlt, faExclamationTriangle, faMinus,
+    faThumbsUp, faTrashAlt, faTrophy, faUsersCog, faUserSlash);
 
 @NgModule({
     declarations: [

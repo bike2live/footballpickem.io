@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from "../../../core/data.service";
-import { FbUser } from "../../../users/fbUser";
+import { DataService } from "../../core/data.service";
+import { FbUser } from "../../users/fbUser";
 
 @Component({
     selector: 'fp-users',

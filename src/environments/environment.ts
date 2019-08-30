@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     baseUrl: 'http://localhost/api/v2/',
+    allowRegistration: false,
     security: {
         indentyServer: {
             apiRoot: 'https://securinganglarappscourse-api.azurewebsites.net',

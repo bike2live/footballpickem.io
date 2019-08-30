@@ -9,7 +9,7 @@
                             <img src="../assets/img/BYU-logo.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
                         </div>
                         <div class="name">
-                            <h1 class="title">Users</h1>
+                            <h1 class="title">App Settings</h1>
                         </div>
                     </div>
                 </div>
@@ -17,26 +17,18 @@
 
             <div class="row">
                 <div class="col-md-8 mr-auto ml-auto">
-
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>&nbsp;</th>
-                                <th>Player</th>
-                                <th>&nbsp;</th>
+                                <th>key</th>
+                                <th>value</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let user of users">
-                                <td><img *ngIf="user.photo" [src]="user.photo" class="rounded-circle" height="24px" width="24px" alt="alter ego" />&nbsp;</td>
-                                <td><strong>{{ user.name }}</strong></td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-success btn-link btn-just-icon btn-sm" (click)="deleteUser(user)">
-                                        <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
-                                    </button>
-                                </td>
-
+                            <tr *ngFor="let appSetting of appSettings$ | async">
+                                <td>{{ appSetting.key }}</td>
+                                <td>{{ appSetting.value }}</td>
                             </tr>
                             </tbody>
                         </table>

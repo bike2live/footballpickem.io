@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { UsersComponent } from './users.component';
-import { DataService } from "../../../core/data.service";
+import { DataService } from "../../core/data.service";
 import { of } from "rxjs";
 import { By } from "@angular/platform-browser";
 

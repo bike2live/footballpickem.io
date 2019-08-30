@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {map, tap, catchError, mergeMap} from 'rxjs/operators';
+import { AppSetting } from '../admin/app-settings/appSetting';
 import {SessionError} from '../session-error';
 import {FbUser} from '../users/fbUser';
 import {Game} from "../features/game";
@@ -233,8 +234,26 @@ export class DataService {
     public deleteUser(uid): Observable<any> {
         const body = {
             uid: uid
-        }
+        };
         return this.http.post<any>(this.baseUrl + 'deleteUser', body);
+    }
+
+    public getAppSettings(): Observable<AppSetting[]> {
+        return this.http.get<any>(this.baseUrl + 'settings')
+          .pipe(
+            tap((data) => console.log('getAppSettings returned: ', data) ),
+            map((rep) => <any> {
+                settings: rep.settings
+            }),
+            catchError(err => {
+                console.log('caught error during login: ', err);
+                return of({});
+            })
+          );
+    }
+
+    public setAppSetting(appSetting: AppSetting): Observable<any> {
+        return this.http.post<any>(this.baseUrl + 'updateSetting', appSetting);
     }
 
     private handleHttpError(error: HttpErrorResponse): Observable<SessionError> {

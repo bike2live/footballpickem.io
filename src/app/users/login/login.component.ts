@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment'
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-    private canRegister: boolean = environment.allowRegistration;
+    canRegister: boolean = environment.allowRegistration;
     errorMessage: string;
     user: FbUser;
 

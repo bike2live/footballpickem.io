@@ -8,19 +8,19 @@ import { Game } from './game';
 @Injectable({
   providedIn: 'root'
 })
-export class GameResolver implements Resolve<GameResolver[]> {
+export class GameResolver implements Resolve<Game[]> {
 
   constructor(private dataService: DataService,
               private router: Router) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<GameResolver[]> | Promise<GameResolver[]> | GameResolver[] {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Game[]> | Promise<Game[]> | Game[] {
     const gameId = route.paramMap.get('id');
     if (isNaN(+gameId)) {
       const message = `Game id is not a number: ${gameId}`;
       console.error(message);
       return;
     }
-    return this.dataService.getGameResults(+gameId).pipe(
+    return this.dataService.getGame(+gameId).pipe(
       catchError(err => {
         console.error(`Retrieval error: ${err}`);
         this.router.navigate([`/schedule`]);

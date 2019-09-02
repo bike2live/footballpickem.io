@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {map, tap, catchError, mergeMap} from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {map, tap, catchError} from 'rxjs/operators';
 import { AppSetting } from '../admin/app-settings/appSetting';
+import { GameResults } from '../features/game-results';
 import {SessionError} from '../session-error';
 import {FbUser} from '../users/fbUser';
 import {Game} from "../features/game";
@@ -44,10 +45,17 @@ export class DataService {
             );
     }
 
-    public getGameResults(gameId: number): Observable<Game> {
-        return this.http.get<any>(this.baseUrl + `gameResults/${gameId}`)
+    public getGame(gameId: number): Observable<Game> {
+        return this.http.get<any>(this.baseUrl + `game/${gameId}`)
           .pipe(
             map( response => <Game> response.game)
+          );
+    }
+
+    public getGameResults(gameId: number): Observable<GameResults[]> {
+        return this.http.get<any>(this.baseUrl + `gameResults/${gameId}`)
+          .pipe(
+            map( response => <GameResults[]> response.gameResults)
           );
     }
 

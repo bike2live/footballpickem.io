@@ -33,7 +33,8 @@
                           <tbody>
                           <tr *ngFor="let game of schedule" valign="top">
                               <td><b>{{ game.gameDate | date }}</b><br/><small><em>{{game.gameDate | date: 'EEEE'}}</em></small></td>
-                              <td><b><a [routerLink]="['/game', game.id]">{{ game.opponent }}</a></b></td>
+                              <td *ngIf="isGamePast(game)"><b><a [routerLink]="['/game', game.id]">{{ game.opponent }}</a></b></td>
+                              <td *ngIf="!isGamePast(game)"><b>{{ game.opponent }}</b></td>
                               <td>
                                   <span *ngIf="isHomeGame(game)"><img src="assets/img/small-y-logo.png" alt="byu logo" />&nbsp;&nbsp;</span><b>{{ game.location }}</b><br/>
                                   {{game.stadiumName}}

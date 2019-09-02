@@ -1,0 +1,79 @@
+<div class="main main-raised">
+    <div class="profile-content">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto">
+                    <div class="profile">
+                        <div class="avatar">
+                            <img src="../assets/img/BYU-logo.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                        </div>
+                        <div class="name">
+                            <h1 class="title">{{ game.opponent }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                    <div class="table-responsive">
+<!--
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Opponent</th>
+                                <th>Location</th>
+                                <th>Time / Score</th>
+                                <th>&nbsp;</th>
+                                <th *ngIf="admin">&nbsp;</th>
+                                <th *ngIf="admin">&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let game of schedule" valign="top">
+                                <td><b>{{ game.gameDate | date }}</b><br/><small><em>{{game.gameDate | date: 'EEEE'}}</em></small></td>
+                                <td><b>{{ game.opponent }}</b></td>
+                                <td>
+                                    <span *ngIf="isHomeGame(game)"><img src="assets/img/small-y-logo.png" alt="byu logo" />&nbsp;&nbsp;</span><b>{{ game.location }}</b><br/>
+                                    {{game.stadiumName}}
+                                </td>
+                                <td *ngIf="isGamePast(game)" [ngClass]="{'text-success': game.diff >= 0, 'text-danger': game.diff<0 }" ><b>{{game.byuScore}} - {{game.oppScore}}</b></td>
+                                <td *ngIf="!isGamePast(game)"><b>{{ game.gameDate | date: 'shortTime' }}</b></td>
+                                <td>
+                                    <button type="button" rel="tooltip" class="btn btn-success btn-link btn-just-icon btn-sm" data-original-title="" title="" (click)="addScore(game)">
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                </td>
+                                <td *ngIf="admin">
+                                    <button class="btn btn-outline-primary btn-round btn-link btn-sm" (click)="addGameScore(game)">
+                                        <i class="material-icons">perm_identity</i> Score
+                                    </button>
+                                </td>
+                                <td *ngIf="admin">
+                                    <button class="btn btn-info btn-raised btn-round btn-sm" (click)="editGame(game)">
+                                        <i class="material-icons">create</i> Edit Game
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="schedule && schedule.length < 14">
+                                <td colspan="5">&nbsp;</td>
+                                <td *ngIf="admin">
+                                    <button class="btn btn-info btn-round btn-link btn-sm" (click)="addGame()">
+                                        <i class="material-icons">add</i> Add Game
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

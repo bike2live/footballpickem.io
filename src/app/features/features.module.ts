@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GameResolver } from './game-resolver.service';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { RulesComponent } from './rules/rules.component';
@@ -14,6 +15,7 @@ import { AuthorityGuard } from "../authority.guard";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddGameComponent } from './schedule/add-game/add-game.component';
 import { BsDatepickerModule, TimepickerModule } from "ngx-bootstrap";
+import { GameResultsComponent } from './game-results/game-results.component';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { BsDatepickerModule, TimepickerModule } from "ngx-bootstrap";
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthorityGuard]},
             {path: 'schedule', component: ScheduleComponent, canActivate: [AuthorityGuard]},
             {path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthorityGuard]},
-            {path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard]}
+            {path: 'rules', component: RulesComponent, canActivate: [AuthorityGuard]},
+            {path: 'game/:id', component: GameResultsComponent, canActivate: [AuthorityGuard], resolve: {game: GameResolver} }
         ]),
         FormsModule,
         FontAwesomeModule,
@@ -39,7 +42,8 @@ import { BsDatepickerModule, TimepickerModule } from "ngx-bootstrap";
         AddScoreModalComponent,
         AddGameScoreModalComponent,
         RuleCardComponent,
-        AddGameComponent
+        AddGameComponent,
+        GameResultsComponent
     ],
     entryComponents: [
       AddGameComponent,

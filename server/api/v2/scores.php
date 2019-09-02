@@ -44,6 +44,59 @@ $app->get('/leaderBoard', function () use ($app) {
 
 });
 
+$app->get('/gameResults/:gameId', function ($gameId) use ($app) {
+
+    try {
+        $response = array();
+        $db = new DbHandler();
+        $session = $db->getSession();
+        if ($session['uid'] == '') {
+            $response["status"] = "Session invalid";
+            $response["message"] = "Session invalid";
+            echoResponse(412, $response);
+            $app->stop();
+        }
+        $sql =
+            "SELECT c.name, s.byuScore, s.oppScore, s.weekTotalScore, s.delta, s.weekLowDiffBonus, s.weekExactDiffBonus,
+                    s.weekExactScoreBonus, s.weekHomerPenalty, s.weekCheatingPenalty, s.updated
+               FROM football.customers_auth c, football.scores s
+              WHERE s.gameId='$gameId'
+            order by s.weekTotalScore DESC, c.name";
+        $results = $db->getFullList($sql);
+        $response['status'] = "success";
+        $response['message'] = "Got the weekly results";
+        $response['gameResults'] = $results;
+        echoResponse(200, $response);
+
+    } catch (Exception $e) {
+        syslog(LOG_ERR, "Error reading from weekly results: " . $e->getMessage());
+    }
+    closelog();
+});
+$app->get('/game/:gameId', function ($gameId) use ($app) {
+    $response = array();
+    $db = new DbHandler();
+    $session = $db->getSession();
+    if ($session['uid'] == '') {
+        $response["status"] = "Session invalid";
+        $response["message"] = "Session invalid";
+        echoResponse(412, $response);
+        $app->stop();
+    }
+
+    $gameResults = $db->getGame($gameId);
+    if ($gameResults != NULL) {
+        $response["status"] = "success";
+        $response["message"] = "Retrieved game results";
+        $response["gameResults"] = $gameResults;
+        echoResponse(200, $response);
+    } else {
+        $response["status"] = "info";
+        $response["message"] = "No score results for this game.";
+        echoResponse(200, $response);
+    }
+});
+
 $app->get('/leaderBoard/chart', function () use ($app) {
 
     try {

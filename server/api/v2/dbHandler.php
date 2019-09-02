@@ -74,14 +74,15 @@ class DbHandler
     }
 
     public function getGame($gameId) {
-        $sql = "Select 1 from schedule where id=:gameId";
+        $sql = "Select id, week, opponent, location, stadiumName, homeOrAway, byuScore, oppScore, gameDate,
+                closeDate, showUntilDate
+                from schedule
+                where id=:gameId";
         try {
-            // $pdo = $this->getPDOConnection();
             $stmt = $this->pdoConn->prepare($sql);
             $stmt->bindParam("gameId", $gameId);
             $stmt->execute();
             $game = $stmt->fetchObject();
-            // $pdo = null;
             return $game;
         } catch (PDOException $e) {
             echo '{"error":{"text":"' . $e->getMessage() . '"}}';

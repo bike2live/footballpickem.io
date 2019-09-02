@@ -44,6 +44,13 @@ export class DataService {
             );
     }
 
+    public getGameResults(gameId: number): Observable<Game> {
+        return this.http.get<any>(this.baseUrl + `gameResults/${gameId}`)
+          .pipe(
+            map( response => <Game> response.game)
+          );
+    }
+
     public editGameScore(game: Game): Observable<Game> {
         const requestData = {
             game: game

@@ -20,10 +20,15 @@ export class GameResultsComponent implements OnInit {
 
   ngOnInit() {
     this.game = this.route.snapshot.data['game'];
-    this.gameResults = this.route.snapshot.data['gameResults'];
     if (!this.isGamePast(this.game)) {
       this.router.navigate(['/schedule']);
     }
+
+    let gameResults: GameResults[] = this.route.snapshot.data['gameResults'];
+    gameResults.forEach(result => {
+      result.updated = result.updated.replace(' ', 'T') + 'Z';
+    });
+    this.gameResults = gameResults;
   }
 
   isGamePast(game: Game): boolean {

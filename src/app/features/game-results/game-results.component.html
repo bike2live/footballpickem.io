@@ -24,22 +24,21 @@
                             <thead>
                             <tr>
                                 <th class="text-left">Player</th>
-                                <th>BYU</th>
-                                <th>{{ game.opponent }}</th>
-                                <th>Delta</th>
-                                <th>Low Diff Bonus</th>
-                                <th>Exact Diff Bonus</th>
-                                <th>Exact Score Bonus</th>
-                                <th>Homer Penalty</th>
-                                <th>Cheater Penalty</th>
-                                <th><b>Total Score</b></th>
+                                <th class="text-right">BYU - {{ game.opponent }}</th>
+                                <th class="text-right">Delta</th>
+                                <th class="text-right">Low Diff Bonus</th>
+                                <th class="text-right">Exact Diff Bonus</th>
+                                <th class="text-right">Exact Score Bonus</th>
+                                <th class="text-right">Homer Penalty</th>
+                                <th class="text-right">Cheater Penalty</th>
+                                <th class="text-right"><b>Total Score</b></th>
+                                <th class="text-right">Last Update</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let results of gameResults" valign="top">
                                 <td class="text-left"><b>{{ results.name }}</b></td>
-                                <td class="text-right">{{ results.byuScore }}</td>
-                                <td class="text-right">{{ results.oppScore }}</td>
+                                <td class="text-right">{{ results.byuScore }} - {{ results.oppScore }}</td>
                                 <td class="text-right">{{ results.delta }}</td>
                                 <td class="text-right" [ngClass]="{'text-success font-weight-bold': results.weekLowDiffBonus>0 }">{{ results.weekLowDiffBonus }}</td>
                                 <td class="text-right" [ngClass]="{'text-success font-weight-bold': results.weekExactDiffBonus>0 }">{{ results.weekExactDiffBonus }}</td>
@@ -47,6 +46,10 @@
                                 <td class="text-right" [ngClass]="{'text-danger font-weight-bold': results.weekHomerPenalty<0 }">{{ results.weekHomerPenalty }}</td>
                                 <td class="text-right" [ngClass]="{'text-danger font-weight-bold': results.weekCheatingPenalty<0 }">{{ results.weekCheatingPenalty }}</td>
                                 <td class="text-right"><b>{{ results.weekTotalScore }}</b></td>
+                                <td class="text-right">
+                                    <small><em>{{results.updated | date: 'EEEE'}}</em></small><br/>
+                                    <small><em>{{results.updated | date: 'shortTime'}}</em></small><br/>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

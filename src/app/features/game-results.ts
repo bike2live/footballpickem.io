@@ -9,6 +9,6 @@ export interface GameResults {
   weekExactScoreBonus: number;
   weekHomerPenalty: number;
   weekCheatingPenalty:number;
-  updated: Date;
+  updated: string;
 }
 

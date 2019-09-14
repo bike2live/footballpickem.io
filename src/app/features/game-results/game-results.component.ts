@@ -32,6 +32,6 @@ export class GameResultsComponent implements OnInit {
   }
 
   isGamePast(game: Game): boolean {
-    return new Date() > new Date(Date.parse(game.gameDate));
+    return new Date() > new Date(Date.parse(game.gameDate.replace(' ', 'T') + 'Z'));
   }
 }

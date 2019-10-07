@@ -42,3 +42,4 @@ Thumbs.db
 /.vscode/settings.json
 /FootballPickem2019.iml
 /src/environments/version.ts
+/src/environments/version.js

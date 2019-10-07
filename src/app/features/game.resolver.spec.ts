@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GameResolver } from './game-resolver.service';
+import { GameResolver } from './game.resolver';
 
 describe('GameResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

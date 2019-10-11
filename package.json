@@ -1,6 +1,6 @@
 {
   "name": "football-pickem2019",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open=true ",
@@ -17,18 +17,19 @@
     "fullTest": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "node scripts/version.js"
+    "postinstall": "node scripts/version.js",
+    "cypress:open": "cypress open"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^8.2.9",
-    "@angular/common": "^8.2.9",
-    "@angular/compiler": "^8.2.9",
-    "@angular/core": "^8.2.9",
-    "@angular/forms": "^8.2.9",
-    "@angular/platform-browser": "^8.2.9",
-    "@angular/platform-browser-dynamic": "^8.2.9",
-    "@angular/router": "^8.2.9",
+    "@angular/animations": "^8.2.10",
+    "@angular/common": "^8.2.10",
+    "@angular/compiler": "^8.2.10",
+    "@angular/core": "^8.2.10",
+    "@angular/forms": "^8.2.10",
+    "@angular/platform-browser": "^8.2.10",
+    "@angular/platform-browser-dynamic": "^8.2.10",
+    "@angular/router": "^8.2.10",
     "@fortawesome/angular-fontawesome": "^0.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
@@ -45,11 +46,11 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.8",
-    "@angular/cli": "^8.3.8",
-    "@angular/compiler-cli": "^8.2.9",
-    "@angular/language-service": "^8.2.9",
-    "@types/jasmine": "^3.4.2",
+    "@angular-devkit/build-angular": "~0.803.9",
+    "@angular/cli": "^8.3.9",
+    "@angular/compiler-cli": "^8.2.10",
+    "@angular/language-service": "^8.2.10",
+    "@types/jasmine": "^3.4.4",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^12.7.11",
     "adm-zip": "^0.4.13",

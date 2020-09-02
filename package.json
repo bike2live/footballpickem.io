@@ -36,7 +36,7 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "ngx-bootstrap": "^5.2.0",

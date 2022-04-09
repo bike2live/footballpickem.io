@@ -38,7 +38,7 @@
     "core-js": "^2.5.4",
     "jquery": "^3.5.0",
     "lodash": "^4.17.19",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ngx-bootstrap": "^5.2.0",
     "oidc-client": "^1.9.1",
     "popper.js": "^1.16.0",
